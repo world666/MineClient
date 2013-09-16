@@ -29,8 +29,25 @@ namespace Mc.HTTPServer
             Client.Close();
         }
 
-        // Конструктор класса. Ему нужно передавать принятого клиента от TcpListener
-        public Client(TcpClient Client)
+        private void SendMSG(TcpClient Client, string msg)
+        {
+            // Получаем строку вида "200 OK"
+            // HttpStatusCode хранит в себе все статус-коды HTTP/1.1
+            string CodeStr = msg;
+            // Код простой HTML-странички
+            string Html = "<html><body><h1>" + CodeStr + "</h1></body></html>";
+            // Необходимые заголовки: ответ сервера, тип и длина содержимого. После двух пустых строк - само содержимое
+            string Str = "HTTP/1.1 " + CodeStr + "\nContent-type: text/html\nContent-Length:" + Html.Length.ToString() + "\n\n" + Html;
+            // Приведем строку к виду массива байт
+            byte[] Buffer = Encoding.ASCII.GetBytes(Str);
+            // Отправим его клиенту
+            Client.GetStream().Write(Buffer, 0, Buffer.Length);
+            // Закроем соединение
+            Client.Close();
+        }
+
+        // Конструктор класса. Ему нужно передавать принятого клиента от TcpListener и функцию для удаленного управления
+        public Client(TcpClient Client, RemoteControlHandler remoteControl)
         {
             // Объявим строку, в которой будет хранится запрос клиента
             string Request = "";
@@ -84,6 +101,14 @@ namespace Mc.HTTPServer
             if (RequestUri.EndsWith("/"))
             {
                 RequestUri += "index.html";
+            }
+            if (RequestUri.Contains("send"))
+            {
+                if(!RemoteControl(Request.Clone().ToString(), remoteControl))
+                    SendMSG(Client, "Error!!!");
+                else
+                    SendMSG(Client, "Success!!!");
+                return;
             }
 
             string FilePath = "../../../Mc.HTTPServer/www/" + RequestUri;
@@ -167,6 +192,29 @@ namespace Mc.HTTPServer
             // Закроем файл и соединение
             FS.Close();
             Client.Close();
+        }
+        private bool RemoteControl(string query,RemoteControlHandler remoteControl)
+        {
+            //get parameters
+            int start = query.IndexOf("fanObjectId");
+            string post = query.Substring(start);
+            string[] splitPost = post.Split(new char[]{'&','='},StringSplitOptions.RemoveEmptyEntries);
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
+            for (int i = 0; i < splitPost.Count(); i+=2)
+            {
+                try
+                {
+                    parameters[splitPost[i]] = splitPost[i + 1];
+                }
+                catch (Exception)
+                {
+                    parameters[splitPost[i]] = "0";
+                }
+            }
+            if (parameters["password"] != "1111")
+                return false;
+            remoteControl(Int32.Parse(parameters["fanObjectId"]), parameters["command"]);
+            return true;
         }
     }
 }

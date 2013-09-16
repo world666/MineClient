@@ -9,13 +9,15 @@ using System.Threading.Tasks;
 
 namespace Mc.HTTPServer
 {
+    public delegate void RemoteControlHandler(int fanObjectNum,string parameter);
     public class WebServer
     {
         TcpListener Listener; // Объект, принимающий TCP-клиентов
-
+        private RemoteControlHandler _remoteControl;
         // Запуск сервера
-        public WebServer(int Port)
+        public WebServer(int Port,RemoteControlHandler remoteControl)
         {
+            _remoteControl = remoteControl;
             Listener = new TcpListener(IPAddress.Any, Port); // Создаем "слушателя" для указанного порта
             Listener.Start(); // Запускаем его
             Task.Run(() => AcceptClients());
@@ -36,10 +38,10 @@ namespace Mc.HTTPServer
             }
         }
 
-        static void ClientThread(Object StateInfo)
+        void ClientThread(Object StateInfo)
         {
             // Просто создаем новый экземпляр класса Client и передаем ему приведенный к классу TcpClient объект StateInfo
-            new Client((TcpClient)StateInfo);
+            new Client((TcpClient)StateInfo,_remoteControl);
         }
 
         // Остановка сервера

@@ -46,22 +46,31 @@ namespace WpfClient.Services
                     streamWriter.WriteLine("text-decoration: none; /* Убирает подчеркивание для ссылок */");
                     streamWriter.WriteLine("color: black; /* цвет текста */");
                     streamWriter.WriteLine("}");
+                    streamWriter.WriteLine("body {");
+                    streamWriter.WriteLine("background-color: #efefef;");
+                    streamWriter.WriteLine("}");
                     streamWriter.WriteLine("</style>");
                     streamWriter.WriteLine("</head>");
                     streamWriter.WriteLine("<body>");
                     streamWriter.WriteLine(@"<h1 align=""center"">" + Config.Instance.FanObjectConfig.MineName + "</h1>");
                     streamWriter.WriteLine("<table>");
 
-                    streamWriter.WriteLine(@"<td align=""center"">" + DateTime.Now + "</td>");
+                    streamWriter.WriteLine(@"<td align=""center"" bgcolor=""#efefef"">" + DateTime.Now + "</td>");
                     string[] fanNames = Config.Instance.FanObjectConfig.FansName.Split(new string[] { "!$!" }, StringSplitOptions.RemoveEmptyEntries);
+                    int j = 1;
                     foreach (var fanName in fanNames)
-                        streamWriter.WriteLine(@"<td align=""center""><a href=""http://127.0.0.1:90/control.html?Вентиляторная установка " + fanName + @""">
-                                                                                                                            Вентиляторная установка " + fanName + "</a></td>");
- 
+                    {
+                        streamWriter.WriteLine(@"<td align=""center"" bgcolor=""#fafafa"">
+                                <a href=""control.html?Вентиляторная установка " + fanName + "&" + j.ToString() + "&" + parameters[j-1][1].Value.Substring(1)
+                                               +@""">
+                                Вентиляторная установка " + fanName + "</a></td>");
+                        j++;
+                    }
+
                     for (int i = 0; i < parameters[0].Count; i++)
                     {
                         streamWriter.WriteLine("<tr>");
-                        streamWriter.WriteLine(@"<td align=""center"">" + parameters[0][i].Name + "</td>");
+                        streamWriter.WriteLine(@"<td align=""center"" bgcolor=""#fafafa"">" + parameters[0][i].Name + "</td>");
                         foreach (var parameter in parameters)
                             streamWriter.WriteLine(@"<td align=""center"" bgcolor=" + EnumToColor(parameter[i].State) + @""">" + parameter[i].Value + "</td>"); 
                         streamWriter.WriteLine("</tr>");

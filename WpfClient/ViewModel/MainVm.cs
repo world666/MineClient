@@ -8,6 +8,7 @@ using Mc.HTTPServer;
 using Ninject.Parameters;
 using WpfClient.Model;
 using WpfClient.Model.Abstract;
+using WpfClient.Services;
 using WpfClient.ViewModel.General;
 using WpfClient.ViewModel.Plot;
 using WpfClient.ViewModel.Settings;
@@ -17,14 +18,14 @@ namespace WpfClient.ViewModel
     public class MainVm : ViewModelBase
     {
         private object _currentView;
-
+        private WebServer _webServer;
         
         public MainVm()
         {
             Database.SetInitializer(new MineDbInitializer());
             
             IoC.Resolve<IRemoteListener>().InitServer("15000");
-            IoC.Resolve<WebServer>(new ConstructorArgument("Port", 90));
+            _webServer = new WebServer(90,RemouteFanControlService.SetData);
 
             CurrentView = IoC.Resolve<GeneralVm>();
         }

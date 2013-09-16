@@ -337,8 +337,7 @@ namespace WpfClient.ViewModel.FanObjectSystem
                 FirstFanOnOffMode = RotationV1 == true ? "Отключить" : "Включить";
                 if (psd.Password == "1111")
                 {
-                    RemouteFanControlService.DataForSending.FirstOrDefault(f => f.FanNum == _fanObjectId).Data =
-                        FirstFanOnOffMode == "Включить" ? RemouteFanState.OnFan1 : RemouteFanState.Off;
+                    RemouteFanControlService.SetData(_fanObjectId, FirstFanOnOffMode == "Включить" ? RemouteFanState.OnFan1 : RemouteFanState.Off);
                     MessageBox.Show("Пароль введен верно", "Информация", MessageBoxButton.OK,
                                MessageBoxImage.Information);
                 }
@@ -364,8 +363,7 @@ namespace WpfClient.ViewModel.FanObjectSystem
                 SecondFanOnOffMode = RotationV2 == true ? "Отключить" : "Включить";
                 if (psd.Password == "1111")
                 {
-                    RemouteFanControlService.DataForSending.FirstOrDefault(f => f.FanNum == _fanObjectId).Data =
-                        SecondFanOnOffMode == "Включить" ? RemouteFanState.OnFan2 : RemouteFanState.Off;
+                    RemouteFanControlService.SetData(_fanObjectId,SecondFanOnOffMode == "Включить" ? RemouteFanState.OnFan2 : RemouteFanState.Off );
                     MessageBox.Show("Пароль введен верно", "Информация", MessageBoxButton.OK,
                               MessageBoxImage.Information);
                 }
