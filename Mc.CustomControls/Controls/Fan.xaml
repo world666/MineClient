@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="Mc.CustomControls.Controls.Fan"
+             Name="FanControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:model="clr-namespace:Mc.CustomControls.Model"
+             mc:Ignorable="d" 
+             Height="100" Width="100" Background="Pink">
+    <Canvas Name="CanvasFan" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <model:PiePiece   RotationAngle="-20" 
+                    WedgeAngle="{Binding Path=WedgeAngle,ElementName=FanControl}"
+                    Radius="{Binding Path=Radius,ElementName=FanControl}" InnerRadius="9" Fill="DarkGray"  Stroke="Black"/>
+        <model:PiePiece   RotationAngle="70" 
+                    WedgeAngle="{Binding Path=WedgeAngle,ElementName=FanControl}"
+                    Radius="{Binding Path=Radius,ElementName=FanControl}" InnerRadius="9" Fill="DodgerBlue" Stroke="Black"/>
+        <model:PiePiece   RotationAngle="160" 
+                    WedgeAngle="{Binding Path=WedgeAngle,ElementName=FanControl}"
+                    Radius="{Binding Path=Radius,ElementName=FanControl}" InnerRadius="9" Fill="DarkGray" Stroke="Black"/>
+        <model:PiePiece   RotationAngle="250" 
+                    WedgeAngle="{Binding Path=WedgeAngle,ElementName=FanControl}"
+                    Radius="{Binding Path=Radius,ElementName=FanControl}" InnerRadius="9" Fill="DodgerBlue" Stroke="Black"/>
+        <Ellipse Width="14" Height="14" Fill="DarkGray" Canvas.Left="-7" Canvas.Top="-7"/>
+    </Canvas>
+</UserControl>

@@ -1,0 +1,113 @@
+﻿<UserControl x:Class="Mc.CustomControls.Controls.ThermometerControl"
+             x:Name="Thermometer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converters="clr-namespace:Mc.CustomControls.Converters"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <converters:PercentageConvereter  x:Key="PercentageConverter"/>
+        <converters:MultiPercentageConverter x:Key="MultiPercentageConverter"/>
+        <converters:PercentageFontConverter x:Key="PercentageFontConverter"/>
+        <system:Decimal x:Key="LnHeight">0.005</system:Decimal>
+        <system:Double x:Key="LnWidth">0.4</system:Double>
+        <system:Double x:Key="LnSmallWidth">0.2</system:Double>
+        <system:Double x:Key="FontSize">0.11</system:Double>
+
+        <Style x:Key="ThermometerStyle" TargetType="ProgressBar">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ProgressBar">
+                        <Border BorderBrush="DarkGray" BorderThickness="1" CornerRadius="7" Padding="2">
+                            <Grid>
+                                <Rectangle VerticalAlignment="Bottom" RadiusX="10" RadiusY="5">
+                                    <Rectangle.Height>
+                                        <MultiBinding Converter="{StaticResource MultiPercentageConverter}">
+                                            <MultiBinding.Bindings>
+                                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Value"/>
+                                                <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Grid}}" Path="ActualHeight"/>
+                                            </MultiBinding.Bindings>
+                                        </MultiBinding>
+                                    </Rectangle.Height>
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                            <GradientStop Color="Brown" Offset="1"/>
+                                            <GradientStop Color="Red"/>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <!--As Option RenderOptions.EdgeMode="Aliased"-->
+    <Grid>
+        <Grid Background="#FFECECEC" Name="MyGrid" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.25*"/>
+                <ColumnDefinition Width="0.25*"/>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="0.3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.05*"/>
+                <RowDefinition/>
+                <RowDefinition Height="0.05*"/>
+            </Grid.RowDefinitions>
+
+            <ProgressBar Grid.Column="1" Grid.Row="1" Value="{Binding ElementName=Thermometer, Path=Level}" Style="{StaticResource ThermometerStyle}"/>
+
+            <ItemsControl Grid.Column="3" Grid.Row="1" ItemsSource="{Binding ElementName=Thermometer, Path=Lines}" AlternationCount="100">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Rows="{Binding ElementName=Thermometer, Path=Lines.Count}"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Rectangle Fill="DarkSlateGray" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                Height="1" SnapsToDevicePixels="True" 
+                                Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UniformGrid}}, Path=ActualWidth, 
+                                    Converter={StaticResource PercentageConverter}, ConverterParameter={StaticResource LnSmallWidth}}"/>
+
+                            <Rectangle Fill="DarkSlateGray" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                Height="1" SnapsToDevicePixels="True" 
+                                Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UniformGrid}}, Path=ActualWidth, 
+                                    Converter={StaticResource PercentageConverter}, ConverterParameter={StaticResource LnWidth}}"/>
+                            
+                            <TextBlock Text="{Binding}" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="DarkSlateGray">
+                                <TextBlock.FontSize>
+                                    <MultiBinding Converter="{StaticResource PercentageFontConverter}" ConverterParameter="{StaticResource FontSize}">
+                                        <MultiBinding.Bindings>
+                                            <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType=UniformGrid}" Path="ActualHeight"/>
+                                            <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType=UniformGrid}" Path="ActualWidth"/>
+                                        </MultiBinding.Bindings>
+                                    </MultiBinding>
+                                </TextBlock.FontSize>
+                            </TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="5" ClipToBounds="True">
+                <Border Background="Transparent" BorderBrush="Black" BorderThickness="5,5,0,0" 
+                        Margin="-9">
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth="0" BlurRadius="10" Color="{DynamicResource {x:Static SystemColors.ActiveCaptionTextColorKey}}"/>
+                    </Border.Effect>
+                </Border>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,288 @@
+﻿<UserControl x:Class="WpfClient.View.FanObjectView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:elements="clr-namespace:Mc.CustomControls.Controls;assembly=Mc.CustomControls"
+             xmlns:converters="clr-namespace:WpfClient.Converters"
+
+             mc:Ignorable="d" 
+             d:DesignHeight="1000" d:DesignWidth="1900" Background="LightBlue">
+    <UserControl.Resources>
+        <converters:EnumToColorConverter x:Key="EnumToColor"/>
+    </UserControl.Resources>
+
+    <Canvas DataContext="{Binding TubeSystemVm}" Margin="76,0,0,0">
+        <Canvas.Resources>
+            <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+        </Canvas.Resources>
+        <Button BorderBrush="{x:Null}" Background="WhiteSmoke" Margin="0"  
+                Width="60" Height="60" HorizontalAlignment="Left" Command="{Binding BackArrowClick}" Canvas.Top="99" Canvas.Left="-76">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/left_arrow.png" />
+            </StackPanel>
+        </Button>
+        
+        <elements:VerticalPipe Move="{Binding V1onTop}" PipeColor="DarkGray" Canvas.Left="366" Canvas.Top="313" Height="167" Width="54"></elements:VerticalPipe>
+        <elements:HorizontalPipe Move="{Binding V1onReight}" PipeColor="DarkGray" Canvas.Left="181" Canvas.Top="348" Height="63" Width="462"/>
+        <elements:HorizontalPipe Move="{Binding V1onLeft}" PipeColor="DarkGray" Height="54" Canvas.Left="180" Canvas.Top="226" Width="154"></elements:HorizontalPipe>
+        <elements:VerticalPipe Move="{Binding V1onDown}" PipeColor="DarkGray" Canvas.Top="283" Height="61" Width="62" Canvas.Left="117"/>
+        <elements:HorizontalPipe Move="{Binding V1onLeft}" PipeColor="DarkGray" Height="54" Canvas.Left="182" Canvas.Top="483" Width="177"/>
+        <elements:VerticalPipe Move="{Binding V1onTop}" PipeColor="DarkGray" Canvas.Left="116" Canvas.Top="410" Height="67" Width="64"/>
+        <elements:VerticalPipe Move="{Binding V2onDown}" PipeColor="DarkGray" Canvas.Left="367" Canvas.Top="634" Height="167" Width="54"/>
+        <elements:HorizontalPipe Move="{Binding V2onReight}" PipeColor="DarkGray" Canvas.Left="179" Canvas.Top="700" Height="63" Width="439"/>
+        <elements:HorizontalPipe Move="{Binding V2onLeft}" PipeColor="DarkGray" Height="54" Canvas.Left="184" Canvas.Top="576" Width="180"/>
+        <elements:VerticalPipe Move="{Binding V2onDown}" PipeColor="DarkGray" Canvas.Left="116" Canvas.Top="631" Height="67" Width="64"/>
+        <elements:HorizontalPipe Move="{Binding V2onLeft}" PipeColor="DarkGray" Height="54" Canvas.Left="181" Canvas.Top="831" Width="153"/>
+        <elements:VerticalPipe Move="{Binding V2onTop}" PipeColor="DarkGray" Canvas.Left="114" Canvas.Top="763" Height="66" Width="65"/>
+        <elements:HorizontalPipe Move="{Binding V2onLeft}" PipeColor="DarkGray" Height="54" Canvas.Left="427" Canvas.Top="577" Width="84"/>
+        <elements:HorizontalPipe Move="{Binding V1onLeft}" PipeColor="DarkGray" Height="54" Canvas.Left="427" Canvas.Top="484" Width="109"/>
+        <elements:HorizontalPipe Move="{Binding WorkReight}" PipeColor="DarkGray" Height="63" Canvas.Left="710" Canvas.Top="347" Width="526"/>
+        <elements:HorizontalPipe Move="{Binding WorkLeft}" PipeColor="DarkGray" Height="54" Canvas.Left="603" Canvas.Top="485" Width="372"/>
+        <elements:VerticalPipe Move="{Binding ReversDown}" PipeColor="DarkGray" Canvas.Left="978" Canvas.Top="299" Height="182" Width="54"/>
+        <elements:HorizontalPipe Move="{Binding ReversLeft}" PipeColor="DarkGray" Height="54" Canvas.Left="1064" Canvas.Top="213" Width="172"/>
+        <elements:VerticalPipe Move="{Binding NormaTop}" PipeColor="DarkGray" Canvas.Left="1239" Canvas.Top="272" Height="79" Width="54"/>
+        <elements:HorizontalPipe Move="{Binding NormaReightReversLeft}" PipeColor="DarkGray" Height="58" Canvas.Left="1295" Canvas.Top="211" Width="199"/>
+        <elements:VerticalPipe Move="{Binding V2onTop}" PipeColor="DarkGray" Canvas.Left="643" Canvas.Top="411" Height="258" Width="63"/>
+        <elements:HorizontalPipe Move="{Binding NormaLeft}" PipeColor="DarkGray" Height="54" Canvas.Left="1038" Canvas.Top="484" Width="195"/>
+        <elements:VerticalPipe Move="{Binding ReversDown}" PipeColor="DarkGray" Canvas.Left="1240" Canvas.Top="410" Height="70" Width="54"/>
+        <elements:HorizontalPipe Move="{Binding NormaLeftReversReight}" PipeColor="DarkGray" Height="54" Canvas.Left="1301" Canvas.Top="485" Width="157"/>
+
+        <elements:PipeBinderDouble Width="69" Canvas.Top="572" Height="62" Canvas.Left="360"/>
+        <elements:PipeBinder Canvas.Left="613" Canvas.Top="669" Height="94" Width="93" RenderTransformOrigin="0.5,0.5">
+            <elements:PipeBinder.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90.2"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </elements:PipeBinder.RenderTransform>
+        </elements:PipeBinder>
+        <elements:PipeBinderDouble Width="69" Canvas.Top="478" Height="62" Canvas.Left="114"/>
+        <elements:PipeBinder Canvas.Left="977" Canvas.Top="215" Height="87" Width="86" RenderTransformOrigin="0.5,0.5">
+            <elements:PipeBinder.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="269.829"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </elements:PipeBinder.RenderTransform>
+        </elements:PipeBinder>
+        <elements:PipeBinderDouble Width="62" Canvas.Top="481" Height="62" Canvas.Left="975"/>
+        <elements:PipeBinderDouble Width="60" Canvas.Top="207" Height="65" Canvas.Left="1236"/>
+        <elements:PipeBinderDouble Width="69" Canvas.Top="221" Height="62" Canvas.Left="113"/>
+        <elements:PipeBinderDouble Width="69" Canvas.Top="480" Height="62" Canvas.Left="1233"/>
+        <elements:PipeBinderDouble Width="62" Canvas.Top="344" Height="69" Canvas.Left="1236"/>
+        <elements:PipeBinderDouble Width="69" Canvas.Top="482" Height="62" Canvas.Left="536"/>
+        <elements:PipeBinder Canvas.Left="512" Canvas.Top="543" Height="88" Width="85" RenderTransformOrigin="0.5,0.5">
+            <elements:PipeBinder.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90.2"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </elements:PipeBinder.RenderTransform>
+        </elements:PipeBinder>
+        <elements:PipeBinderDouble Width="69" Canvas.Top="481" Height="62" Canvas.Left="360"/>
+        <elements:PipeBinderDouble Width="69" Canvas.Top="345" Height="69" Canvas.Left="641"/>
+        <elements:PipeBinderDouble Width="69" Canvas.Top="572" Height="62" Canvas.Left="114"/>
+        <elements:PipeBinder Canvas.Left="334" Canvas.Top="225" Height="87" Width="86"></elements:PipeBinder>
+        <elements:PipeBinder Canvas.Left="335" Canvas.Top="800" Height="87" Width="86" RenderTransformOrigin="0.5,0.5">
+            <elements:PipeBinder.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90.2"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </elements:PipeBinder.RenderTransform>
+        </elements:PipeBinder>
+        <elements:PipeBinderDouble Width="69" Canvas.Top="828" Height="62" Canvas.Left="112"/>
+        <elements:VerticalPipe Move="{Binding NormaTopReverseDown}" PipeColor="DarkGray" Canvas.Left="1526" Canvas.Top="76" Height="103" Width="57"/>
+        <elements:PipeBinder Canvas.Left="1495" Canvas.Top="178" Height="92" Width="89" RenderTransformOrigin="0.5,0.5">
+            <elements:PipeBinder.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90.2"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </elements:PipeBinder.RenderTransform>
+        </elements:PipeBinder>
+
+        <TextBox FontSize="26" Background="{Binding DoorsText[1]}" Text="ЛО №1" Canvas.Left="446" Canvas.Top="305"></TextBox>
+        <elements:Lada State="{Binding DoorsState[1]}" OpenColor="LightGreen" CloseColor="Red" Canvas.Left="443" Canvas.Top="348" Height="62" Width="62"></elements:Lada>
+        <TextBox FontSize="26" Background="{Binding DoorsText[3]}" Text="ЛО №2" Canvas.Left="447" Canvas.Top="768"></TextBox>
+        <elements:Lada State="{Binding DoorsState[3]}" OpenColor="LightGreen" CloseColor="Red" Canvas.Left="445" Canvas.Top="701" Height="62" Width="62"></elements:Lada>
+        <TextBox FontSize="26" Background="{Binding DoorsText[4]}" Text="ЛП №2" Canvas.Left="447" Canvas.Top="635"></TextBox>
+        <elements:Lada State="{Binding DoorsState[4]}" OpenColor="LightGreen" CloseColor="Red" Canvas.Left="444" Canvas.Top="578" Height="52" Width="54"></elements:Lada>
+        <TextBox FontSize="26" Background="{Binding DoorsText[2]}" Text="ЛП №1" Canvas.Left="447" Canvas.Top="439"></TextBox>
+        <elements:Lada State="{Binding DoorsState[2]}" OpenColor="LightGreen" CloseColor="Red" Canvas.Left="443" Canvas.Top="484" Height="53" Width="54"></elements:Lada>
+        <TextBox FontSize="26" Background="{Binding DoorsText[8]}" Text="НА №1" Canvas.Left="196" Canvas.Top="289"></TextBox>
+        <elements:Lada State="{Binding DoorsState[8]}" OpenColor="LightGreen" CloseColor="Red" Canvas.Left="118" Canvas.Top="283" Height="62" Width="60" RenderTransformOrigin="0.5,0.5">
+            <elements:Lada.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90.008"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </elements:Lada.RenderTransform>
+        </elements:Lada>
+        <elements:Lada State="{Binding DoorsState[8]}" OpenColor="LightGreen" CloseColor="Red" Canvas.Left="117" Canvas.Top="410" Height="63" RenderTransformOrigin="0.5,0.5" Width="62">
+            <elements:Lada.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90.008"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </elements:Lada.RenderTransform>
+        </elements:Lada>
+        <elements:Lada State="{Binding DoorsState[9]}" OpenColor="LightGreen" CloseColor="Red" Canvas.Left="117" Canvas.Top="634" Height="63" RenderTransformOrigin="0.5,0.5" Width="62">
+            <elements:Lada.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90.008"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </elements:Lada.RenderTransform>
+        </elements:Lada>
+        <TextBox FontSize="26" Background="{Binding DoorsText[9]}" Text="НА №2" Canvas.Left="196" Canvas.Top="640"/>
+        <elements:Lada State="{Binding DoorsState[9]}" OpenColor="LightGreen" CloseColor="Red" Canvas.Left="115" Canvas.Top="763" Height="64" RenderTransformOrigin="0.5,0.5" Width="63">
+            <elements:Lada.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90.008"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </elements:Lada.RenderTransform>
+        </elements:Lada>
+        <TextBox FontSize="26" Background="{Binding DoorsText[5]}" Text="ЛА" Canvas.Left="1111" Canvas.Top="167"/>
+        <elements:Lada State="{Binding DoorsState[5]}" OpenColor="Red" CloseColor="LightGreen" Canvas.Left="1095" Canvas.Top="213" Height="54"/>
+        <TextBox FontSize="26" Background="{Binding DoorsText[7]}" Text="ЛПК" Canvas.Left="1175" Canvas.Top="434"/>
+        <elements:Lada State="{Binding DoorsState[7]}" OpenColor="LightGreen" CloseColor="Red" Canvas.Left="1234" Canvas.Top="481" Height="61" Width="67"/>
+        <TextBox FontSize="26" Background="{Binding DoorsText[6]}" Text="ЛД" Canvas.Left="1311" Canvas.Top="333"/>
+        <elements:Lada State="{Binding DoorsState[6]}" OpenColor="LightGreen" CloseColor="Red" Canvas.Left="1234" Canvas.Top="347" Height="62" Width="67" RenderTransformOrigin="0.5,0.5">
+            <elements:Lada.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="89.392"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </elements:Lada.RenderTransform>
+        </elements:Lada>
+        <Button Canvas.Top="392" Height="50" Width="185" Command="{Binding FirstFanClick}" CommandParameter="{Binding ElementName=Password1}" Canvas.Left="-74">
+            <TextBlock  VerticalAlignment="Center" FontSize="26" Text="{Binding FirstFanOnOffMode}"/>
+        </Button>
+        <TextBox FontSize="24" TextAlignment="Center" Background="WhiteSmoke" Text="Вентилятор №1" Canvas.Top="349" RenderTransformOrigin="0.445,0.41" Canvas.Left="-72"/>
+        <PasswordBox Name="Password1" PasswordChar="*" Visibility="{Binding PasswordBoxVisibilityFan1, Converter={StaticResource BoolToVisibility}}" Width="185" FontSize="24"  Background="WhiteSmoke"  Canvas.Top="449" RenderTransformOrigin="0.445,0.41" Canvas.Left="-72"/>
+
+        <Button FontSize="28" Canvas.Top="744" Width="185" Height="50" Command="{Binding SecondFanClick}" CommandParameter="{Binding ElementName=Password2}" Canvas.Left="-75">
+            <TextBlock VerticalAlignment="Center" FontSize="26" Text="{Binding SecondFanOnOffMode}"/>
+        </Button>
+        <TextBox Background="WhiteSmoke" FontSize="24" Text="Вентилятор №2" Canvas.Top="701" RenderTransformOrigin="0.445,0.41" Canvas.Left="-72"/>
+        <PasswordBox Name="Password2" PasswordChar="*" Visibility="{Binding PasswordBoxVisibilityFan2, Converter={StaticResource BoolToVisibility}}"  Width="185" FontSize="24"  Background="WhiteSmoke"  Canvas.Top="799" RenderTransformOrigin="0.445,0.41" Canvas.Left="-74"/>
+
+        <elements:Fan Rotation="{Binding RotationV2}" Radius="30" Canvas.Top="698" Canvas.Left="114"/>
+        <elements:Fan Rotation="{Binding RotationV1}" Radius="30"  Canvas.Top="345" Canvas.Left="115"/>
+        <TextBox FontFamily="Arial" Background="WhiteSmoke" FontSize="26" TextAlignment="Center"
+                 Text="ООО&#x0a;ДОНБАССУГЛЕАВТОМАТИКА " RenderTransformOrigin="0.445,0.41" Canvas.Left="-77"/>
+        <Label Content="РЕЖИМ РАБОТЫ" Canvas.Left="1594" Width="229" FontSize="26" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                 Background="{Binding SystemState.State, Converter={StaticResource EnumToColor}}"/>
+        <Label HorizontalContentAlignment="Center" Content="{Binding SystemState.Value}" FontSize="26" Canvas.Left="1595" 
+                 Canvas.Top="50" Width="229" Background="{Binding SystemState.State, Converter={StaticResource EnumToColor}}"/>
+
+        <Border Grid.Row="0" Grid.Column="0" BorderThickness="1"  BorderBrush="#FFABADB3" Canvas.Top="62" Width="373" Canvas.Left="-76">
+            <UniformGrid Rows="1" Background="WhiteSmoke">
+                <TextBox Text="{Binding DateTime.Date}" Background="Transparent" BorderThickness="0" 
+                         FontSize="26" VerticalContentAlignment="Center"
+                         HorizontalContentAlignment="Center" Foreground="#FF323232" FontStyle="Italic"/>
+                <TextBox Text="{Binding DateTime.Time}" Background="Transparent" BorderThickness="0" 
+                         FontSize="26" Foreground="#FF323232" VerticalContentAlignment="Center"
+                         HorizontalContentAlignment="Center"/>
+            </UniformGrid>
+        </Border>
+
+        <Grid Width="1901"
+              Height="1000" Canvas.Left="-76">
+            <Grid.RowDefinitions>
+                <RowDefinition  Height="25"/>
+                <RowDefinition  Height="25"/>
+                <RowDefinition  Height="130"/>
+                <RowDefinition/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="140"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="595"/>
+                <ColumnDefinition Width="190"/>
+                <ColumnDefinition Width="190"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="470"/>
+            </Grid.ColumnDefinitions>
+
+            <UniformGrid Rows="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2"
+                         DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.IndicatorVm}">
+                <elements:IndicatorControl Value="{Binding Values[2]}" Level="{Binding Levels[2]}"/>
+                <elements:IndicatorControl Value="{Binding Values[3]}" Level="{Binding Levels[3]}"/>
+                <elements:IndicatorControl Value="{Binding Values[4]}" Level="{Binding Levels[4]}"/>
+                <elements:IndicatorControl Value="{Binding Values[5]}" Level="{Binding Levels[5]}"/>
+            </UniformGrid>
+
+            <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" Text="Вибрация подшипников, мкм" HorizontalContentAlignment="Center"
+                     VerticalContentAlignment="Center" Background="DarkSlateGray" FontSize="15" Foreground="LightGray"/>
+            <UniformGrid Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Rows="1">
+                <TextBox Text="№1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="DarkSlateGray"
+                         FontSize="14" Foreground="LightGray"/>
+                <TextBox Text="№2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="DarkSlateGray" 
+                         FontSize="14" Foreground="LightGray"/>
+                <TextBox Text="№3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="DarkSlateGray" 
+                         FontSize="14" Foreground="LightGray"/>
+                <TextBox Text="№4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="DarkSlateGray" 
+                         FontSize="14" Foreground="LightGray"/>
+            </UniformGrid>
+
+            <UniformGrid Rows="1" Grid.Column="2" Grid.Row="8"
+                         DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.IndicatorVm}">
+                <elements:IndicatorControl Value="{Binding Values[0]}" Level="{Binding Levels[0]}"/>
+                <elements:IndicatorControl Value="{Binding Values[1]}" Level="{Binding Levels[1]}"/>
+            </UniformGrid>
+
+            <UniformGrid Grid.Column="2" Grid.Row="7" Rows="1">
+                <TextBox Text="Q, м3/с" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="DarkSlateGray"
+                         FontSize="14" Foreground="LightGray"/>
+                <TextBox Text="P, кПа" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="DarkSlateGray" 
+                         FontSize="14" Foreground="LightGray"/>
+            </UniformGrid>
+
+            <UniformGrid Rows="1" Grid.Column="4" Grid.Row="6" Grid.RowSpan="3"
+                         DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.ThermometerVm}">
+                <elements:ThermometerControl Level="{Binding Levels[0]}"/>
+                <elements:ThermometerControl Level="{Binding Levels[1]}"/>
+                <elements:ThermometerControl Level="{Binding Levels[2]}"/>
+                <elements:ThermometerControl Level="{Binding Levels[3]}"/>
+            </UniformGrid>
+
+            <TextBlock Grid.Column="4" Grid.Row="4" Text="Температура подшипников, град. С" TextAlignment="Center" 
+                     Background="#FFECECEC" FontSize="15" Foreground="DarkSlateGray"/>
+            <UniformGrid Grid.Column="4" Grid.Row="5" Rows="1">
+                <Label Content="№1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FFECECEC" Foreground="DarkSlateGray" FontSize="14"/>
+                <Label Content="№2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FFECECEC" Foreground="DarkSlateGray" FontSize="14"/>
+                <Label Content="№3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FFECECEC" Foreground="DarkSlateGray" FontSize="14"/>
+                <Label Content="№4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FFECECEC" Foreground="DarkSlateGray" FontSize="14"/>
+            </UniformGrid>
+        </Grid>
+    </Canvas>
+    <!--</Grid>-->
+</UserControl>

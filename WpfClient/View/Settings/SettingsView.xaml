@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="WpfClient.View.Settings.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:wpfApplication3="clr-namespace:WpfClient.View.Settings"
+             xmlns:general="clr-namespace:WpfClient.ViewModel.Settings"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance general:SettingsVm}"
+             d:DesignHeight="800" d:DesignWidth="1000">
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="MinHeight" Value="30"/>
+            <Setter Property="MinWidth" Value="160"/>
+            <Setter Property="Margin" Value="10 5 10 0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Setter Property="FontSize" Value="26"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" Margin="10 0 10 0"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Background" Value="LightSkyBlue"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid Background="#FFF6F6F6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="Auto"/> <!--Set as Auto in the END-->
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+        <Button VerticalAlignment="Top" Grid.Column="0" Background="WhiteSmoke" Margin="0"  
+                MinWidth="22" Height="55" HorizontalAlignment="Left" Command="{Binding BackArrowClick}">
+                <Image Source="../../Images/left_arrow.png" />
+        </Button>
+        <StackPanel Grid.Column="2">
+            <Button Content="Вентиляторная Установка" Command="{Binding MenuClick}" CommandParameter="FanObjectSettings"/>
+            <Button Content="Цвета" Command="{Binding MenuClick}" CommandParameter="ColorSettings"/>
+        </StackPanel>
+
+        <GridSplitter Grid.Column="3" IsEnabled="False" HorizontalAlignment="Stretch"/>
+        
+        <ContentControl Grid.Column="4" Content="{Binding CurrentView}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type general:FanObjectSettingsVm}">
+                    <wpfApplication3:FanObjectSettingsView/>
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
+    </Grid>
+</UserControl>

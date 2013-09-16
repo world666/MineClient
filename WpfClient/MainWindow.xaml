@@ -1,0 +1,69 @@
+﻿<Window x:Class="WpfClient.MainWindow" 
+        WindowState="Maximized"
+        WindowStyle="None"
+        Closing="MainWindow_OnClosing"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:loc="clr-namespace:WpfClient.ViewModel" 
+        xmlns:wpfApplication3="clr-namespace:WpfClient.View"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:general="clr-namespace:WpfClient.ViewModel.General"
+        xmlns:fanObjectSystem="clr-namespace:WpfClient.ViewModel.FanObjectSystem"
+        xmlns:settings2="clr-namespace:WpfClient.ViewModel.Settings"
+        xmlns:settings="clr-namespace:WpfClient.View.Settings" xmlns:plot="clr-namespace:WpfClient.ViewModel.Plot"
+        xmlns:plot2="clr-namespace:WpfClient.View.Plot"
+        mc:Ignorable="d"    
+        d:DataContext="{d:DesignInstance loc:MainVm}"
+        Title="MainWindow" Height="Auto" Width="Auto">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <Menu FontSize="20" VerticalAlignment="Top" Grid.Row="0" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+            <MenuItem Header="ФАЙЛ"/>
+            <MenuItem Header="СРЕДСТВА">
+                <MenuItem Header="Настройки" VerticalAlignment="Center" Width="Auto"
+                          Command="{Binding MenuClick}" CommandParameter="SettingsView"/>
+            </MenuItem>
+            <MenuItem Header="ВИД">
+                <MenuItem Header="История" VerticalAlignment="Center" Width="Auto"
+                          Command="{Binding MenuClick}" CommandParameter="History" />
+                <MenuItem Header="Главное окно" VerticalAlignment="Center" Width="Auto"
+                          Command="{Binding MenuClick}" CommandParameter="GeneralView" />
+                <MenuItem Header="График" VerticalAlignment="Center" Width="Auto"
+                          Command="{Binding MenuClick}" CommandParameter="PlotView" />
+            </MenuItem>
+        </Menu>
+
+
+        <ContentControl Grid.Row="1" Content="{Binding CurrentView}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type general:GeneralVm}">
+                    <wpfApplication3:GeneralView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type fanObjectSystem:FanObjectVm}">
+                    <wpfApplication3:FanObjectView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type plot:OnPlotClickVm}">
+                    <plot2:OnPlotClickView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type loc:HistoryVm}">
+                    <wpfApplication3:HistoryView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type settings2:SettingsVm}">
+                    <settings:SettingsView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type plot:PlotVm}">
+                    <plot2:PlotView/>
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
+    </Grid>
+</Window>
