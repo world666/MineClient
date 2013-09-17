@@ -52,8 +52,8 @@
                 <Image Source="../../Images/left_arrow.png" />
         </Button>
         <StackPanel Grid.Column="2">
-            <Button Content="Вентиляторная Установка" Command="{Binding MenuClick}" CommandParameter="FanObjectSettings"/>
-            <Button Content="Цвета" Command="{Binding MenuClick}" CommandParameter="ColorSettings"/>
+            <Button Content="Главное Окно" Command="{Binding MenuClick}" CommandParameter="FanObjectSettings"/>
+            <Button Content="Датчики" Command="{Binding MenuClick}" CommandParameter="ColorSettings"/>
         </StackPanel>
 
         <GridSplitter Grid.Column="3" IsEnabled="False" HorizontalAlignment="Stretch"/>

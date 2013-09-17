@@ -117,6 +117,7 @@ namespace WpfClient.Services
                     var fansLogRepo = repoUnit.FanLog;
                     var fansLog = fansLogRepo.Load().FirstOrDefault(n=> n.Id == fanLogId);
                     propertyList.Add(new OnPlotClickData { Property = "Время приема параметров", Value = fansLog.Date.ToString() });
+                    propertyList.Add(new OnPlotClickData { Property = "Вентиляторная установка №", Value = fansLog.FanNumber.ToString()});
                     propertyList.Add(new OnPlotClickData { Property = "Вентилятор 1", Value = fansLog.Fan1State.State });
                     propertyList.Add(new OnPlotClickData { Property = "Вентилятор 2", Value = fansLog.Fan2State.State });
 

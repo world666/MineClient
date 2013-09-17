@@ -80,21 +80,25 @@ namespace WpfClient.ViewModel.General
 
             for (var i = 1; i <= _fans.Count; i++)
             {
-                parametersList.Add(new List<ParameterVm>());
-
                 var fanObject = _databaseService.GetFanObject(i);
                 if (fanObject == null) continue;
+
+                parametersList.Add(new List<ParameterVm>());
 
                 parametersList[i - 1].Add(checkRemoteSignalState(i));
                 parametersList[i - 1].Add(getFanNumberParameter(fanObject));
                 parametersList[i - 1].Add(getFanStateParameter(fanObject));
                 fanObject.Parameters.ForEach(p => parametersList[i - 1].Add(new ParameterVm(p)));
             }
-            IoC.Resolve<HTTPService>().WriteDataToIndexFile(parametersList);//save data to index.html for http server
+
+                    IoC.Resolve<HTTPService>().WriteDataToIndexFile(parametersList);
+                    //save data to index.html for http server
+
             Application.Current.Dispatcher.BeginInvoke(new Action(() =>
             {
                 for (var i = 0; i < parametersList.Count; i++) _fans[i].Values = parametersList[i];
             }));
+            //GC.Collect();//принудительная очистка мусора
         }
 
         private ParameterVm checkRemoteSignalState(int fanObjectId)

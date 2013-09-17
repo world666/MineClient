@@ -32,7 +32,8 @@ namespace WpfClient.ViewModel.FanObjectSystem
         public void Update()
         {
             var fanObject = _databaseService.GetFanObject(_fanObjectId);
-
+            if(fanObject==null)
+                return;
             TubeSystemVm.Update(fanObject);
             IndicatorVm.Update(getIndicatorValues(fanObject));
             ThermometerVm.Update(getThermometerValues(fanObject));

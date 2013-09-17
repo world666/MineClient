@@ -36,8 +36,8 @@
                 <Image Source="../Images/left_arrow.png" />
             </StackPanel>
         </Button>
-        <TextBox FontSize="18" Margin="1" TextAlignment="Center" Grid.Column="7" Grid.Row="1" Text="{Binding FanObjectId}"></TextBox>    
-        <DatePicker FontSize="20" Margin="1"
+        <TextBox VerticalAlignment="Center" FontSize="26" Margin="1" TextAlignment="Center" Grid.Column="7" Grid.Row="1" Text="{Binding FanObjectId}"></TextBox>    
+        <DatePicker  VerticalAlignment="Center" FontSize="20" Margin="1"
             BorderThickness="1" Grid.Row="2" Grid.Column="7" Grid.ColumnSpan="2" Text="{Binding DateDisplay}" SelectedDate="{Binding DateSelected}"/>
         <Border Margin="2" Grid.Row="1" Grid.Column="6" Background="Beige" BorderThickness="1" 
                 BorderBrush="DarkGray">
@@ -83,7 +83,7 @@
         </Border>
         <Border Margin="3" Grid.Row="2" Grid.Column="2" Background="White" BorderThickness="1" 
                 BorderBrush="DarkGray">
-            <TextBlock FontSize="18" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding RecordsFound}"></TextBlock>
+            <TextBlock FontSize="26" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding RecordsFound}"></TextBlock>
         </Border>
         <Border Margin="3" Grid.Row="3" Grid.Column="1" Background="Beige" BorderThickness="1" 
                 BorderBrush="DarkGray">
@@ -91,7 +91,7 @@
         </Border>
         <Border Margin="3" Grid.Row="3" Grid.Column="2" Background="White" BorderThickness="1" 
                 BorderBrush="DarkGray">
-            <TextBlock FontSize="18" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding CurrentRecord}"></TextBlock>
+            <TextBox FontSize="26" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding CurrentRecord}"></TextBox>
         </Border>
         <Button Margin="3" FontSize="20"  Grid.Column="3" Grid.Row="3" Command="{Binding PrevRecordClick}">
             <TextBlock TextAlignment="Center" Text="&lt;&lt;"> </TextBlock>

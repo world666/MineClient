@@ -102,6 +102,7 @@ namespace Mc.HTTPServer
             {
                 RequestUri += "index.html";
             }
+            //Если затребовано удаленное управление
             if (RequestUri.Contains("send"))
             {
                 if(!RemoteControl(Request.Clone().ToString(), remoteControl))
@@ -192,6 +193,7 @@ namespace Mc.HTTPServer
             // Закроем файл и соединение
             FS.Close();
             Client.Close();
+            GC.Collect();
         }
         private bool RemoteControl(string query,RemoteControlHandler remoteControl)
         {

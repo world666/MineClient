@@ -19,8 +19,8 @@ namespace WpfClient.Services
             {
                 return;
             }
-            FileStream FS;
-            StreamWriter streamWriter;
+            FileStream FS=null;
+            StreamWriter streamWriter = null;
             while (true)
             {
                 try
@@ -88,7 +88,11 @@ namespace WpfClient.Services
                 }
                 catch (Exception)
                 {
-                    continue;
+                    if (streamWriter != null)
+                       streamWriter.Close();
+                    if(FS!=null)
+                       FS.Close();
+                    return;
                 }
             }
 

@@ -13,7 +13,7 @@ namespace Mc.HTTPServer
     public class WebServer
     {
         TcpListener Listener; // Объект, принимающий TCP-клиентов
-        private RemoteControlHandler _remoteControl;
+        private RemoteControlHandler _remoteControl;//делегат вызывается при удаленном управлении
         // Запуск сервера
         public WebServer(int Port,RemoteControlHandler remoteControl)
         {
