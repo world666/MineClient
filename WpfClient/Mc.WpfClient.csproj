@@ -105,6 +105,7 @@
     <Compile Include="Model\Concrete\Config.cs" />
     <Compile Include="Model\Concrete\DataBaseInserter.cs" />
     <Compile Include="Model\Concrete\DataForSending.cs" />
+    <Compile Include="Model\Concrete\GBCollector.cs" />
     <Compile Include="Model\Concrete\MsgParser.cs" />
     <Compile Include="Model\Concrete\RemoteData.cs" />
     <Compile Include="Model\Concrete\TcpRemoteListener.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="ViewModel\Plot\OnPlotClickVm.cs" />
     <Compile Include="ViewModel\Plot\PlotVm.cs" />
     <Compile Include="ViewModel\Settings\FanObjectSettingsVm.cs" />
+    <Compile Include="ViewModel\Settings\SensorSettingsVm.cs" />
     <Compile Include="ViewModel\Settings\SettingsVm.cs" />
     <Compile Include="View\FanObjectView.xaml.cs">
       <DependentUpon>FanObjectView.xaml</DependentUpon>
@@ -161,6 +163,9 @@
     </Compile>
     <Compile Include="View\Settings\FanObjectSettingsView.xaml.cs">
       <DependentUpon>FanObjectSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Settings\SensorSettingsView.xaml.cs">
+      <DependentUpon>SensorSettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Settings\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
@@ -198,6 +203,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Settings\FanObjectSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Settings\SensorSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

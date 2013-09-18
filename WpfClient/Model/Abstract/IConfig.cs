@@ -8,11 +8,17 @@ namespace WpfClient.Model.Abstract
 
         double MaxPillowValue { get; set; }
 
-        double MaxIndicatorValue { get; set; }
+        double MaxAirFlowValue { get; set; }
 
-        double ParameterWarning { get; set; }
+        double MaxPressureValue { get; set; }
 
-        double ParameterDanger { get; set; }
+        double Temperature—oefficient { get; set; }
+
+        double Pillow—oefficient { get; set; }
+
+        double AirFlow—oefficient { get; set; }
+
+        double Pressure—oefficient { get; set; }
 
         FanObjectConfigSection FanObjectConfig { get; }
 

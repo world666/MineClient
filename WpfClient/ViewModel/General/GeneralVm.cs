@@ -76,6 +76,8 @@ namespace WpfClient.ViewModel.General
 
         private void updateFanValues()
         {
+            if(_fans.Count!=Config.Instance.FanObjectConfig.FanObjectCount)
+                initialize();
             var parametersList = new List<List<ParameterVm>>();
 
             for (var i = 1; i <= _fans.Count; i++)
@@ -98,7 +100,6 @@ namespace WpfClient.ViewModel.General
             {
                 for (var i = 0; i < parametersList.Count; i++) _fans[i].Values = parametersList[i];
             }));
-            //GC.Collect();//принудительная очистка мусора
         }
 
         private ParameterVm checkRemoteSignalState(int fanObjectId)

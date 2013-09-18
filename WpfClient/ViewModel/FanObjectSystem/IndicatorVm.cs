@@ -8,7 +8,8 @@ namespace WpfClient.ViewModel.FanObjectSystem
     class IndicatorVm
     {
         private readonly int _indicatorCount = 6;
-        private readonly double _maxIndicatorValue;
+        private readonly double _maxAirFlowValue;
+        private readonly double _maxPressureValue;
         private readonly double _maxPillowValue;
 
         public ObservableCollection<double> Levels { get; set; }
@@ -16,7 +17,8 @@ namespace WpfClient.ViewModel.FanObjectSystem
 
         public IndicatorVm()
         {
-            _maxIndicatorValue = Config.Instance.MaxIndicatorValue;
+            _maxAirFlowValue = Config.Instance.MaxAirFlowValue;
+            _maxPressureValue = Config.Instance.MaxPressureValue;
             _maxPillowValue = Config.Instance.MaxPillowValue;
 
             initialize();
@@ -24,10 +26,12 @@ namespace WpfClient.ViewModel.FanObjectSystem
 
         public void Update(List<Parameter> indicatorValues)
         {
-            Levels[0] = indicatorValues[0].Value / _maxIndicatorValue;
-            Levels[1] = indicatorValues[1].Value / _maxPillowValue;
+            Values[0] = indicatorValues[0].Value;
+            Values[1] = indicatorValues[1].Value;
+            Levels[0] = Values[0] / _maxAirFlowValue;
+            Levels[1] = Values[1] / _maxPressureValue;
 
-            for (var i = 0; i < _indicatorCount; i++)
+            for (var i = 2; i < _indicatorCount; i++)
             {
                 Values[i] = indicatorValues[i%2].Value;
                 Levels[i] = indicatorValues[i%2].Value / _maxPillowValue;

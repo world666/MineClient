@@ -10,8 +10,8 @@ namespace WpfClient.Services
     {
         public static StateEnum GetParameterState(string name,int value)
         {
-            double warningValue = Config.Instance.ParameterWarning;
-            double dangerValue = Config.Instance.ParameterDanger;
+            double warningValue = 100;
+            double dangerValue = 100;
 
             if(name.Contains("Расход"))//сравнение на меньше
             {

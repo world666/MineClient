@@ -53,7 +53,7 @@
         </Button>
         <StackPanel Grid.Column="2">
             <Button Content="Главное Окно" Command="{Binding MenuClick}" CommandParameter="FanObjectSettings"/>
-            <Button Content="Датчики" Command="{Binding MenuClick}" CommandParameter="ColorSettings"/>
+            <Button Content="Датчики" Command="{Binding MenuClick}" CommandParameter="SensorSettings"/>
         </StackPanel>
 
         <GridSplitter Grid.Column="3" IsEnabled="False" HorizontalAlignment="Stretch"/>
@@ -62,6 +62,9 @@
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type general:FanObjectSettingsVm}">
                     <wpfApplication3:FanObjectSettingsView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type general:SensorSettingsVm}">
+                    <wpfApplication3:SensorSettingsView/>
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

@@ -8,6 +8,7 @@ using Mc.HTTPServer;
 using Ninject.Parameters;
 using WpfClient.Model;
 using WpfClient.Model.Abstract;
+using WpfClient.Model.Concrete;
 using WpfClient.Services;
 using WpfClient.ViewModel.General;
 using WpfClient.ViewModel.Plot;
@@ -26,7 +27,7 @@ namespace WpfClient.ViewModel
             
             IoC.Resolve<IRemoteListener>().InitServer("15000");
             _webServer = new WebServer(90,RemouteFanControlService.SetData);
-
+            GBCollector.StartCollection();
             CurrentView = IoC.Resolve<GeneralVm>();
         }
 

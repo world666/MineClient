@@ -65,10 +65,10 @@
         </Border>
 
 
-        <ListView Grid.Column="0" Grid.Row="5" Grid.RowSpan="2" Grid.ColumnSpan="5" ItemsSource="{Binding ListCollection}">
+        <ListView FontSize="18" Grid.Column="0" Grid.Row="5" Grid.RowSpan="2" Grid.ColumnSpan="5" ItemsSource="{Binding ListCollection}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="250" Header="Имя параметра" DisplayMemberBinding="{Binding Property}"/>
+                    <GridViewColumn Width="400" Header="Имя параметра" DisplayMemberBinding="{Binding Property}"/>
                     <GridViewColumn Width="250" Header="Значение" DisplayMemberBinding="{Binding Value}"/>
                 </GridView>
             </ListView.View>

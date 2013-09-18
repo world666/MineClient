@@ -13,9 +13,9 @@ namespace WpfClient.Services
 
         private double _maxTemperature;
         private double _maxIndicatorValue;
-        private double _parameterWarning;
-        private double _parameterDanger;
         private double _maxPillowValue;
+        private double _maxAirFlowValue;
+        private double _maxPressureValue;
 
         public FanObjectConfigSection FanObjectConfig
         {
@@ -30,47 +30,67 @@ namespace WpfClient.Services
 
         public double MaxTemperature
         {
-            get { return (_maxTemperature = getParameter("MaxTemperature", _maxTemperature)); }
-            set { setParameter("MaxTemperature", ref _maxTemperature, value); }
+            get { return (_maxTemperature = getParameter("MaxTemperature")); }
+            set { setParameter("MaxTemperature", value); }
         }
 
         public double MaxPillowValue
         {
-            get { return (_maxPillowValue = getParameter("MaxPillowValue", _maxPillowValue)); } 
-            set { setParameter("MaxPillowValue", ref _maxPillowValue, value); }
+            get { return (_maxPillowValue = getParameter("MaxPillowValue")); } 
+            set { setParameter("MaxPillowValue", value); }
         }
 
-        public double MaxIndicatorValue 
+        public double MaxAirFlowValue
         {
-            get { return (_maxIndicatorValue = getParameter("MaxIndicatorValue", _maxIndicatorValue)); }
-            set { setParameter("MaxIndicatorValue", ref _maxIndicatorValue, value); }
+            get { return (_maxAirFlowValue = getParameter("MaxAirFlowValue")); }
+            set { setParameter("MaxAirFlowValue", value); }
         }
 
-        public double ParameterWarning
+        public double MaxPressureValue
         {
-            get { return (_parameterWarning = getParameter("ParameterWarning", _parameterWarning)); }
-            set { setParameter("ParameterWarning", ref _parameterWarning, value); }
+            get { return (_maxPressureValue = getParameter("MaxPressureValue")); }
+            set { setParameter("MaxPressureValue", value); }
         }
 
-        public double ParameterDanger 
+        public double TemperatureСoefficient
         {
-            get { return (_parameterDanger = getParameter("ParameterDanger", _parameterDanger)); }
-            set { setParameter("ParameterDanger", ref _parameterDanger, value); }
+            get { return (getParameter("TemperatureСoefficient")); }
+            set { setParameter("TemperatureСoefficient", value); }
         }
 
-        private double getParameter(string name, double value)
+        public double AirFlowСoefficient
         {
-            if (Math.Abs(value) < 1e-10)
-            {
-                value = double.Parse(ConfigurationManager.AppSettings[name]);
-            }
+            get { return (getParameter("AirFlowСoefficient")); }
+            set { setParameter("AirFlowСoefficient", value); }
+        }
+
+        public double PressureСoefficient
+        {
+            get { return (getParameter("PressureСoefficient")); }
+            set { setParameter("PressureСoefficient", value); }
+        }
+
+        public double PillowСoefficient
+        {
+            get { return (getParameter("PillowСoefficient")); }
+            set { setParameter("PillowСoefficient", value); }
+        }
+
+        private double getParameter(string name)
+        {
+
+            double value = double.Parse(ConfigurationManager.AppSettings[name]);
+
             return value;
         }
-
-        private void setParameter(string name, ref double oldValue, double newValue)
+        private void setParameter(string configKey, double value)
         {
-            oldValue = 0;
-            ConfigurationManager.AppSettings[name] = newValue.ToString(CultureInfo.InvariantCulture);
+
+            //make changes
+            _config.AppSettings.Settings[configKey].Value = value.ToString();
+
+            _config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
         }
     }
 }

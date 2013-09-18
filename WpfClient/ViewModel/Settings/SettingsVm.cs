@@ -46,8 +46,8 @@ namespace WpfClient.ViewModel.Settings
 
             if (selectedOption.Equals("FanObjectSettings", StringComparison.InvariantCulture))
                 CurrentView = IoC.Resolve<FanObjectSettingsVm>();
-            if (selectedOption.Equals("ColorSettings", StringComparison.InvariantCulture))
-                CurrentView = IoC.Resolve<FanObjectSettingsVm>();
+            if (selectedOption.Equals("SensorSettings", StringComparison.InvariantCulture))
+                CurrentView = IoC.Resolve<SensorSettingsVm>();
         }
     }
 }

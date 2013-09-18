@@ -48,20 +48,29 @@ namespace WpfClient.Services
         public FanObject GetFanObject(int fanOjbectNum)
         {
             var fanObjectVm = new FanObject {FanObjectId = fanOjbectNum};
-
-            using (var unit = new RepoUnit())
+            try
             {
-                if (isFanLogEmpty(unit, fanOjbectNum)) return null;
+                using (var unit = new RepoUnit())
+                {
+                    if (isFanLogEmpty(unit, fanOjbectNum)) return null;
 
-                var fanLog = unit.FanLog.LastRecord(f => f.FanNumber == fanOjbectNum);
+                    var fansLogRepo = unit.FanLog;
 
-                fanObjectVm.Parameters.AddRange(
-                    fanLog.AnalogSignalLogs.Select(
-                        s => new Parameter { Name = s.SignalType.Type, Value = s.SignalValue, State = SystemStateService.GetParameterState(s.SignalType.Type,s.SignalValue) }));
+                    var fansLogId = fansLogRepo.Load().Where(f => f.FanNumber == fanOjbectNum).Max(n => n.Id);
+                    var fanLog = fansLogRepo.Find(fansLogId);
 
-                fanObjectVm.Doors.AddRange(fanLog.DoorsLogs.Select(d => new Door {Type = d.DoorType.Type, State = d.DoorState.State, StateId = d.DoorStateId, TypeId = d.DoorTypeId}));
-                fanObjectVm.WorkingFanNumber = GetWorkingFanNumber(fanLog.Fan1State_Id, fanLog.Fan2State_Id);
-                fanObjectVm.Date = fanLog.Date;
+                    fanObjectVm.Parameters.AddRange(
+                        fanLog.AnalogSignalLogs.Select(
+                            s => new Parameter { Name = s.SignalType.Type, Value = s.SignalValue, State = SystemStateService.GetParameterState(s.SignalType.Type, s.SignalValue) }));
+
+                    fanObjectVm.Doors.AddRange(fanLog.DoorsLogs.Select(d => new Door { Type = d.DoorType.Type, State = d.DoorState.State, StateId = d.DoorStateId, TypeId = d.DoorTypeId }));
+                    fanObjectVm.WorkingFanNumber = GetWorkingFanNumber(fanLog.Fan1State_Id, fanLog.Fan2State_Id);
+                    fanObjectVm.Date = fanLog.Date;
+                }
+            }
+            catch(Exception ex)
+            {
+                //nothing in db
             }
             return fanObjectVm;
         }

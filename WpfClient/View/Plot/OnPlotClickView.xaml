@@ -18,10 +18,10 @@
                 <Image Source="../../Images/left_arrow.png" />
             </StackPanel>
         </Button>
-        <ListView ItemsSource="{Binding ListCollection}" Grid.Row="1">
+        <ListView FontSize="20" ItemsSource="{Binding ListCollection}" Grid.Row="1">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="250" Header="Имя параметра" DisplayMemberBinding="{Binding Property}"/>
+                    <GridViewColumn Width="400" Header="Имя параметра" DisplayMemberBinding="{Binding Property}"/>
                     <GridViewColumn Width="250" Header="Значение" DisplayMemberBinding="{Binding Value}"/>
                 </GridView>
             </ListView.View>

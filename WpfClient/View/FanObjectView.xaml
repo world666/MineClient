@@ -8,8 +8,12 @@
 
              mc:Ignorable="d" 
              d:DesignHeight="1000" d:DesignWidth="1900" Background="LightBlue">
+
     <UserControl.Resources>
         <converters:EnumToColorConverter x:Key="EnumToColor"/>
+        <Style TargetType="TextBox">
+            <Setter Property="IsReadOnly" Value="True"/>
+        </Style>
     </UserControl.Resources>
 
     <Canvas DataContext="{Binding TubeSystemVm}" Margin="76,0,0,0">
@@ -192,7 +196,7 @@
 
         <elements:Fan Rotation="{Binding RotationV2}" Radius="30" Canvas.Top="698" Canvas.Left="114"/>
         <elements:Fan Rotation="{Binding RotationV1}" Radius="30"  Canvas.Top="345" Canvas.Left="115"/>
-        <TextBox FontFamily="Arial" Background="WhiteSmoke" FontSize="26" TextAlignment="Center"
+        <TextBox IsReadOnly="True" FontFamily="Arial" Background="WhiteSmoke" FontSize="26" TextAlignment="Center"
                  Text="ООО&#x0a;ДОНБАССУГЛЕАВТОМАТИКА " RenderTransformOrigin="0.445,0.41" Canvas.Left="-77"/>
         <Label Content="РЕЖИМ РАБОТЫ" Canvas.Left="1594" Width="229" FontSize="26" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                  Background="{Binding SystemState.State, Converter={StaticResource EnumToColor}}"/>
@@ -201,10 +205,10 @@
 
         <Border Grid.Row="0" Grid.Column="0" BorderThickness="1"  BorderBrush="#FFABADB3" Canvas.Top="62" Width="373" Canvas.Left="-76">
             <UniformGrid Rows="1" Background="WhiteSmoke">
-                <TextBox Text="{Binding DateTime.Date}" Background="Transparent" BorderThickness="0" 
+                <TextBox IsReadOnly="True" Text="{Binding DateTime.Date}" Background="Transparent" BorderThickness="0" 
                          FontSize="26" VerticalContentAlignment="Center"
                          HorizontalContentAlignment="Center" Foreground="#FF323232" FontStyle="Italic"/>
-                <TextBox Text="{Binding DateTime.Time}" Background="Transparent" BorderThickness="0" 
+                <TextBox IsReadOnly="True" Text="{Binding DateTime.Time}" Background="Transparent" BorderThickness="0" 
                          FontSize="26" Foreground="#FF323232" VerticalContentAlignment="Center"
                          HorizontalContentAlignment="Center"/>
             </UniformGrid>

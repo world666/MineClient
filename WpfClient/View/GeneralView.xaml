@@ -29,10 +29,10 @@
 
         <Border Height="55" Grid.Row="0" Grid.Column="0" Margin="10" BorderThickness="2" BorderBrush="LightSlateGray">
             <UniformGrid Rows="1" Background="LightGray">
-                <TextBox Text="{Binding DateTime.Date}" Background="Transparent" BorderThickness="0" 
+                <TextBox IsReadOnly="True" Text="{Binding DateTime.Date}" Background="Transparent" BorderThickness="0" 
                          FontSize="29" FontWeight="Bold" VerticalContentAlignment="Center"
-                         HorizontalContentAlignment="Center" Foreground="#FF323232" FontStyle="Italic"/>
-                <TextBox Text="{Binding DateTime.Time}" Background="Transparent" BorderThickness="0" 
+                         HorizontalContentAlignment="Center" Foreground="#FF323232" FontStyle="Italic" Height="51" VerticalAlignment="Top"/>
+                <TextBox IsReadOnly="True" Text="{Binding DateTime.Time}" Background="Transparent" BorderThickness="0" 
                          FontSize="29" FontWeight="Bold" Foreground="#FF323232" VerticalContentAlignment="Center"
                          HorizontalContentAlignment="Center"/>
             </UniformGrid>
