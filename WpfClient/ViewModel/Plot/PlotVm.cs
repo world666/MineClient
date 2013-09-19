@@ -17,7 +17,7 @@ using WpfClient.ViewModel.General;
 
 namespace WpfClient.ViewModel.Plot
 {
-    class PlotVm : ViewModelBase
+    class PlotVm : ViewModelBase, IDisposable
     {
         #region Property
         public ObservableCollection<PlotData> ListCollectionAnalog { get; set; }
@@ -166,6 +166,8 @@ namespace WpfClient.ViewModel.Plot
         }
         private void BackArrowClickHandler()
         {
+            IDisposable dispose = (IDisposable) IoC.Resolve<MainVm>().CurrentView;
+            dispose.Dispose();
             IoC.Resolve<MainVm>().CurrentView = IoC.Resolve<GeneralVm>();
         }
         private void RefreshClickHandler()
@@ -202,13 +204,15 @@ namespace WpfClient.ViewModel.Plot
         }
         private void DatePickersSetUp()
         {
-            DateDisplayFrom = (DateTime.Now - new TimeSpan(24, 0, 0)).ToString();
+            DateDisplayFrom = (DateTime.Now - new TimeSpan(100, 0, 0)).ToString();
             DateDisplayTo = DateTime.Now.ToString();
-            DateSelectedFrom = DateTime.Now - new TimeSpan(300, 0, 0);
+            DateSelectedFrom = DateTime.Now - new TimeSpan(100, 0, 0);
             DateSelectedTo = DateTime.Now;
         }
         public PlotVm(int fanObjectId,int parameterNum)
         {
+            if(parameterNum<=0)
+                return;
             FanObjectId = fanObjectId;
             LoadDataInListBoxAnalog();
             LoadDataInListBoxDigit();
@@ -225,6 +229,11 @@ namespace WpfClient.ViewModel.Plot
             DatePickersSetUp();
             PlotsSetUp();
         }
+
+        public void Dispose()
+        {
+        }
+
         private const string AnalogTitle = "График аналоговых параметров вентиляторная установка №";
         private const string AnalogSubTitle = "(Подробнее - CTRL + ЛКМ)";
         private const string DigitTiTle = "График цифровых параметров вентиляторная установка №";

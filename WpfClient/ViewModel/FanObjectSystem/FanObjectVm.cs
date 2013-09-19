@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Timers;
 using GalaSoft.MvvmLight;
 using WpfClient.Model;
 using WpfClient.Model.Entities;
@@ -6,10 +8,11 @@ using WpfClient.Services;
 
 namespace WpfClient.ViewModel.FanObjectSystem
 {
-    class FanObjectVm : ViewModelBase
+    class FanObjectVm : ViewModelBase, IDisposable
     {
         private readonly DatabaseService _databaseService;
         private readonly int _fanObjectId;
+        private Timer timer;
 
         public TubeSystemVm TubeSystemVm { get; set; }
         public ThermometerVm ThermometerVm { get; set; }
@@ -26,9 +29,15 @@ namespace WpfClient.ViewModel.FanObjectSystem
 
             Update();
 
-            AsyncProvider.StartTimer(10000, Update);
+            timer = new Timer(10000);
+            timer.Elapsed += (sender, args) => Update();
+            timer.Start();
         }
-
+        public void Dispose()
+        {
+            timer.Stop();
+            timer.Dispose();
+        }
         public void Update()
         {
             var fanObject = _databaseService.GetFanObject(_fanObjectId);

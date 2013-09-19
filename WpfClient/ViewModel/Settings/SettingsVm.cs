@@ -8,7 +8,7 @@ using WpfClient.ViewModel.General;
 
 namespace WpfClient.ViewModel.Settings
 {
-    class SettingsVm : ViewModelBase 
+    class SettingsVm : ViewModelBase, IDisposable
     {
         private object _currentView;
         private RelayCommand<object> _optionCommand;
@@ -19,10 +19,16 @@ namespace WpfClient.ViewModel.Settings
         }
         private void BackArrowClickHandler()
         {
+            IDisposable dispose = (IDisposable)IoC.Resolve<MainVm>().CurrentView;
+            dispose.Dispose();
             IoC.Resolve<MainVm>().CurrentView = IoC.Resolve<GeneralVm>();
         }
         public SettingsVm()
         {        
+        }
+
+        public void Dispose()
+        {
         }
 
         public object CurrentView 

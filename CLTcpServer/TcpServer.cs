@@ -147,7 +147,7 @@ namespace CLTcpServer
                 try
                 {
                     string s = null;
-                    clients_string[(int)num] = "";
+                    //clients_string[(int)num] = "";
                     NetworkStream ns = clients[(int)num].GetStream();
                     // Раскомментировав строчку ниже, тем самым уменьшив размер приемного буфера, можно убедиться,
                     // что прием данных будет все равно осуществляться полностью.
@@ -162,14 +162,16 @@ namespace CLTcpServer
                     if (s != null)
                     {
 
-                        if (s.IndexOf("+++") == 0) //close connection
+                        if (s.IndexOf("+++") == 0 || s.IndexOf("SISC") >= 0) //close connection
                         {
                             clients[(int)num].Close();
+                            clients_string.RemoveAt((int)num);
                             clients.RemoveAt((int)num);
                             break;
                         }
-                        if (ReceiveEvent != null)
+                        if (ReceiveEvent != null && s.IndexOf("SISC")<0)
                         {
+                            clients_string[(int) num] = s;
                             ReceiveEvent(s,(int)num);
                         }
                         // Вынужденная строчка для экономия ресурсов процессора.

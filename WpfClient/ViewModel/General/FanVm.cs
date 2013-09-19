@@ -65,6 +65,8 @@ namespace WpfClient.ViewModel.General
 
         public void OnFanObjetClick(object t)
         {
+            IDisposable dispose = (IDisposable)IoC.Resolve<MainVm>().CurrentView;
+            dispose.Dispose();
             IoC.Resolve<MainVm>().CurrentView = IoC.Resolve<FanObjectVm>(new ConstructorArgument("fanObjectId", FanObjectId));
         }
 
@@ -73,6 +75,8 @@ namespace WpfClient.ViewModel.General
             if ((int)t <= 1) return;
 
             var analogParametersVm = IoC.Resolve<PlotVm>(new ConstructorArgument("fanObjectId", FanObjectId), new ConstructorArgument("parameterNum", (int)t - 2));
+            IDisposable dispose = (IDisposable)IoC.Resolve<MainVm>().CurrentView;
+            dispose.Dispose();
             IoC.Resolve<MainVm>().CurrentView = analogParametersVm;
         }
     }

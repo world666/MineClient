@@ -38,6 +38,8 @@ namespace WpfClient.Services
                     if (e.IsControlDown)
                     {
                         DataPoint date = (DataPoint)e.HitTestResult.Item;
+                        IDisposable dispose = (IDisposable)IoC.Resolve<MainVm>().CurrentView;
+                        dispose.Dispose();
                         IoC.Resolve<MainVm>().CurrentView =
                             IoC.Resolve<OnPlotClickVm>(new ConstructorArgument("fanObjectId", fanObjectId),
                                                        new ConstructorArgument("date",

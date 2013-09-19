@@ -16,7 +16,7 @@ using WpfClient.ViewModel.Plot;
 
 namespace WpfClient.ViewModel
 {
-    class HistoryVm : ViewModelBase
+    class HistoryVm : ViewModelBase, IDisposable
     {
         #region Property
         private DateTime _dateTimeFrom = DateTime.Now;
@@ -125,6 +125,8 @@ namespace WpfClient.ViewModel
 
         private void BackArrowClickHandler()
         {
+            IDisposable dispose = (IDisposable)IoC.Resolve<MainVm>().CurrentView;
+            dispose.Dispose();
             IoC.Resolve<MainVm>().CurrentView = IoC.Resolve<GeneralVm>();
         }
 
@@ -162,6 +164,8 @@ namespace WpfClient.ViewModel
         {
             ListCollection = new ObservableCollection<OnPlotClickData>();
         }
+        public void Dispose()
+        {}
         private bool CheckInput()
         {
             //ckeck fan number

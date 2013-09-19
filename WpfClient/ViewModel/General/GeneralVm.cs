@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using GalaSoft.MvvmLight;
 using WpfClient.Model;
@@ -11,7 +12,7 @@ using WpfClient.Services;
 
 namespace WpfClient.ViewModel.General
 {
-    public class GeneralVm : ViewModelBase
+    public class GeneralVm : ViewModelBase, IDisposable
     {
         private List<FanVm> _fans;
         private ObservableCollection<string> _signalNames;
@@ -19,6 +20,8 @@ namespace WpfClient.ViewModel.General
         private readonly DatabaseService _databaseService;
         private readonly FanService _fanService;
         private ParameterVm _remoteSignalState { get; set; }
+
+        private Timer timer;
 
         public GeneralVm(DatabaseService databaseService, FanService fanService)
         {
@@ -30,9 +33,15 @@ namespace WpfClient.ViewModel.General
             updateFanValues();
             setParameterNames();
 
-            AsyncProvider.StartTimer(10000, updateFanValues);
+            timer = new Timer(10000);
+            timer.Elapsed += (sender, args) => updateFanValues();
+            timer.Start();
         }
-
+        public void Dispose()
+        {
+            timer.Stop();
+            timer.Dispose();
+        }
         public DateTimeVm DateTime { get { return IoC.Resolve<DateTimeVm>(); } }
 
         public ObservableCollection<string> Signals 

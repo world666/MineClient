@@ -10,7 +10,7 @@ namespace WpfClient.Model.Concrete
     {
         public static void StartCollection()
         {
-            AsyncProvider.StartTimer(600000, Collect);
+            //AsyncProvider.StartTimer(10000, Collect);
 
         }
         private static void Collect()

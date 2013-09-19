@@ -193,12 +193,11 @@ namespace Mc.HTTPServer
             // Закроем файл и соединение
             FS.Close();
             Client.Close();
-            GC.Collect();
         }
         private bool RemoteControl(string query,RemoteControlHandler remoteControl)
         {
             //get parameters
-            int start = query.IndexOf("fanObjectId");
+            int start = query.IndexOf("password");
             string post = query.Substring(start);
             string[] splitPost = post.Split(new char[]{'&','='},StringSplitOptions.RemoveEmptyEntries);
             Dictionary<string, string> parameters = new Dictionary<string, string>();

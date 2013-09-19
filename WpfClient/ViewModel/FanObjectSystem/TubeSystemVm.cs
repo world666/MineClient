@@ -38,6 +38,8 @@ namespace WpfClient.ViewModel.FanObjectSystem
 
         private void BackArrowClickHandler()
         {
+            IDisposable dispose = (IDisposable)IoC.Resolve<MainVm>().CurrentView;
+            dispose.Dispose();
             IoC.Resolve<MainVm>().CurrentView = IoC.Resolve<GeneralVm>();
         }
  

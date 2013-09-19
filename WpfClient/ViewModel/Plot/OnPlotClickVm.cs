@@ -13,7 +13,7 @@ using WpfClient.Services;
 
 namespace WpfClient.ViewModel.Plot
 {
-    class OnPlotClickVm : ViewModelBase
+    class OnPlotClickVm : ViewModelBase, IDisposable
     {
         public ObservableCollection<OnPlotClickData> ListCollection { get; set; }
 
@@ -27,6 +27,8 @@ namespace WpfClient.ViewModel.Plot
 
         private void BackArrowClickHandler()
         {
+            IDisposable dispose = (IDisposable)IoC.Resolve<MainVm>().CurrentView;
+            dispose.Dispose();
             IoC.Resolve<MainVm>().CurrentView = _prevView;
         }
 
@@ -36,6 +38,8 @@ namespace WpfClient.ViewModel.Plot
             ListCollection = new ObservableCollection<OnPlotClickData>();
             UpdatePropertyValue(date, fanObjectId);
         }
+        public void Dispose()
+        {}
 
         private void UpdatePropertyValue(DateTime date, int fanObjectId)
         {

@@ -50,6 +50,9 @@ namespace WpfClient.ViewModel
 
         private void MenuViewControl(object t) 
         {
+            IDisposable dispose = (IDisposable)CurrentView;
+            dispose.Dispose();
+
             var menuStr = t as string;
 
             if (menuStr.Equals("GeneralView", StringComparison.InvariantCulture))
