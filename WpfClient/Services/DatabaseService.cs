@@ -62,9 +62,16 @@ namespace WpfClient.Services
                     var fanLog = fansLogRepo.LastRecord(f => f.FanNumber == fanOjbectNum);
                     fanObjectVm.Parameters.AddRange(
                         fanLog.AnalogSignalLogs.Select(
-                            s => new Parameter { Name = s.SignalType.Type, Value = s.SignalValue, State = SystemStateService.GetParameterState(s.SignalType.Type, s.SignalValue) }));
+                            s =>
+                            new Parameter
+                                {
+                                    Name = s.SignalType.Type,
+                                    Value = SystemStateService.GetLinearAnalogValue(s.SignalType.Type, s.SignalValue),
+                                    State = SystemStateService.GetParameterState(s.SignalType.Type, s.SignalValue)
+                                }));
 
-                    fanObjectVm.Doors.AddRange(fanLog.DoorsLogs.Select(d => new Door {StateId = d.DoorStateId, TypeId = d.DoorTypeId }));
+                    fanObjectVm.Doors.AddRange(
+                        fanLog.DoorsLogs.Select(d => new Door {StateId = d.DoorStateId, TypeId = d.DoorTypeId}));
                     fanObjectVm.WorkingFanNumber = GetWorkingFanNumber(fanLog.Fan1State_Id, fanLog.Fan2State_Id);
                     fanObjectVm.Date = fanLog.Date;
                 }
