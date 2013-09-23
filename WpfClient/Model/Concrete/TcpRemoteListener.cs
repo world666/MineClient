@@ -2,8 +2,10 @@ using System;
 using System.Text;
 using System.Linq;
 using CLTcpServer.Interfaces;
+using DataRepository.Models;
 using WpfClient.Model.Abstract;
 using WpfClient.Services;
+using WpfClient.ViewModel;
 
 namespace WpfClient.Model.Concrete
 {
@@ -13,9 +15,9 @@ namespace WpfClient.Model.Concrete
 
         public TcpRemoteListener(IRemoteExchange remoteExchange, IDataInserter dataInserter) {
             _remoteExchange = remoteExchange;
-            _remoteExchange.ReceiveEvent += (msg, num) => RemoteService.onRecieve(msg);//for signal quality
             _remoteExchange.ReceiveEvent += AnswerToClient; //remote control
-            SetDataInserter(dataInserter);
+            _remoteExchange.ReceiveEvent += (msg, num) => RemoteService.onRecieve(msg);//for signal quality       
+            SetDataInserter(dataInserter);      
         }
         private void AnswerToClient(string msg, int numClient)
         {
@@ -36,7 +38,14 @@ namespace WpfClient.Model.Concrete
         public void SetDataInserter(IDataInserter dataInserter)
         {
             if (dataInserter == null) throw new ArgumentNullException("dataInserter");
-            _remoteExchange.ReceiveEvent += (msg,num) => dataInserter.InsertData(msg);
+            _remoteExchange.ReceiveEvent += (msg, num) =>
+                {
+                    FanLog fanLog = dataInserter.InsertData(msg);//insert in DB
+                    var update = IoC.Resolve<MainVm>().CurrentView as IUpDatable;//update views if possible
+                    if(update!=null)
+                        update.Update(fanLog);  
+                    HTTPService.UpdateData(fanLog);
+                };
         }
 
         public void RemoveDataInserter(IDataInserter dataInserter)

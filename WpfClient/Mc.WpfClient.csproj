@@ -101,6 +101,7 @@
     <Compile Include="Model\Abstract\IDataInserter.cs" />
     <Compile Include="Model\Abstract\IMsgParser.cs" />
     <Compile Include="Model\Abstract\IRemoteListener.cs" />
+    <Compile Include="Model\Abstract\IUpDatable.cs" />
     <Compile Include="Model\AsyncProvider.cs" />
     <Compile Include="Model\Concrete\Config.cs" />
     <Compile Include="Model\Concrete\DataBaseInserter.cs" />

@@ -24,15 +24,17 @@ namespace WpfClient.Model.Concrete
             
         }
 
-        public void InsertData(string data)
+        public FanLog InsertData(string data)
         {
             var paramsTable = _msgParser.Parse(data);
-
-            using (var repoUnit = new RepoUnit()) 
+            FanLog fanLog;
+            using (var repoUnit = new RepoUnit())
             {
-                repoUnit.FanLog.Save(MapToFanLog(paramsTable));
+                fanLog = MapToFanLog(paramsTable);
+                repoUnit.FanLog.Save(fanLog);
                 repoUnit.Commit();
             }
+            return fanLog;
         }
 
         public List<DoorsLog> MapToDoorsLog(IDictionary<string, int> paramsTable)

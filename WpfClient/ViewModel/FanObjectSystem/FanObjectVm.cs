@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Timers;
+using DataRepository.Models;
 using GalaSoft.MvvmLight;
 using WpfClient.Model;
+using WpfClient.Model.Abstract;
 using WpfClient.Model.Entities;
 using WpfClient.Services;
 
 namespace WpfClient.ViewModel.FanObjectSystem
 {
-    class FanObjectVm : ViewModelBase, IDisposable
+    class FanObjectVm : ViewModelBase, IDisposable, IUpDatable 
     {
         private readonly DatabaseService _databaseService;
         private readonly int _fanObjectId;
@@ -27,18 +29,21 @@ namespace WpfClient.ViewModel.FanObjectSystem
             ThermometerVm = thermometerVm;
             IndicatorVm = indicatorVm;
 
-            Update();
-
-            timer = new Timer(10000);
-            timer.Elapsed += (sender, args) => Update();
-            timer.Start();
+            LoadFromDb();
         }
         public void Dispose()
         {
-            timer.Stop();
-            timer.Dispose();
         }
-        public void Update()
+        public void Update(FanLog fanLog)
+        {
+            var fanObject = _databaseService.GetFanObject(fanLog.FanNumber==_fanObjectId?fanLog:null);
+            if (fanObject == null)
+                return;
+            TubeSystemVm.Update(fanObject);
+            IndicatorVm.Update(getIndicatorValues(fanObject));
+            ThermometerVm.Update(getThermometerValues(fanObject));
+        }
+        public void LoadFromDb()
         {
             var fanObject = _databaseService.GetFanObject(_fanObjectId);
             if(fanObject==null)

@@ -52,6 +52,25 @@ namespace WpfClient.Services
             return workingFan == 0 ? StateEnum.Dangerous : StateEnum.Ok;
         }
 
-        
+        public static double GetLinearAnalogValue(string name, int value)
+        {
+            if (name.Contains("Расход"))//сравнение на меньше
+            {
+                return value* Config.Instance.AirFlowСoefficient;
+            }
+            else if (name.Contains("Давление"))//сравнение на меньше
+            {
+                return value * Config.Instance.PressureСoefficient;
+            }
+            else if (name.Contains("Температура"))//сравнение на больше
+            {
+                return value * Config.Instance.TemperatureСoefficient;
+            }
+            else if (name.Contains("Вибрация"))//сравнение на больше
+            {
+                return value * Config.Instance.PillowСoefficient;
+            }
+            return value;
+        }     
     }
 }

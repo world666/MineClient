@@ -28,6 +28,7 @@ namespace WpfClient.ViewModel
             IoC.Resolve<IRemoteListener>().InitServer("15000");
             _webServer = new WebServer(90,RemouteFanControlService.SetData);
             GBCollector.StartCollection();
+            HTTPService.HTTPServiceInit();
             CurrentView = IoC.Resolve<GeneralVm>();
         }
 

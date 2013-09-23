@@ -4,15 +4,17 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
+using DataRepository.Models;
 using GalaSoft.MvvmLight;
 using WpfClient.Model;
+using WpfClient.Model.Abstract;
 using WpfClient.Model.Concrete;
 using WpfClient.Model.Entities;
 using WpfClient.Services;
 
 namespace WpfClient.ViewModel.General
 {
-    public class GeneralVm : ViewModelBase, IDisposable
+    public class GeneralVm : ViewModelBase, IDisposable, IUpDatable
     {
         private List<FanVm> _fans;
         private ObservableCollection<string> _signalNames;
@@ -32,15 +34,9 @@ namespace WpfClient.ViewModel.General
 
             updateFanValues();
             setParameterNames();
-
-            timer = new Timer(10000);
-            timer.Elapsed += (sender, args) => updateFanValues();
-            timer.Start();
         }
         public void Dispose()
         {
-            timer.Stop();
-            timer.Dispose();
         }
         public DateTimeVm DateTime { get { return IoC.Resolve<DateTimeVm>(); } }
 
@@ -83,6 +79,18 @@ namespace WpfClient.ViewModel.General
             }).ContinueWith(task => task.Result.ForEach(s => _signalNames.Add(s)));
         }
 
+        public void Update(FanLog fanLog)
+        {
+            if (_fans.Count != Config.Instance.FanObjectConfig.FanObjectCount)
+                initialize();
+            var parameterList = new List<ParameterVm>();
+            var fanObject = _databaseService.GetFanObject(fanLog);
+            parameterList.Add(checkRemoteSignalState(fanObject.FanObjectId));
+            parameterList.Add(getFanNumberParameter(fanObject));
+            parameterList.Add(getFanStateParameter(fanObject));
+            fanObject.Parameters.ForEach(p => parameterList.Add(new ParameterVm(p)));
+            _fans[fanObject.FanObjectId-1].Values = parameterList;
+        }
         private void updateFanValues()
         {
             if(_fans.Count!=Config.Instance.FanObjectConfig.FanObjectCount)
@@ -101,10 +109,6 @@ namespace WpfClient.ViewModel.General
                 parametersList[i - 1].Add(getFanStateParameter(fanObject));
                 fanObject.Parameters.ForEach(p => parametersList[i - 1].Add(new ParameterVm(p)));
             }
-
-                    IoC.Resolve<HTTPService>().WriteDataToIndexFile(parametersList);
-                    //save data to index.html for http server
-
             Application.Current.Dispatcher.BeginInvoke(new Action(() =>
             {
                 for (var i = 0; i < parametersList.Count; i++) _fans[i].Values = parametersList[i];

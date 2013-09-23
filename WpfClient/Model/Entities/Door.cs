@@ -8,9 +8,6 @@ namespace WpfClient.Model.Entities
 {
     public class Door
     {
-        public string Type { get; set; }
-        public string State { get; set; }
-
         public int StateId { get; set; }
         public int TypeId { get; set; }
     }

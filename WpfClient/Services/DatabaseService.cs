@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DataRepository.DataAccess.GenericRepository;
+using DataRepository.Models;
 using WpfClient.Model.Entities;
 using WpfClient.Model.Plot;
 using WpfClient.ViewModel.Plot;
@@ -56,19 +57,50 @@ namespace WpfClient.Services
 
                     var fansLogRepo = unit.FanLog;
 
-                    var fansLogId = fansLogRepo.Load().Where(f => f.FanNumber == fanOjbectNum).Max(n => n.Id);
-                    var fanLog = fansLogRepo.Find(fansLogId);
-
+                    //var fansLogId = fansLogRepo.Load().Where(f => f.FanNumber == fanOjbectNum).Max(n => n.Id);
+                    //var fanLog = fansLogRepo.Find(fansLogId);
+                    var fanLog = fansLogRepo.LastRecord(f => f.FanNumber == fanOjbectNum);
                     fanObjectVm.Parameters.AddRange(
                         fanLog.AnalogSignalLogs.Select(
                             s => new Parameter { Name = s.SignalType.Type, Value = s.SignalValue, State = SystemStateService.GetParameterState(s.SignalType.Type, s.SignalValue) }));
 
-                    fanObjectVm.Doors.AddRange(fanLog.DoorsLogs.Select(d => new Door { Type = d.DoorType.Type, State = d.DoorState.State, StateId = d.DoorStateId, TypeId = d.DoorTypeId }));
+                    fanObjectVm.Doors.AddRange(fanLog.DoorsLogs.Select(d => new Door {StateId = d.DoorStateId, TypeId = d.DoorTypeId }));
                     fanObjectVm.WorkingFanNumber = GetWorkingFanNumber(fanLog.Fan1State_Id, fanLog.Fan2State_Id);
                     fanObjectVm.Date = fanLog.Date;
                 }
             }
             catch(Exception ex)
+            {
+                //nothing in db
+            }
+            return fanObjectVm;
+        }
+
+        public FanObject GetFanObject(FanLog fanLog)
+        {
+            if (fanLog == null)
+                return null;
+            var analogNames = GetAnalogSignalNames();
+            var fanObjectVm = new FanObject { FanObjectId = fanLog.FanNumber };
+            try
+            {
+                fanObjectVm.Parameters.AddRange(
+                    fanLog.AnalogSignalLogs.Select(
+                        s =>
+                        new Parameter
+                            {
+                                Name = analogNames[s.SignalTypeId - 1],
+                                Value = SystemStateService.GetLinearAnalogValue(analogNames[s.SignalTypeId - 1],s.SignalValue),
+                                State = SystemStateService.GetParameterState(analogNames[s.SignalTypeId - 1], s.SignalValue)
+                            }));
+
+                fanObjectVm.Doors.AddRange(
+                    fanLog.DoorsLogs.Select(d => new Door {StateId = d.DoorStateId, TypeId = d.DoorTypeId}));
+                fanObjectVm.WorkingFanNumber = GetWorkingFanNumber(fanLog.Fan1State_Id, fanLog.Fan2State_Id);
+                fanObjectVm.Date = fanLog.Date;
+
+            }
+            catch (Exception ex)
             {
                 //nothing in db
             }

@@ -1,7 +1,9 @@
-﻿namespace WpfClient.Model.Abstract
+﻿using DataRepository.Models;
+
+namespace WpfClient.Model.Abstract
 {
     public interface IDataInserter
     {
-        void InsertData(string data);
+        FanLog InsertData(string data);
     }
 }
