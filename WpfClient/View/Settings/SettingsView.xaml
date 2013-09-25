@@ -54,6 +54,7 @@
         <StackPanel Grid.Column="2">
             <Button Content="Главное Окно" Command="{Binding MenuClick}" CommandParameter="FanObjectSettings"/>
             <Button Content="Датчики" Command="{Binding MenuClick}" CommandParameter="SensorSettings"/>
+            <Button Content="Пароли" Command="{Binding MenuClick}" CommandParameter="PasswordSettings"/>
         </StackPanel>
 
         <GridSplitter Grid.Column="3" IsEnabled="False" HorizontalAlignment="Stretch"/>
@@ -65,6 +66,9 @@
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type general:SensorSettingsVm}">
                     <wpfApplication3:SensorSettingsView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type general:PasswordsSettingsVm}">
+                    <wpfApplication3:PasswordsSettingsView/>
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

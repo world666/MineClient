@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using GalaSoft.MvvmLight.Command;
 using Mc.CustomControls.Model;
+using Mc.Settings.Model.Concrete;
 using WpfClient.Model;
 using System.Linq;
 using WpfClient.Services;
@@ -337,7 +338,7 @@ namespace WpfClient.ViewModel.FanObjectSystem
                 PasswordBox psd = password as PasswordBox;
                 PasswordBoxVisibilityFan1 = false;
                 FirstFanOnOffMode = RotationV1 == true ? "Отключить" : "Включить";
-                if (psd.Password == "1111")
+                if (psd.Password == Config.Instance.RemotePassword)
                 {
                     RemouteFanControlService.SetData(_fanObjectId, FirstFanOnOffMode == "Включить" ? RemouteFanState.OnFan1 : RemouteFanState.Off);
                     MessageBox.Show("Пароль введен верно", "Информация", MessageBoxButton.OK,
@@ -363,7 +364,7 @@ namespace WpfClient.ViewModel.FanObjectSystem
                 PasswordBox psd = password as PasswordBox;
                 PasswordBoxVisibilityFan2 = false;
                 SecondFanOnOffMode = RotationV2 == true ? "Отключить" : "Включить";
-                if (psd.Password == "1111")
+                if (psd.Password == Config.Instance.RemotePassword)
                 {
                     RemouteFanControlService.SetData(_fanObjectId,SecondFanOnOffMode == "Включить" ? RemouteFanState.OnFan2 : RemouteFanState.Off );
                     MessageBox.Show("Пароль введен верно", "Информация", MessageBoxButton.OK,

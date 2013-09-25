@@ -200,7 +200,7 @@
                  Text="ООО&#x0a;ДОНБАССУГЛЕАВТОМАТИКА " RenderTransformOrigin="0.445,0.41" Canvas.Left="-77"/>
         <Label Content="РЕЖИМ РАБОТЫ" Canvas.Left="1594" Width="229" FontSize="26" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                  Background="{Binding SystemState.State, Converter={StaticResource EnumToColor}}"/>
-        <Label HorizontalContentAlignment="Center" Content="{Binding SystemState.Value}" FontSize="26" Canvas.Left="1595" 
+        <Label HorizontalContentAlignment="Center" Content="{Binding SystemState.Value}" FontSize="20" Canvas.Left="1595" 
                  Canvas.Top="50" Width="229" Background="{Binding SystemState.State, Converter={StaticResource EnumToColor}}"/>
 
         <Border Grid.Row="0" Grid.Column="0" BorderThickness="1"  BorderBrush="#FFABADB3" Canvas.Top="62" Width="373" Canvas.Left="-76">

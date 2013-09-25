@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows;
+using Mc.Settings.Model.Concrete;
 using WpfClient.Model;
 using WpfClient.Model.Concrete;
 using WpfClient.Services;

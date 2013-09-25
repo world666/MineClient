@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
-using System.Globalization;
-using WpfClient.Model.Abstract;
-using WpfClient.Model.Settings;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Mc.Settings.Model.Abstract;
+using Mc.Settings.Model.Settings;
 
-namespace WpfClient.Services
+namespace Mc.Settings.Services
 {
     class MineConfig : IConfig
     {
@@ -36,7 +39,7 @@ namespace WpfClient.Services
 
         public double MaxPillowValue
         {
-            get { return (_maxPillowValue = getParameter("MaxPillowValue")); } 
+            get { return (_maxPillowValue = getParameter("MaxPillowValue")); }
             set { setParameter("MaxPillowValue", value); }
         }
 
@@ -76,6 +79,16 @@ namespace WpfClient.Services
             set { setParameter("PillowСoefficient", value); }
         }
 
+        public string RemotePassword
+        {
+            get
+            {
+                int value = Int32.Parse(ConfigurationManager.AppSettings["RemotePassword"]);
+                return (value - 1132).ToString();
+            }
+            set { setParameter("RemotePassword", value); }
+        }
+
         private double getParameter(string name)
         {
 
@@ -89,6 +102,13 @@ namespace WpfClient.Services
             //make changes
             _config.AppSettings.Settings[configKey].Value = value.ToString();
 
+            _config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
+        }
+        private void setParameter(string configKey, string value)
+        {
+            //make changes
+            _config.AppSettings.Settings[configKey].Value = value;
             _config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
         }

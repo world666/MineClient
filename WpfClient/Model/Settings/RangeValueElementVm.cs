@@ -1,3 +1,5 @@
+using Mc.Settings.Model.Settings;
+
 namespace WpfClient.Model.Settings
 {
     public class RangeValueElementVm

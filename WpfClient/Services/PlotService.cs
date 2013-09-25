@@ -113,7 +113,7 @@ namespace WpfClient.Services
                     LoadData(plotModel, plotDatas);
                 }
             }
-            catch(Exception ex)
+            catch(Exception)
             {}
         }
         public void DeleteSignal(PlotModel plotModel, string elemetName)
@@ -141,7 +141,7 @@ namespace WpfClient.Services
                     LoadData(plotModel, tmp.ToList());
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             { }
         }
     }

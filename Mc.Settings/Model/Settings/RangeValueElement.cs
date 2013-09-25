@@ -1,6 +1,5 @@
 ﻿using System.Configuration;
-
-namespace WpfClient.Model.Settings
+namespace Mc.Settings.Model.Settings
 {
     public class RangeValueElement : ConfigurationElement 
     {

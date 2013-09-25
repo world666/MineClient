@@ -75,7 +75,7 @@ namespace WpfClient.Services
                     fanObjectVm.Date = fanLog.Date;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //nothing in db
             }
@@ -96,7 +96,7 @@ namespace WpfClient.Services
                         new Parameter
                             {
                                 Name = analogNames[s.SignalTypeId - 1],
-                                Value = SystemStateService.GetLinearAnalogValue(analogNames[s.SignalTypeId - 1],s.SignalValue),
+                                Value = SystemStateService.GetLinearAnalogValue(analogNames[s.SignalTypeId - 1],s.SignalValue)
                             }));
                 fanObjectVm.Parameters.ForEach(f => f.State = SystemStateService.GetParameterState(f.Name, f.Value));
 
@@ -106,7 +106,7 @@ namespace WpfClient.Services
                 fanObjectVm.Date = fanLog.Date;
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //nothing in db
             }
@@ -172,7 +172,7 @@ namespace WpfClient.Services
                     propertyList.AddRange(fansLog.AnalogSignalLogs.Select(signal => new OnPlotClickData { Property = signal.SignalType.Type, Value = SystemStateService.GetLinearAnalogValue(signal.SignalType.Type, signal.SignalValue).ToString() }));
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //nothing in Db
             }

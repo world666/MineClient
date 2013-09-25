@@ -81,7 +81,7 @@
 
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border Height="55" BorderThickness="1" Background="{Binding State, Converter={StaticResource EnumToColor}}" 
+                                <Border  Height="55" BorderThickness="1" Background="{Binding State, Converter={StaticResource EnumToColor}}" 
                                         BorderBrush="DarkGray" Margin="10 7 10 0">
                                     <Border.InputBindings>
                                         <MouseBinding  Gesture="LeftClick" 
@@ -90,8 +90,10 @@
                                                        CommandParameter="{Binding RelativeSource={RelativeSource TemplatedParent},
                                                                                   Path=(ItemsControl.AlternationIndex)}"/>
                                     </Border.InputBindings>
-
-                                    <Label VerticalAlignment="Center" FontSize="29" FontWeight="Bold" Content="{Binding Value}" HorizontalAlignment="Center"/>
+                                    <Grid>
+                                        <ProgressBar Minimum="0" Maximum="{Binding Maximum}" Value="{Binding Value}" Width="Auto"  Height="Auto" Background="Beige" Foreground="{Binding State, Converter={StaticResource EnumToColor}}"/>
+                                        <Label HorizontalAlignment="Center"  FontSize="29" FontWeight="Bold" Content="{Binding Value}"/>
+                                    </Grid>
                                 </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

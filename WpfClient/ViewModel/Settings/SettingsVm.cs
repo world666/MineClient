@@ -54,6 +54,8 @@ namespace WpfClient.ViewModel.Settings
                 CurrentView = IoC.Resolve<FanObjectSettingsVm>();
             if (selectedOption.Equals("SensorSettings", StringComparison.InvariantCulture))
                 CurrentView = IoC.Resolve<SensorSettingsVm>();
+            if (selectedOption.Equals("PasswordSettings", StringComparison.InvariantCulture))
+                CurrentView = IoC.Resolve<PasswordsSettingsVm>();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Mc.Settings.Model.Concrete;
 using WpfClient.Model;
 using WpfClient.Model.Concrete;
 using WpfClient.Model.Entities;
@@ -19,7 +20,7 @@ namespace WpfClient.Services
                 dangerValue = -Config.Instance.FanObjectConfig.AirConsumption.DangerLevel;
                 value = -value;
             }
-            else if (name.Contains("Давление"))//сравнение на меньше
+            else if (name.Contains("Депрессия"))//сравнение на меньше
             {
                 warningValue = -Config.Instance.FanObjectConfig.Pressure.WarningLevel;
                 dangerValue = -Config.Instance.FanObjectConfig.Pressure.DangerLevel;
@@ -58,7 +59,7 @@ namespace WpfClient.Services
             {
                 return value* Config.Instance.AirFlowСoefficient;
             }
-            else if (name.Contains("Давление"))//сравнение на меньше
+            else if (name.Contains("Депрессия"))//сравнение на меньше
             {
                 return value * Config.Instance.PressureСoefficient;
             }
@@ -71,6 +72,26 @@ namespace WpfClient.Services
                 return value * Config.Instance.PillowСoefficient;
             }
             return value;
+        }
+        public static double GetMaximumValue(string name)
+        {
+            if (name.Contains("Расход"))//сравнение на меньше
+            {
+                return Config.Instance.MaxAirFlowValue;
+            }
+            else if (name.Contains("Депрессия"))//сравнение на меньше
+            {
+                return Config.Instance.MaxPressureValue;
+            }
+            else if (name.Contains("Температура"))//сравнение на больше
+            {
+                return Config.Instance.MaxTemperature;
+            }
+            else if (name.Contains("Вибрация"))//сравнение на больше
+            {
+                return Config.Instance.MaxPillowValue;
+            }
+            return 0;
         }     
     }
 }

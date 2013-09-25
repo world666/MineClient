@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using DataRepository.Models;
+using Mc.Settings.Model.Concrete;
 using WpfClient.Model;
 using WpfClient.Model.Concrete;
 using WpfClient.Model.Entities;

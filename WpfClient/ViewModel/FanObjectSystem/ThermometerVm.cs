@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight;
-using WpfClient.Model.Concrete;
+using Mc.Settings.Model.Concrete;
 using WpfClient.Model.Entities;
 
 namespace WpfClient.ViewModel.FanObjectSystem

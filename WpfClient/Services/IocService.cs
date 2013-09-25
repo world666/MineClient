@@ -1,5 +1,6 @@
 ﻿using CLTcpServer;
 using CLTcpServer.Interfaces;
+using Mc.Settings.Model.Abstract;
 using WpfClient.Model;
 using WpfClient.Model.Abstract;
 using WpfClient.Model.Concrete;
@@ -16,7 +17,6 @@ namespace WpfClient.Services
             IoC.RegisterSingleton<MainVm, MainVm>();
             IoC.RegisterInstance<IRemoteListener, TcpRemoteListener>();
             IoC.RegisterInstance<IDataInserter, DataBaseInserter>();
-            IoC.RegisterType<IConfig, MineConfig>();
             IoC.RegisterSingleton<DateTimeVm, DateTimeVm>();
         }
     }

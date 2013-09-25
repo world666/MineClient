@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Mc.Settings.Model.Concrete;
 
 namespace Mc.HTTPServer
 {
@@ -213,7 +214,7 @@ namespace Mc.HTTPServer
                     parameters[splitPost[i]] = "0";
                 }
             }
-            if (parameters["password"] != "1111")
+            if (parameters["password"] != Config.Instance.RemotePassword)
                 return false;
             remoteControl(Int32.Parse(parameters["fanObjectId"]), parameters["command"]);
             return true;

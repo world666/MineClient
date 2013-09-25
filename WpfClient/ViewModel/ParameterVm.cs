@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight;
 using WpfClient.Model;
 using WpfClient.Model.Entities;
+using WpfClient.Services;
 
 namespace WpfClient.ViewModel
 {
@@ -12,6 +13,7 @@ namespace WpfClient.ViewModel
             Value = parameter.Value.ToString(CultureInfo.InvariantCulture);
             Name = parameter.Name;
             State = parameter.State;
+            Maximum = SystemStateService.GetMaximumValue(Name).ToString();
         }
 
         public ParameterVm()
@@ -23,6 +25,13 @@ namespace WpfClient.ViewModel
         {
             get { return _value; } 
             set { _value = value; RaisePropertyChanged("Value"); }
+        }
+
+        private string _maximum;
+        public string Maximum
+        {
+            get { return _maximum; }
+            set { _maximum = value; RaisePropertyChanged("Maximum"); }
         }
         public string Name { get; set; }
         private StateEnum _state;

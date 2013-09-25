@@ -97,13 +97,11 @@
     </ApplicationDefinition>
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\EnumToColorConverter.cs" />
-    <Compile Include="Model\Abstract\IConfig.cs" />
     <Compile Include="Model\Abstract\IDataInserter.cs" />
     <Compile Include="Model\Abstract\IMsgParser.cs" />
     <Compile Include="Model\Abstract\IRemoteListener.cs" />
     <Compile Include="Model\Abstract\IUpDatable.cs" />
     <Compile Include="Model\AsyncProvider.cs" />
-    <Compile Include="Model\Concrete\Config.cs" />
     <Compile Include="Model\Concrete\DataBaseInserter.cs" />
     <Compile Include="Model\Concrete\DataForSending.cs" />
     <Compile Include="Model\Concrete\MsgParser.cs" />
@@ -118,15 +116,12 @@
     <Compile Include="Model\Plot\OxyPlotData.cs" />
     <Compile Include="Model\Plot\PlotData.cs" />
     <Compile Include="Model\Settings\FanObjectConfigData.cs" />
-    <Compile Include="Model\Settings\FanObjectConfigSection.cs" />
-    <Compile Include="Model\Settings\RangeValueElement.cs" />
     <Compile Include="Model\Settings\RangeValueElementVm.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\DatabaseService.cs" />
     <Compile Include="Services\FanService.cs" />
     <Compile Include="Services\HTTPService.cs" />
     <Compile Include="Services\IocService.cs" />
-    <Compile Include="Services\MineConfig.cs" />
     <Compile Include="Services\RemoteService.cs" />
     <Compile Include="Services\PlotService.cs" />
     <Compile Include="Services\RemouteFanControlService.cs" />
@@ -144,6 +139,7 @@
     <Compile Include="ViewModel\Plot\OnPlotClickVm.cs" />
     <Compile Include="ViewModel\Plot\PlotVm.cs" />
     <Compile Include="ViewModel\Settings\FanObjectSettingsVm.cs" />
+    <Compile Include="ViewModel\Settings\PasswordsSettingsVm.cs" />
     <Compile Include="ViewModel\Settings\SensorSettingsVm.cs" />
     <Compile Include="ViewModel\Settings\SettingsVm.cs" />
     <Compile Include="View\FanObjectView.xaml.cs">
@@ -163,6 +159,9 @@
     </Compile>
     <Compile Include="View\Settings\FanObjectSettingsView.xaml.cs">
       <DependentUpon>FanObjectSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Settings\PasswordsSettingsView.xaml.cs">
+      <DependentUpon>PasswordsSettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Settings\SensorSettingsView.xaml.cs">
       <DependentUpon>SensorSettingsView.xaml</DependentUpon>
@@ -203,6 +202,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Settings\FanObjectSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Settings\PasswordsSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -257,6 +260,10 @@
     <ProjectReference Include="..\Mc.HTTPServer\Mc.HTTPServer.csproj">
       <Project>{fe5cf38d-dc04-4b90-ad84-30dce7b09d42}</Project>
       <Name>Mc.HTTPServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mc.Settings\Mc.Settings.csproj">
+      <Project>{f1e6160f-f1aa-4c5d-84a5-aac99904f926}</Project>
+      <Name>Mc.Settings</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

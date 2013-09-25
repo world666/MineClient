@@ -14,7 +14,6 @@ namespace WpfClient.ViewModel.FanObjectSystem
     {
         private readonly DatabaseService _databaseService;
         private readonly int _fanObjectId;
-        private Timer timer;
 
         public TubeSystemVm TubeSystemVm { get; set; }
         public ThermometerVm ThermometerVm { get; set; }

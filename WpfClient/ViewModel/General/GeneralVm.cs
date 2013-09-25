@@ -6,6 +6,7 @@ using System.Timers;
 using System.Windows;
 using DataRepository.Models;
 using GalaSoft.MvvmLight;
+using Mc.Settings.Model.Concrete;
 using WpfClient.Model;
 using WpfClient.Model.Abstract;
 using WpfClient.Model.Concrete;
@@ -23,7 +24,6 @@ namespace WpfClient.ViewModel.General
         private readonly FanService _fanService;
         private ParameterVm _remoteSignalState { get; set; }
 
-        private Timer timer;
 
         public GeneralVm(DatabaseService databaseService, FanService fanService)
         {
@@ -72,7 +72,7 @@ namespace WpfClient.ViewModel.General
 
             Task.Run(() =>
             {
-                var signals = new List<string> {"Состояние сигнала","Вентилятор в работе", "Состояние вентилятора"};
+                var signals = new List<string> {"Состояние сигнала","Вентилятор в работе", "Режим работы вентилятора"};
                 signals.AddRange(_databaseService.GetAnalogSignalNames());
 
                 return signals;
@@ -130,6 +130,7 @@ namespace WpfClient.ViewModel.General
                 SignalState.Value = "стабильный";
                 SignalState.State = StateEnum.Ok;
             }
+            SignalState.Maximum = "0";
             return SignalState;
         }
 
@@ -140,7 +141,7 @@ namespace WpfClient.ViewModel.General
 
         private ParameterVm getFanNumberParameter(FanObject fanObject)
         {
-            var parameter = new ParameterVm {Value = fanObject.WorkingFanNumber == 0 ? "АВАРИЯ" : string.Format("№{0}", fanObject.WorkingFanNumber), Name = "Вентилятор в работе"};
+            var parameter = new ParameterVm {Value = fanObject.WorkingFanNumber == 0 ? "ОСТАНОВЛЕН" : string.Format("№{0}", fanObject.WorkingFanNumber), Maximum = "0", Name = "Вентилятор в работе"};
             parameter.State = SystemStateService.GetFanState(fanObject.WorkingFanNumber);
 
             return parameter;

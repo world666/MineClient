@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WpfClient.Model.Concrete;
+using Mc.Settings.Model.Concrete;
 using WpfClient.Services;
 
 namespace WpfClient.ViewModel.Settings

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using WpfClient.Model.Concrete;
+using Mc.Settings.Model.Concrete;
 using WpfClient.Model.Settings;
 
 namespace WpfClient.ViewModel.Settings

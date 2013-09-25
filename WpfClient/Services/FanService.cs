@@ -24,7 +24,8 @@ namespace WpfClient.Services
             {
                 Name = "Состояние вентилятора",
                 Value = mode,
-                State =  state 
+                State =  state, 
+                Maximum = "0"
             };
         }
 

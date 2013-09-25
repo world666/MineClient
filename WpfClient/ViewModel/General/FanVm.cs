@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using Mc.Settings.Model.Concrete;
 using Ninject.Parameters;
 using WpfClient.Model;
 using WpfClient.Model.Concrete;
@@ -42,6 +43,7 @@ namespace WpfClient.ViewModel.General
                 }
             }
         }
+
 
         public List<ParameterVm> Values
         {
