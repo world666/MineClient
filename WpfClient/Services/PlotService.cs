@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 using DataRepository.DataAccess.GenericRepository;
 using Ninject.Parameters;
 using OxyPlot;
@@ -107,7 +108,9 @@ namespace WpfClient.Services
                         .Select(f => new { Date = f.Date, AnalogSignal = f.AnalogSignalLogs.FirstOrDefault(a => a.SignalType.Type == paramName) })
                         .Select(s => new OxyPlotData { DateTime = s.Date, Value = s.AnalogSignal.SignalValue, ParamName = s.AnalogSignal.SignalType.Type });
 
-                    LoadData(plotModel, tmp.ToList());
+                    List<OxyPlotData> plotDatas = tmp.ToList();
+                    plotDatas.ForEach(f => f.Value = SystemStateService.GetLinearAnalogValue(f.ParamName, f.Value));
+                    LoadData(plotModel, plotDatas);
                 }
             }
             catch(Exception ex)

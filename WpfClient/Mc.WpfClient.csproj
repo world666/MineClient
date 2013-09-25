@@ -106,7 +106,6 @@
     <Compile Include="Model\Concrete\Config.cs" />
     <Compile Include="Model\Concrete\DataBaseInserter.cs" />
     <Compile Include="Model\Concrete\DataForSending.cs" />
-    <Compile Include="Model\Concrete\GBCollector.cs" />
     <Compile Include="Model\Concrete\MsgParser.cs" />
     <Compile Include="Model\Concrete\RemoteData.cs" />
     <Compile Include="Model\Concrete\TcpRemoteListener.cs" />

@@ -25,10 +25,9 @@ namespace WpfClient.ViewModel
         {
             Database.SetInitializer(new MineDbInitializer());
             
-            IoC.Resolve<IRemoteListener>().InitServer("15000");
-            _webServer = new WebServer(90,RemouteFanControlService.SetData);
-            GBCollector.StartCollection();
-            HTTPService.HTTPServiceInit();
+            IoC.Resolve<IRemoteListener>().InitServer("15000");//start and init tcp server for remote exchange
+            _webServer = new WebServer(90,RemouteFanControlService.SetData);//start web server port 90
+            HTTPService.HTTPServiceInit();//start write data to index file for web server
             CurrentView = IoC.Resolve<GeneralVm>();
         }
 

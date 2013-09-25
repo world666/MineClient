@@ -44,7 +44,7 @@ namespace WpfClient.Model.Concrete
                     var update = IoC.Resolve<MainVm>().CurrentView as IUpDatable;//update views if possible
                     if(update!=null)
                         update.Update(fanLog);  
-                    HTTPService.UpdateData(fanLog);
+                    HTTPService.UpdateData(fanLog);//update index file for web server
                 };
         }
 

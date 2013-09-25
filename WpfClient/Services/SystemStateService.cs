@@ -8,7 +8,7 @@ namespace WpfClient.Services
 {
     class SystemStateService
     {
-        public static StateEnum GetParameterState(string name,int value)
+        public static StateEnum GetParameterState(string name,double value)
         {
             double warningValue = 100;
             double dangerValue = 100;
@@ -52,7 +52,7 @@ namespace WpfClient.Services
             return workingFan == 0 ? StateEnum.Dangerous : StateEnum.Ok;
         }
 
-        public static double GetLinearAnalogValue(string name, int value)
+        public static double GetLinearAnalogValue(string name, double value)
         {
             if (name.Contains("Расход"))//сравнение на меньше
             {

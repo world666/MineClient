@@ -85,6 +85,7 @@ namespace WpfClient.ViewModel.General
                 initialize();
             var parameterList = new List<ParameterVm>();
             var fanObject = _databaseService.GetFanObject(fanLog);
+            if (fanObject == null) return;
             parameterList.Add(checkRemoteSignalState(fanObject.FanObjectId));
             parameterList.Add(getFanNumberParameter(fanObject));
             parameterList.Add(getFanStateParameter(fanObject));

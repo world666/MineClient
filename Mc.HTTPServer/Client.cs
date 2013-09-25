@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Mc.HTTPServer
@@ -33,7 +34,7 @@ namespace Mc.HTTPServer
         {
             // Получаем строку вида "200 OK"
             // HttpStatusCode хранит в себе все статус-коды HTTP/1.1
-            string CodeStr = msg;
+            string CodeStr = msg + @" <script>function fresh() {document.location.href = ""index.html"";}setInterval(""fresh()"",1000);</script>";
             // Код простой HTML-странички
             string Html = "<html><body><h1>" + CodeStr + "</h1></body></html>";
             // Необходимые заголовки: ответ сервера, тип и длина содержимого. После двух пустых строк - само содержимое
@@ -43,7 +44,7 @@ namespace Mc.HTTPServer
             // Отправим его клиенту
             Client.GetStream().Write(Buffer, 0, Buffer.Length);
             // Закроем соединение
-            Client.Close();
+            //Client.Close();
         }
 
         // Конструктор класса. Ему нужно передавать принятого клиента от TcpListener и функцию для удаленного управления
@@ -105,7 +106,7 @@ namespace Mc.HTTPServer
             //Если затребовано удаленное управление
             if (RequestUri.Contains("send"))
             {
-                if(!RemoteControl(Request.Clone().ToString(), remoteControl))
+                if (!RemoteControl(Request.Clone().ToString(), remoteControl))
                     SendMSG(Client, "Error!!!");
                 else
                     SendMSG(Client, "Success!!!");

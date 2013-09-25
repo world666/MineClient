@@ -66,8 +66,7 @@ namespace WpfClient.Services
                             new Parameter
                                 {
                                     Name = s.SignalType.Type,
-                                    Value = SystemStateService.GetLinearAnalogValue(s.SignalType.Type, s.SignalValue),
-                                    State = SystemStateService.GetParameterState(s.SignalType.Type, s.SignalValue)
+                                    Value = SystemStateService.GetLinearAnalogValue(s.SignalType.Type, s.SignalValue)
                                 }));
 
                     fanObjectVm.Doors.AddRange(
@@ -76,7 +75,7 @@ namespace WpfClient.Services
                     fanObjectVm.Date = fanLog.Date;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 //nothing in db
             }
@@ -98,8 +97,8 @@ namespace WpfClient.Services
                             {
                                 Name = analogNames[s.SignalTypeId - 1],
                                 Value = SystemStateService.GetLinearAnalogValue(analogNames[s.SignalTypeId - 1],s.SignalValue),
-                                State = SystemStateService.GetParameterState(analogNames[s.SignalTypeId - 1], s.SignalValue)
                             }));
+                fanObjectVm.Parameters.ForEach(f => f.State = SystemStateService.GetParameterState(f.Name, f.Value));
 
                 fanObjectVm.Doors.AddRange(
                     fanLog.DoorsLogs.Select(d => new Door {StateId = d.DoorStateId, TypeId = d.DoorTypeId}));
@@ -122,7 +121,7 @@ namespace WpfClient.Services
         private int GetWorkingFanNumber(int? fan1State, int? fan2State)
         {
             return fan1State == fan2State ? 0 : fan1State == 2 ? 1 : 2;
-        } 
+        }
 
 
         public List<OnPlotClickData> FindDataByIdAndDate(int fanNum, DateTime date)
@@ -144,7 +143,7 @@ namespace WpfClient.Services
                     propertyList.Add(new OnPlotClickData { Property = "Вентилятор 2", Value = fansLog.Fan2State.State });
 
                     propertyList.AddRange(fansLog.DoorsLogs.Select(doorLog => new OnPlotClickData { Property = doorLog.DoorType.Type, Value = doorLog.DoorState.State }));
-                    propertyList.AddRange(fansLog.AnalogSignalLogs.Select(signal => new OnPlotClickData { Property = signal.SignalType.Type, Value = signal.SignalValue.ToString() }));
+                    propertyList.AddRange(fansLog.AnalogSignalLogs.Select(signal => new OnPlotClickData { Property = signal.SignalType.Type, Value = SystemStateService.GetLinearAnalogValue(signal.SignalType.Type, signal.SignalValue).ToString() }));
                 }
             }
             catch (Exception)
@@ -170,7 +169,7 @@ namespace WpfClient.Services
                     propertyList.Add(new OnPlotClickData { Property = "Вентилятор 2", Value = fansLog.Fan2State.State });
 
                     propertyList.AddRange(fansLog.DoorsLogs.Select(doorLog => new OnPlotClickData { Property = doorLog.DoorType.Type, Value = doorLog.DoorState.State }));
-                    propertyList.AddRange(fansLog.AnalogSignalLogs.Select(signal => new OnPlotClickData { Property = signal.SignalType.Type, Value = signal.SignalValue.ToString() }));
+                    propertyList.AddRange(fansLog.AnalogSignalLogs.Select(signal => new OnPlotClickData { Property = signal.SignalType.Type, Value = SystemStateService.GetLinearAnalogValue(signal.SignalType.Type, signal.SignalValue).ToString() }));
                 }
             }
             catch (Exception ex)

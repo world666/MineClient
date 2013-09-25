@@ -126,6 +126,12 @@ namespace WpfClient.Services
 
 
                     streamWriter.WriteLine("</table>");
+                    streamWriter.WriteLine("<script>");
+                    streamWriter.WriteLine("function fresh() {");
+                    streamWriter.WriteLine("location.reload();");
+                    streamWriter.WriteLine("}");
+                    streamWriter.WriteLine(@"setInterval(""fresh()"",19000);");
+                    streamWriter.WriteLine("</script>");
                     streamWriter.WriteLine("</body>");
                     streamWriter.WriteLine("</html>");
                     streamWriter.Close();
