@@ -142,7 +142,8 @@ namespace CLTcpServer
         // Извлечение сообщения от клиента
         private void ReceiveRun(object num)
         {
-            bool closeConnection = false; 
+            bool closeConnection = false;
+            int repeatNum = 16;
             while (true)
             {
                 try
@@ -178,7 +179,6 @@ namespace CLTcpServer
                         }
                         // Вынужденная строчка для экономия ресурсов процессора.
                         // Неизящный способ.
-                        Thread.Sleep(500);
                     }
                     else if (closeConnection)
                     {
@@ -187,6 +187,10 @@ namespace CLTcpServer
                         clients.RemoveAt((int)num);
                         break;
                     }
+                    Thread.Sleep(500);
+                    repeatNum--;
+                    if (repeatNum == 0)
+                        closeConnection = true;
                 }
                 catch (Exception ex)
                 {

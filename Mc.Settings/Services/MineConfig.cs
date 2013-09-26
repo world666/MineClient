@@ -55,6 +55,12 @@ namespace Mc.Settings.Services
             set { setParameter("MaxPressureValue", value); }
         }
 
+        public double MaxSignalQualityValue
+        {
+            get { return (getParameter("MaxSignalQualityValue")); }
+            set { setParameter("MaxSignalQualityValue", value); }
+        }
+
         public double TemperatureСoefficient
         {
             get { return (getParameter("TemperatureСoefficient")); }

@@ -91,6 +91,10 @@ namespace WpfClient.Services
             {
                 return Config.Instance.MaxPillowValue;
             }
+            else if (name.Contains("Качество"))//сравнение на больше
+            {
+                return Config.Instance.MaxSignalQualityValue;
+            }
             return 0;
         }     
     }

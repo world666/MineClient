@@ -17,6 +17,8 @@ namespace Mc.Settings.Model.Abstract
 
         double MaxPressureValue { get; set; }
 
+        double MaxSignalQualityValue { get; set; }
+
         double TemperatureСoefficient { get; set; }
 
         double PillowСoefficient { get; set; }

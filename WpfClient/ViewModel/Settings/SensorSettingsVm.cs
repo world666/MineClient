@@ -30,6 +30,11 @@ namespace WpfClient.ViewModel.Settings
             get { return Config.Instance.MaxPillowValue; }
             set { Config.Instance.MaxPillowValue = value; }
         }
+        public double MaxSignalQualityText
+        {
+            get { return Config.Instance.MaxSignalQualityValue; }
+            set { Config.Instance.MaxSignalQualityValue = value; }
+        }
         public double TemperatureСoefficientText
         {
             get { return Config.Instance.TemperatureСoefficient; }

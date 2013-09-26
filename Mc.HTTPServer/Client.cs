@@ -200,6 +200,8 @@ namespace Mc.HTTPServer
         {
             //get parameters
             int start = query.IndexOf("password");
+            if (start == -1)
+                return false;
             string post = query.Substring(start);
             string[] splitPost = post.Split(new char[]{'&','='},StringSplitOptions.RemoveEmptyEntries);
             Dictionary<string, string> parameters = new Dictionary<string, string>();
