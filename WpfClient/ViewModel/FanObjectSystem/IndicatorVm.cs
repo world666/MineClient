@@ -32,11 +32,11 @@ namespace WpfClient.ViewModel.FanObjectSystem
             Levels[0] = Values[0] / _maxAirFlowValue;
             Levels[1] = Values[1] / _maxPressureValue;
 
-            /*for (var i = 2; i < _indicatorCount; i++)
+            for (var i = 2; i < indicatorValues.Count; i++)
             {
-                Values[i] = indicatorValues[i%2].Value;
-                Levels[i] = indicatorValues[i%2].Value / _maxPillowValue;
-            }*/
+                Values[i] = indicatorValues[i].Value;
+                Levels[i] = indicatorValues[i].Value / _maxPillowValue;
+            }
         }
 
         private void initialize()

@@ -23,5 +23,6 @@ namespace DataRepository.DataAccess.GenericRepository
         void Save(TEntity entity);
         int Count();
         void Refresh(TEntity entity);
+        void SaveChanges();
     }
 }

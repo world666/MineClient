@@ -5,8 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:elements="clr-namespace:Mc.CustomControls.Controls;assembly=Mc.CustomControls"
              xmlns:converters="clr-namespace:WpfClient.Converters"
-
+             xmlns:fanObjectSystem="clr-namespace:WpfClient.ViewModel.FanObjectSystem"
              mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance fanObjectSystem:FanObjectVm}"
              d:DesignHeight="1000" d:DesignWidth="1900" Background="LightBlue">
 
     <UserControl.Resources>
@@ -238,10 +239,34 @@
 
             <UniformGrid Rows="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2"
                          DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.IndicatorVm}">
-                <elements:IndicatorControl Value="{Binding Values[2]}" Level="{Binding Levels[2]}"/>
-                <elements:IndicatorControl Value="{Binding Values[3]}" Level="{Binding Levels[3]}"/>
-                <elements:IndicatorControl Value="{Binding Values[4]}" Level="{Binding Levels[4]}"/>
-                <elements:IndicatorControl Value="{Binding Values[5]}" Level="{Binding Levels[5]}"/>
+                <Border>
+                    <elements:IndicatorControl Value="{Binding Values[2]}" Level="{Binding Levels[2]}"/>
+                    <Border.InputBindings>
+                        <MouseBinding  Gesture="LeftClick" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.ParameterClick}"
+                                       CommandParameter="7"/>
+                    </Border.InputBindings>
+                </Border>
+                <Border>
+                    <elements:IndicatorControl Value="{Binding Values[3]}" Level="{Binding Levels[3]}"/>
+                    <Border.InputBindings>
+                        <MouseBinding  Gesture="LeftClick" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.ParameterClick}"
+                                       CommandParameter="8"/>
+                    </Border.InputBindings>
+                </Border>
+                <Border>
+                    <elements:IndicatorControl Value="{Binding Values[4]}" Level="{Binding Levels[4]}"/>
+                    <Border.InputBindings>
+                        <MouseBinding  Gesture="LeftClick" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.ParameterClick}"
+                                       CommandParameter="9"/>
+                    </Border.InputBindings>
+                </Border>
+                <Border>
+                    <elements:IndicatorControl Value="{Binding Values[5]}" Level="{Binding Levels[5]}"/>
+                    <Border.InputBindings>
+                        <MouseBinding  Gesture="LeftClick" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.ParameterClick}"
+                                       CommandParameter="10"/>
+                    </Border.InputBindings>
+                </Border>
             </UniformGrid>
 
             <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" Text="Вибрация подшипников, мкм" HorizontalContentAlignment="Center"
@@ -259,9 +284,21 @@
 
             <UniformGrid Rows="1" Grid.Column="2" Grid.Row="8"
                          DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.IndicatorVm}">
-                <elements:IndicatorControl Value="{Binding Values[0]}" Level="{Binding Levels[0]}"/>
-                <elements:IndicatorControl Value="{Binding Values[1]}" Level="{Binding Levels[1]}"/>
-            </UniformGrid>
+                <Border>
+                    <elements:IndicatorControl Value="{Binding Values[0]}" Level="{Binding Levels[0]}"/>
+                    <Border.InputBindings>
+                        <MouseBinding  Gesture="LeftClick" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.ParameterClick}"
+                                       CommandParameter="1"/>
+                    </Border.InputBindings>
+                </Border>
+                <Border>
+                    <elements:IndicatorControl Value="{Binding Values[1]}" Level="{Binding Levels[1]}"/>
+                    <Border.InputBindings>
+                        <MouseBinding  Gesture="LeftClick" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.ParameterClick}"
+                                       CommandParameter="2"/>
+                    </Border.InputBindings>
+                </Border>
+             </UniformGrid>
 
             <UniformGrid Grid.Column="2" Grid.Row="7" Rows="1">
                 <TextBox Text="Q, м3/с" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="DarkSlateGray"
@@ -272,10 +309,34 @@
 
             <UniformGrid Rows="1" Grid.Column="4" Grid.Row="6" Grid.RowSpan="3"
                          DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.ThermometerVm}">
-                <elements:ThermometerControl Level="{Binding Levels[0]}"/>
-                <elements:ThermometerControl Level="{Binding Levels[1]}"/>
-                <elements:ThermometerControl Level="{Binding Levels[2]}"/>
-                <elements:ThermometerControl Level="{Binding Levels[3]}"/>
+                <Border>
+                    <elements:ThermometerControl Level="{Binding Levels[0]}"/>
+                    <Border.InputBindings>
+                        <MouseBinding  Gesture="LeftClick" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.ParameterClick}"
+                                       CommandParameter="3"/>
+                    </Border.InputBindings>
+                </Border>
+                <Border>
+                    <elements:ThermometerControl Level="{Binding Levels[1]}"/>
+                    <Border.InputBindings>
+                        <MouseBinding  Gesture="LeftClick" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.ParameterClick}"
+                                       CommandParameter="4"/>
+                    </Border.InputBindings>
+                </Border>
+                <Border>
+                     <elements:ThermometerControl Level="{Binding Levels[2]}"/>
+                    <Border.InputBindings>
+                        <MouseBinding  Gesture="LeftClick" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.ParameterClick}"
+                                       CommandParameter="5"/>
+                    </Border.InputBindings>
+                </Border>
+                <Border>
+                    <elements:ThermometerControl Level="{Binding Levels[3]}"/>
+                    <Border.InputBindings>
+                        <MouseBinding  Gesture="LeftClick" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.ParameterClick}"
+                                       CommandParameter="6"/>
+                    </Border.InputBindings>
+                </Border>
             </UniformGrid>
 
             <TextBlock Grid.Column="4" Grid.Row="4" Text="Температура подшипников, град. С" TextAlignment="Center" 

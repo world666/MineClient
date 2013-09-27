@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -19,32 +20,21 @@ namespace WpfClient.ViewModel
     class HistoryVm : ViewModelBase, IDisposable
     {
         #region Property
-        private DateTime _dateTimeFrom = DateTime.Now;
-        public DateTime DateTimeFrom
+
+        public ObservableCollection<OnPlotClickData> ListCollection { get; set; }
+
+        private int _progressMax;
+        public int ProgressMax
         {
-            get
-            {
-                return _dateTimeFrom;
-            }
-            set
-            {
-                _dateTimeFrom = value;
-                RaisePropertyChanged("DateTimeFrom");
-            }
+            get { return _progressMax; }
+            set { _progressMax = value; RaisePropertyChanged("ProgressMax"); }
         }
 
-        private DateTime _dateTimeTill = DateTime.Now;
-        public DateTime DateTimeTill
+        private int _progressValue;
+        public int ProgressValue
         {
-            get
-            {
-                return _dateTimeTill;
-            }
-            set
-            {
-                _dateTimeTill = value;
-                RaisePropertyChanged("DateTimeTill");
-            }
+            get { return _progressValue; }
+            set { _progressValue = value; RaisePropertyChanged("ProgressValue"); }
         }
 
         private string _fanObjectId="1";
@@ -54,24 +44,46 @@ namespace WpfClient.ViewModel
             set { _fanObjectId = value; RaisePropertyChanged("FanObjectId"); }
         }
 
-        private string _dateDisplay = DateTime.Now.ToString();
-        public string DateDisplay
+        private string _dateDisplayFrom = (DateTime.Now - new TimeSpan(24, 0, 0)).ToString();
+
+        public string DateDisplayFrom
         {
-            get { return _dateDisplay; }
-            set { _dateDisplay = value; RaisePropertyChanged("DateDisplay");}
+            get { return _dateDisplayFrom; }
+            set { _dateDisplayFrom = value; RaisePropertyChanged("DateDisplayFrom"); }
         }
 
-        private DateTime _dateSelected = DateTime.Now;
-        public DateTime DateSelected
+        private DateTime _dateSelectedFrom;
+        public DateTime DateSelectedFrom
         {
             get
             {
-                return _dateSelected;
+                return _dateSelectedFrom;
             }
             set
             {
-                _dateSelected = value;
-                RaisePropertyChanged("DateSelected");
+                _dateSelectedFrom = value;
+                RaisePropertyChanged("DateSelectedFrom");
+            }
+        }
+
+        private string _dateDisplayTill = DateTime.Now.ToString();
+        public string DateDisplayTill
+        {
+            get { return _dateDisplayTill; }
+            set { _dateDisplayTill = value; RaisePropertyChanged("DateDisplayTill"); }
+        }
+
+        private DateTime _dateSelectedTill = DateTime.Now;
+        public DateTime DateSelectedTill
+        {
+            get
+            {
+                return _dateSelectedTill;
+            }
+            set
+            {
+                _dateSelectedTill = value;
+                RaisePropertyChanged("DateSelectedTill");
             }
         }
 
@@ -113,21 +125,69 @@ namespace WpfClient.ViewModel
             get { return _showRecordClickCommand ?? (_showRecordClickCommand = new RelayCommand(ShowRecordClickHandler)); }
         }
 
-        public ObservableCollection<OnPlotClickData> ListCollection { get; set; }
-        #endregion
-
-
+        
         private RelayCommand _backArrowClickCommand;
         public ICommand BackArrowClick
         {
             get { return _backArrowClickCommand ?? (_backArrowClickCommand = new RelayCommand(BackArrowClickHandler)); }
         }
+        private RelayCommand _deletClickCommand;
+        public ICommand DeleteClick
+        {
+            get { return _deletClickCommand ?? (_deletClickCommand = new RelayCommand(DeleteClickHandler)); }
+        }
+        private RelayCommand _deletAllClickCommand;
+        public ICommand DeleteAllClick
+        {
+            get { return _deletAllClickCommand ?? (_deletAllClickCommand = new RelayCommand(DeleteAllClickHandler)); }
+        }
+        #endregion
+
 
         private void BackArrowClickHandler()
         {
             IDisposable dispose = (IDisposable)IoC.Resolve<MainVm>().CurrentView;
             dispose.Dispose();
             IoC.Resolve<MainVm>().CurrentView = IoC.Resolve<GeneralVm>();
+        }
+        private void DeleteClickHandler()
+        {
+            int curRec = 0;
+            if (!Int32.TryParse(CurrentRecord,out curRec))
+                return;
+            var result = MessageBox.Show("Вы хотите удалить выбранную записи?", "Вопрос", MessageBoxButton.YesNo,
+                                MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                IoC.Resolve<DatabaseService>().DeleteRecordById(_recordsId[curRec - 1]);
+                ReadDataFromDB();
+            }
+        }
+
+        private void DeleteAllClickHandler()
+        {
+            var result = MessageBox.Show("Вы хотите удалить все выбранные записи?", "Вопрос", MessageBoxButton.YesNo,
+                                MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                ProgressMax = _recordsId.Count;
+                Thread deleteThread = new Thread(DeleteThread);
+                deleteThread.Start();
+            }
+        }
+        private void DeleteThread()
+        {
+            for (int i = 0; i < _recordsId.Count; i++)
+            {
+                IoC.Resolve<DatabaseService>().DeleteRecordById(_recordsId[i]);
+                ProgressValue = i;
+            }
+            MessageBox.Show("Все записи успешно удалены", "Информация", MessageBoxButton.OK,
+                                MessageBoxImage.Information);
+            ProgressMax = 1;
+            ProgressValue = 0;
+            Application.Current.Dispatcher.BeginInvoke(new Action(ReadDataFromDB));
+            
         }
 
         private void FindClickHandler()
@@ -163,6 +223,9 @@ namespace WpfClient.ViewModel
         public HistoryVm()
         {
             ListCollection = new ObservableCollection<OnPlotClickData>();
+            _dateSelectedFrom = new DateTime(DateTime.Now.Year,DateTime.Now.Month,DateTime.Now.Day - 1);
+            ProgressMax = 1;
+            ProgressValue = 0;
         }
         public void Dispose()
         {}
@@ -178,13 +241,13 @@ namespace WpfClient.ViewModel
             }
             if (_iFanObjectId <= 0)
             {
-                MessageBox.Show("Номер вентиляторной установки не может быть >= 0", "Ошибка", MessageBoxButton.OKCancel,
+                MessageBox.Show("Номер вентиляторной установки не может быть <= 0", "Ошибка", MessageBoxButton.OKCancel,
                                 MessageBoxImage.Error);
                 return false;
             }
-            if (DateTimeFrom > DateTimeTill)
+            if (DateSelectedFrom > DateSelectedTill)
             {
-                MessageBox.Show("Время (от) не может быть быть больше времени (до)", "Ошибка", MessageBoxButton.OKCancel,
+                MessageBox.Show("Дата (от) не может быть быть больше времени (до)", "Ошибка", MessageBoxButton.OKCancel,
                                 MessageBoxImage.Error);
                 return false;
             }
@@ -206,10 +269,8 @@ namespace WpfClient.ViewModel
         }
         private void ReadDataFromDB()
         {
-            DateTime dateFrom = new DateTime(DateSelected.Year, DateSelected.Month, DateSelected.Day, DateTimeFrom.Hour, DateTimeFrom.Minute, DateTimeFrom.Second);
-            DateTime dateTill = new DateTime(DateSelected.Year, DateSelected.Month, DateSelected.Day, DateTimeTill.Hour, DateTimeTill.Minute, DateTimeTill.Second);
             var databaseService = IoC.Resolve<DatabaseService>();
-            _recordsId = databaseService.HistoryGetRecordsCount(Int32.Parse(FanObjectId), dateFrom, dateTill);
+            _recordsId = databaseService.HistoryGetRecordsCount(Int32.Parse(FanObjectId), DateSelectedFrom, DateSelectedTill);
             if (_recordsId.Count <= 0)
             {
                 CurrentRecord = "";

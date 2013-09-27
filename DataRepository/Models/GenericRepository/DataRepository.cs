@@ -73,7 +73,10 @@ namespace DataRepository.DataAccess.GenericRepository
         public virtual int Count() {
             return _context.Set<TEntity>().Count();
         }
-
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
+        }
         public void Dispose() {
             if (_context != null)
                 _context.Dispose();

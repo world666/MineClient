@@ -19,6 +19,7 @@ namespace WpfClient.ViewModel
     public class MainVm : ViewModelBase
     {
         private object _currentView;
+        private object _prevView;
         private WebServer _webServer;
         
         public MainVm()
@@ -36,8 +37,18 @@ namespace WpfClient.ViewModel
             get { return _currentView; }
             set
             {
+                PrevView = _currentView;
                 _currentView = value;
                 RaisePropertyChanged("CurrentView");
+            }
+        }
+
+        public object PrevView
+        {
+            get { return _prevView; }
+            private set
+            {
+                _prevView = value; 
             }
         }
 

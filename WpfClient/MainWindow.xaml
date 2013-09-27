@@ -15,6 +15,7 @@
         xmlns:plot2="clr-namespace:WpfClient.View.Plot"
         mc:Ignorable="d"    
         d:DataContext="{d:DesignInstance loc:MainVm}"
+        Icon="Images\window.png"
         Title="MainWindow" Height="Auto" Width="Auto">
     <Grid>
         <Grid.RowDefinitions>
@@ -39,7 +40,7 @@
                           Command="{Binding MenuClick}" CommandParameter="GeneralView" />
                 <MenuItem Header="График" VerticalAlignment="Center" Width="Auto"
                           Command="{Binding MenuClick}" CommandParameter="PlotView" />
-            </MenuItem>
+            </MenuItem> 
         </Menu>
 
 

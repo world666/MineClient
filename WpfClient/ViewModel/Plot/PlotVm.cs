@@ -168,7 +168,7 @@ namespace WpfClient.ViewModel.Plot
         {
             IDisposable dispose = (IDisposable) IoC.Resolve<MainVm>().CurrentView;
             dispose.Dispose();
-            IoC.Resolve<MainVm>().CurrentView = IoC.Resolve<GeneralVm>();
+            IoC.Resolve<MainVm>().CurrentView = IoC.Resolve<MainVm>().PrevView;
         }
         private void RefreshClickHandler()
         {
@@ -204,9 +204,9 @@ namespace WpfClient.ViewModel.Plot
         }
         private void DatePickersSetUp()
         {
-            DateDisplayFrom = (DateTime.Now - new TimeSpan(100, 0, 0)).ToString();
+            DateDisplayFrom = (DateTime.Now - new TimeSpan(48, 0, 0)).ToString();
             DateDisplayTo = DateTime.Now.ToString();
-            DateSelectedFrom = DateTime.Now - new TimeSpan(100, 0, 0);
+            DateSelectedFrom = DateTime.Now - new TimeSpan(48, 0, 0);
             DateSelectedTo = DateTime.Now;
         }
         public PlotVm(int fanObjectId,int parameterNum)

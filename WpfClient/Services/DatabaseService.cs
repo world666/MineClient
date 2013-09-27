@@ -191,5 +191,29 @@ namespace WpfClient.Services
                 return fansLogId.ToList();
             }
         }
+        public void DeleteRecordById(int id)
+        {
+            using (var repoUnit = new RepoUnit())
+            {
+                FanLog fansLog = repoUnit.FanLog.Find(id);
+                if (fansLog == null) return;
+                repoUnit.FanLog.Delete(fansLog);
+                repoUnit.FanLog.SaveChanges();
+            }
+        }
+        public void DeleteRecordById(List<int> id)
+        {
+            if (id==null) return;
+            using (var repoUnit = new RepoUnit())
+            {
+                foreach (var i in id)
+                {
+                    FanLog fansLog = repoUnit.FanLog.Find(i);
+                    if(fansLog==null) continue;
+                    repoUnit.FanLog.Delete(fansLog);
+                }
+                repoUnit.FanLog.SaveChanges();
+            }
+        }
     }
 }
