@@ -19,7 +19,7 @@ namespace WpfClient.ViewModel.General
     {
         private List<FanVm> _fans;
         private ObservableCollection<string> _signalNames;
-
+        private Timer timer;
         private readonly DatabaseService _databaseService;
         private readonly FanService _fanService;
         private ParameterVm _remoteSignalState { get; set; }
@@ -34,9 +34,14 @@ namespace WpfClient.ViewModel.General
 
             updateFanValues();
             setParameterNames();
+            timer = new Timer(10000);
+            timer.Elapsed += (sender, args) => UpdateSignalState();
+            timer.Start();
+            timer.Enabled = true;
         }
         public void Dispose()
         {
+            timer.Dispose();
         }
         public DateTimeVm DateTime { get { return IoC.Resolve<DateTimeVm>(); } }
 
@@ -78,7 +83,15 @@ namespace WpfClient.ViewModel.General
                 return signals;
             }).ContinueWith(task => task.Result.ForEach(s => _signalNames.Add(s)));
         }
-
+        public void UpdateSignalState()
+        {
+            foreach (var fan in _fans)
+            {
+                fan.Values[0].Value = checkRemoteSignalState(fan.FanObjectId).Value;
+                fan.Values[0].Maximum = checkRemoteSignalState(fan.FanObjectId).Maximum;
+                fan.Values[0].State = checkRemoteSignalState(fan.FanObjectId).State;
+            }
+        }
         public void Update(FanLog fanLog)
         {
             if (_fans.Count != Config.Instance.FanObjectConfig.FanObjectCount)

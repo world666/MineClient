@@ -223,7 +223,8 @@ namespace WpfClient.ViewModel
         public HistoryVm()
         {
             ListCollection = new ObservableCollection<OnPlotClickData>();
-            _dateSelectedFrom = new DateTime(DateTime.Now.Year,DateTime.Now.Month,DateTime.Now.Day - 1);
+            var dateNow = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            _dateSelectedFrom = dateNow - new TimeSpan(1, 0, 0);
             ProgressMax = 1;
             ProgressValue = 0;
         }
