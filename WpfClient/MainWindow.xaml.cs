@@ -22,7 +22,6 @@ namespace WpfClient
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
-            Config.Instance.Save();
         }
     }
 }

@@ -20,7 +20,6 @@ namespace WpfClient.ViewModel.Settings
 
          ~FanObjectSettingsVm()
         {
-            Config.Instance.Save();
         }
 
         private void initialize()

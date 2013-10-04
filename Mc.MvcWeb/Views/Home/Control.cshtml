@@ -1,0 +1,58 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link  type="text/css" rel="stylesheet" href="../../Content/Control.css" />
+    <title>"Добассуглеавтоматика"</title>
+    <script type="text/javascript" src="../../Content/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="../../Content/jqueryrotate.2.1.js"></script> 
+</head>
+<body>
+    <h1 align="center">Управление вентилятором</h1>
+    <h2 align="center">Вентиляторная установка @ViewBag.FanName</h2>
+    <div class="main_div">
+          <div class="img_div">
+             <img src="../../Images/fan.png" alt="альтернативный текст" width="68" height="67" id="fan1">
+          </div>
+            <form name="fan1" method="post" action="">
+               Вентилятор 1
+             <input align="top" type='password' name='Password' size='10' maxlength='20'>
+             <input type='hidden' name='FanObjectId' value='@ViewBag.fanObject.FanObjectId'>
+                 @if (@ViewBag.fanObject.WorkingFanNumber == 1)
+                 {
+                     <input type='submit' value='Выключить'>
+                     <input type='hidden' name='command' value='Off'>
+                 }
+                 else if (@ViewBag.fanObject.WorkingFanNumber == 1)
+                 {
+                     <input type='submit' value='Включить'>
+                     <input type='hidden' name='command' value='OnFan1'>
+                 }
+                 else {
+                     <input type='submit' value='Включить'>
+                     <input type='hidden' name='command' value='OnFan1'>
+                 }
+            </form>
+   </div>
+
+    <script type="text/javascript">
+        var angle = 0;
+        var workingFan = @ViewBag.fanObject.WorkingFanNumber;
+        if (workingFan == 2)
+            setInterval(function () {
+                angle += 3;
+                jQuery("#fan2").rotate(angle);
+            }, 30);
+        else if (workingFan == 1)
+            setInterval(function () {
+                angle += 3;
+                jQuery("#fan1").rotate(angle);
+            }, 30);
+</script>
+</body>
+</html>

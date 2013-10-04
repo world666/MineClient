@@ -1,0 +1,17 @@
+﻿table { 
+border-collapse: separate; /* Способ отображения границы */ 
+width: 700px; /* Ширина таблицы */ 
+border-spacing: 7px 11px; /* Расстояние между ячейками */ 
+margin: auto;
+ }
+ td {
+padding: 5px; /* Поля вокруг текста */ 
+border: 1px solid #a52a2a; /* Граница вокруг ячеек */
+}
+a {
+text-decoration: none; /* Убирает подчеркивание для ссылок */
+color: black; /* цвет текста */
+}
+body {
+background-color: #efefef;
+}

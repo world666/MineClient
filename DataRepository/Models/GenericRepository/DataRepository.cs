@@ -40,6 +40,7 @@ namespace DataRepository.DataAccess.GenericRepository
 
         public virtual void Edit(TEntity entity) {
             _context.Entry(entity).State = System.Data.EntityState.Modified;
+            _context.SaveChanges();
         }
 
         public void Save(TEntity entity) {

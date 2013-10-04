@@ -1,66 +1,199 @@
 ﻿using System;
 using System.Configuration;
+using DataRepository.DataAccess.GenericRepository;
 
 namespace Mc.Settings.Model.Settings
 {
-    public class FanObjectConfigSection : ConfigurationSection 
+    public class FanObjectConfigSection
     {
-        [ConfigurationProperty("FanObjectCount", DefaultValue = "1", IsRequired = true)]
         public Int32 FanObjectCount
         {
-            get { return (Int32)this["FanObjectCount"]; }
-            set { this["FanObjectCount"] = value; }
-        }
-
-        [ConfigurationProperty("mineName")]
-        public string MineName
-        {
-            get { return (string)this["mineName"]; }
-            set { this["mineName"] = value; }
-        }
-
-        [ConfigurationProperty("fansName")]
-        public string FansName
-        {
-            get { return (string)this["fansName"]; }
-            set { this["fansName"] = value; }
-        }
-
-        [ConfigurationProperty("airConsumption")]
-        public RangeValueElement AirConsumption
-        {
-            get { return (RangeValueElement)this["airConsumption"]; }
             set
             {
-                this["airConsumption"] = value;
+                using (var repoUnit = new RepoUnit())
+                {
+                    var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "FanObjectCount");
+                    log.DValue = value;
+                    repoUnit.SettingsLog.Edit(log);
+                }
+            }
+            get
+            {
+                int value;
+                using (var repoUnit = new RepoUnit())
+                {
+                    value = (int)repoUnit.SettingsLog.FindFirstBy(f => f.Name == "FanObjectCount").DValue;
+                }
+                return value;
             }
         }
 
-        [ConfigurationProperty("pressure")]
+        public string MineName
+        {
+            set
+            {
+                using (var repoUnit = new RepoUnit())
+                {
+                    var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "mineName");
+                    log.SValue = value;
+                    repoUnit.SettingsLog.Edit(log);
+                }
+            }
+            get
+            {
+                string value;
+                using (var repoUnit = new RepoUnit())
+                {
+                    value = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "mineName").SValue;
+                }
+                return value;
+            }
+        }
+
+        public string FansName
+        {
+            set
+            {
+                using (var repoUnit = new RepoUnit())
+                {
+                    var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "fansName");
+                    log.SValue = value;
+                    repoUnit.SettingsLog.Edit(log);
+                }
+            }
+            get
+            {
+                string value;
+                using (var repoUnit = new RepoUnit())
+                {
+                    value = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "fansName").SValue;
+                }
+                return value;
+            }
+        }
+
+        public RangeValueElement AirConsumption
+        {
+            set
+            {
+                using (var repoUnit = new RepoUnit())
+                {
+                    var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "airConsumption");
+                    log.Warning = value.WarningLevel;
+                    log.Danger = value.DangerLevel;
+                    repoUnit.SettingsLog.Edit(log);
+                }
+            }
+            get
+            {
+                RangeValueElement value = new RangeValueElement();
+                using (var repoUnit = new RepoUnit())
+                {
+                    var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "airConsumption");
+                    value.WarningLevel = log.Warning;
+                    value.DangerLevel = log.Danger;
+                }
+                return value;
+            }
+        }
+
         public RangeValueElement Pressure
         {
-            get { return (RangeValueElement)this["pressure"]; }
-            set { this["pressure"] = value; }
+            set
+            {
+                using (var repoUnit = new RepoUnit())
+                {
+                    var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "pressure");
+                    log.Warning = value.WarningLevel;
+                    log.Danger = value.DangerLevel;
+                    repoUnit.SettingsLog.Edit(log);
+                }
+            }
+            get
+            {
+                RangeValueElement value = new RangeValueElement();
+                using (var repoUnit = new RepoUnit())
+                {
+                    var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "pressure");
+                    value.WarningLevel = log.Warning;
+                    value.DangerLevel = log.Danger;
+                }
+                return value;
+            }
         }
 
-        [ConfigurationProperty("pillowTemperature")]
         public RangeValueElement PillowTemperature
         {
-            get { return (RangeValueElement)this["pillowTemperature"]; }
-            set { this["pillowTemperature"] = value; }
+            set
+            {
+                using (var repoUnit = new RepoUnit())
+                {
+                    var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "pillowTemperature");
+                    log.Warning = value.WarningLevel;
+                    log.Danger = value.DangerLevel;
+                    repoUnit.SettingsLog.Edit(log);
+                }
+            }
+            get
+            {
+                RangeValueElement value = new RangeValueElement();
+                using (var repoUnit = new RepoUnit())
+                {
+                    var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "pillowTemperature");
+                    value.WarningLevel = log.Warning;
+                    value.DangerLevel = log.Danger;
+                }
+                return value;
+            }
         }
 
-        [ConfigurationProperty("pillowVibration")]
-        public RangeValueElement PillowVibration 
+        public RangeValueElement PillowVibration
         {
-            get { return (RangeValueElement)this["pillowVibration"]; }
-            set { this["pillowVibration"] = value; }
+            set
+            {
+                using (var repoUnit = new RepoUnit())
+                {
+                    var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "pillowVibration");
+                    log.Warning = value.WarningLevel;
+                    log.Danger = value.DangerLevel;
+                    repoUnit.SettingsLog.Edit(log);
+                }
+            }
+            get
+            {
+                RangeValueElement value = new RangeValueElement();
+                using (var repoUnit = new RepoUnit())
+                {
+                    var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "pillowVibration");
+                    value.WarningLevel = log.Warning;
+                    value.DangerLevel = log.Danger;
+                }
+                return value;
+            }
         }
-        [ConfigurationProperty("gprsQuality")]
         public RangeValueElement GprsQuality
         {
-            get { return (RangeValueElement)this["gprsQuality"]; }
-            set { this["gprsQuality"] = value; }
+            set
+            {
+                using (var repoUnit = new RepoUnit())
+                {
+                    var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "gprsQuality");
+                    log.Warning = value.WarningLevel;
+                    log.Danger = value.DangerLevel;
+                    repoUnit.SettingsLog.Edit(log);
+                }
+            }
+            get
+            {
+                RangeValueElement value = new RangeValueElement();
+                using (var repoUnit = new RepoUnit())
+                {
+                    var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "gprsQuality");
+                    value.WarningLevel = log.Warning;
+                    value.DangerLevel = log.Danger;
+                }
+                return value;
+            }
         }
     }
 }

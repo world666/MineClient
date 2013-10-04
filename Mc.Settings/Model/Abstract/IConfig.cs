@@ -30,7 +30,5 @@ namespace Mc.Settings.Model.Abstract
         string RemotePassword { get; set; }
 
         FanObjectConfigSection FanObjectConfig { get; }
-
-        void Save();
     }
 }

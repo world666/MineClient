@@ -20,7 +20,7 @@ namespace WpfClient.ViewModel.Settings
             if (CheckErrors())
             {
                 int value = Int32.Parse(NewPassword);
-                Config.Instance.RemotePassword = (((value + 1132))).ToString();
+                Config.Instance.RemotePassword = value.ToString();
                 MessageBox.Show("Новый пароль успешно сохранен", "", MessageBoxButton.OKCancel,
                                MessageBoxImage.Information);
             }
