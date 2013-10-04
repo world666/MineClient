@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 
 namespace CLTcpServer.Interfaces
 {
-    public delegate void ReceiveHandler(string msg, int clientNum);
+    public delegate void ReceiveHandler(string msg, TcpClient client);
     public interface IRemoteExchange
     {
         //server initialization
@@ -13,9 +14,7 @@ namespace CLTcpServer.Interfaces
         //close all connection
         bool StopServer();
         //send data to client with index = clientIndex
-        void SendToClient(string text, int clientIndex);
-        //get receive String with index = clientIndex
-        string GetClientString(int clientIndex);
+        void SendToClient(string text, TcpClient client);
 
         event ReceiveHandler ReceiveEvent;
         int CountClient { get; }

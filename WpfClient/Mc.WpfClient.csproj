@@ -103,7 +103,6 @@
     <Compile Include="Model\Abstract\IUpDatable.cs" />
     <Compile Include="Model\AsyncProvider.cs" />
     <Compile Include="Model\Concrete\DataBaseInserter.cs" />
-    <Compile Include="Model\Concrete\DataForSending.cs" />
     <Compile Include="Model\Concrete\MsgParser.cs" />
     <Compile Include="Model\Concrete\RemoteData.cs" />
     <Compile Include="Model\Concrete\TcpRemoteListener.cs" />

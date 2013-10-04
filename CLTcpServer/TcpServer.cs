@@ -25,7 +25,6 @@ namespace CLTcpServer
         public TcpServer()
         {
             clients = new List<TcpClient>();
-            clients_string = new List<string>();
         }
 
 
@@ -88,12 +87,12 @@ namespace CLTcpServer
         /// </summary>
         /// <param name="text">текст сообщения</param>
         /// <param name="skipindex">индекс клиента которому не посылается сообщение</param>
-        public void SendToClient(string text, int clientIndex)
+        public void SendToClient(string text, TcpClient client)
         {
-            if (clients[clientIndex] != null)
+            if (client != null)
             {
                 // Подготовка и запуск асинхронной отправки сообщения.
-                NetworkStream ns = clients[clientIndex].GetStream();
+                NetworkStream ns = client.GetStream();
                 byte[] myReadBuffer = Encoding.Default.GetBytes(text);
                 ns.BeginWrite(myReadBuffer, 0, myReadBuffer.Length,
                                                              new AsyncCallback(AsyncSendCompleted), ns);
@@ -103,10 +102,6 @@ namespace CLTcpServer
         /// <summary>
         /// Вернуть полученную строку по номеру клиента
         /// </summary>
-        public string GetClientString(int clientIndex)
-        {
-            return clients_string[clientIndex];
-        }
         // Принимаем запросы клиентов на подключение и
         // привязываем к каждому подключившемуся клиенту 
         // сокет (в данном случае объект класса TcpClient)
@@ -118,10 +113,9 @@ namespace CLTcpServer
                 try
                 {
                     clients.Add(_server.AcceptTcpClient());
-                    clients_string.Add("");
                     Thread readThread = new Thread(ReceiveRun);
                     readThread.IsBackground = true;
-                    readThread.Start(clients.Count - 1);
+                    readThread.Start(clients[clients.Count - 1]);
                 }
                 catch (Exception ex)
                 {
@@ -140,8 +134,9 @@ namespace CLTcpServer
 
 
         // Извлечение сообщения от клиента
-        private void ReceiveRun(object num)
+        private void ReceiveRun(object _client)
         {
+            TcpClient client = _client as TcpClient;
             bool closeConnection = false;
             int repeatNum = 16;
             while (true)
@@ -150,13 +145,13 @@ namespace CLTcpServer
                 {
                     string s = null;
                     //clients_string[(int)num] = "";
-                    NetworkStream ns = clients[(int)num].GetStream();
+                    NetworkStream ns = client.GetStream();
                     // Раскомментировав строчку ниже, тем самым уменьшив размер приемного буфера, можно убедиться,
                     // что прием данных будет все равно осуществляться полностью.
                     while (ns.DataAvailable == true)
                     {
                         // Определить точный размер буфера приема позволяет свойство класса TcpClient - Available
-                        byte[] buffer = new byte[clients[(int)num].Available];
+                        byte[] buffer = new byte[client.Available];
 
                         ns.Read(buffer, 0, buffer.Length);
                         s += Encoding.Default.GetString(buffer);
@@ -166,15 +161,13 @@ namespace CLTcpServer
 
                         if (s.IndexOf("+++") == 0 || s.IndexOf("SISC") >= 0) //close connection
                         {
-                            clients[(int)num].Close();
-                            clients_string.RemoveAt((int)num);
-                            clients.RemoveAt((int)num);
+                            client.Close();
+                            clients.Remove(client);
                             break;
                         }
                         if (ReceiveEvent != null && s.IndexOf("SISC")<0)
                         {
-                            clients_string[(int) num] = s;
-                            ReceiveEvent(s,(int)num);
+                            ReceiveEvent(s, client);
                             closeConnection = true;
                         }
                         // Вынужденная строчка для экономия ресурсов процессора.
@@ -182,9 +175,8 @@ namespace CLTcpServer
                     }
                     else if (closeConnection)
                     {
-                        clients[(int)num].Close();
-                        clients_string.RemoveAt((int)num);
-                        clients.RemoveAt((int)num);
+                        client.Close();
+                        clients.Remove(client);
                         break;
                     }
                     Thread.Sleep(500);
@@ -194,9 +186,8 @@ namespace CLTcpServer
                 }
                 catch (Exception ex)
                 {
-                    clients[(int)num].Close();
-                    clients_string.RemoveAt((int)num);
-                    clients.RemoveAt((int)num);
+                    client.Close();
+                    clients.Remove(client);
                     break;
                 }
 
@@ -213,7 +204,5 @@ namespace CLTcpServer
         private List<TcpClient> clients;
         // Флаг мягкой остановки циклов и дополнительных потоков
         private bool _stopNetwork;
-        //сообщения клиентов
-        private List<string> clients_string;
     }
 }

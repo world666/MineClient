@@ -1,10 +1,8 @@
-п»їusing System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Mc.Settings.Model.Concrete;
 
-namespace Mc.MvcWeb.Models
+namespace Mc.MvcWeb.Models.Index
 {
     public class Fan
     {
@@ -22,7 +20,7 @@ namespace Mc.MvcWeb.Models
             get {
                 try
                 {
-                    return string.Format("Р’РµРЅС‚РёР»СЏС‚РѕСЂРЅР°СЏ СѓСЃС‚Р°РЅРѕРІРєР° {0}",
+                    return string.Format("Вентиляторная установка {0}",
                                          Config.Instance.FanObjectConfig.FansName.Split(new string[] {"!$!"},
                                                                                         StringSplitOptions
                                                                                             .RemoveEmptyEntries)[
@@ -30,7 +28,7 @@ namespace Mc.MvcWeb.Models
                 }
                 catch (Exception)
                 {
-                    return string.Format("Р’РµРЅС‚РёР»СЏС‚РѕСЂРЅР°СЏ СѓСЃС‚Р°РЅРѕРІРєР° в„–{0}", FanObjectId);
+                    return string.Format("Вентиляторная установка №{0}", FanObjectId);
                 }
             }
         }

@@ -87,6 +87,8 @@ namespace WpfClient.ViewModel.General
         {
             foreach (var fan in _fans)
             {
+                if(fan.Values.Count==0)
+                    return;
                 fan.Values[0].Value = checkRemoteSignalState(fan.FanObjectId).Value;
                 fan.Values[0].Maximum = checkRemoteSignalState(fan.FanObjectId).Maximum;
                 fan.Values[0].State = checkRemoteSignalState(fan.FanObjectId).State;

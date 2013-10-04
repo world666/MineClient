@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using DataRepository.DataAccess.GenericRepository;
-using Mc.MvcWeb.Models;
+using Mc.MvcWeb.Models.Index;
 
 namespace Mc.MvcWeb.Services
 {

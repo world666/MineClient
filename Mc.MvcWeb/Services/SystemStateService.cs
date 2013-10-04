@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Web;
-using Mc.MvcWeb.Models;
+using Mc.MvcWeb.Models.Index;
 using Mc.Settings.Model.Concrete;
 
 namespace Mc.MvcWeb.Services

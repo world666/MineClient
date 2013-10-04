@@ -1,9 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
-namespace Mc.MvcWeb.Models
+namespace Mc.MvcWeb.Models.Index
 {
     public class FanObject
     {

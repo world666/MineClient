@@ -16,6 +16,9 @@ namespace DataRepository.DataAccess
 
         public IDbSet<SettingsLog> SettingsLog { get; set; }
 
+        public IDbSet<RemoteLog> RemoteLog { get; set; }
+        public IDbSet<RemoteState> RemoteState { get; set; }
+
         public MineContext()
             : base(GetConnectionName())
         {
@@ -23,8 +26,8 @@ namespace DataRepository.DataAccess
         }
 
         protected static string GetConnectionName() {
-            //return @"Data Source=.\SQLExpress;Database=MineDb;Trusted_Connection=True;";
-            return @"Data Source=.\SQLExpress;Database=MineDb2;Trusted_Connection=True;";
+            return @"Data Source=.\SQLExpress;Database=MineDb;Trusted_Connection=True;";
+            //return @"Data Source=.\SQLExpress;Database=MineDb3;Trusted_Connection=True;";
             //return @"Data Source=(localdb)\Projects;Database=MineDb;Trusted_Connection=True;";
 
         }

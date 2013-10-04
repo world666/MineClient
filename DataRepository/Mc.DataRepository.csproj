@@ -63,6 +63,8 @@
     <Compile Include="Models\FanLog.cs" />
     <Compile Include="Models\AnalogSignal.cs" />
     <Compile Include="Models\FanState.cs" />
+    <Compile Include="Models\RemoteLog.cs" />
+    <Compile Include="Models\RemoteState.cs" />
     <Compile Include="Models\SettingsLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

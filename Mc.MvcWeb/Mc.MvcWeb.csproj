@@ -114,12 +114,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Door.cs" />
-    <Compile Include="Models\Fan.cs" />
-    <Compile Include="Models\FanObject.cs" />
-    <Compile Include="Models\Parameter.cs" />
+    <Compile Include="Models\Control\RemoteData.cs" />
+    <Compile Include="Models\Index\Door.cs" />
+    <Compile Include="Models\Index\Fan.cs" />
+    <Compile Include="Models\Index\FanObject.cs" />
+    <Compile Include="Models\Index\Parameter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DatabaseService.cs" />
+    <Compile Include="Services\FanService.cs" />
     <Compile Include="Services\SystemStateService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +164,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Control.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\MvcWeb.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

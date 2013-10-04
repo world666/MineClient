@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Mc.MvcWeb.Models;
+using DataRepository.DataAccess.GenericRepository;
+using DataRepository.Models;
+using Mc.MvcWeb.Models.Control;
+using Mc.MvcWeb.Models.Index;
 using Mc.MvcWeb.Services;
 using Mc.Settings.Model.Concrete;
 
@@ -13,37 +16,24 @@ namespace Mc.MvcWeb.Controllers
     {
         //
         // GET: /Home/
-        List<Fan> _fans = new List<Fan>();
         DatabaseService _databaseService = new DatabaseService();
         public ActionResult Index()
-        { 
-            for (int i = 1; i <= Config.Instance.FanObjectConfig.FanObjectCount; i++)
-            {
-                _fans.Add(new Fan(i));
-            }
-
-            var parametersList = new List<List<Parameter>>();
-
-            for (var i = 1; i <= _fans.Count; i++)
-            {
-                var fanObject = _databaseService.GetFanObject(i);
-                if (fanObject == null) continue;
-
-                parametersList.Add(new List<Parameter>());
-
-                parametersList[i - 1].Add(SystemStateService.checkRemoteSignalState(fanObject.Date));
-                parametersList[i - 1].Add((SystemStateService.getFanNumberParameter(fanObject)));
-                parametersList[i - 1].Add((SystemStateService.getFanStateParameter(fanObject)));
-                fanObject.Parameters.ForEach(p => parametersList[i - 1].Add(p));
-            }
-            for (var i = 0; i < parametersList.Count; i++) _fans[i].Values = parametersList[i];
+        {
+            List<Fan> _fans = FanService.getFans();
             ViewBag.Fans = _fans;
             ViewBag.MineName = Config.Instance.FanObjectConfig.MineName;
             ViewBag.Date = DateTime.Now;
-            string[] fanNames = Config.Instance.FanObjectConfig.FansName.Split(new string[] { "!$!" }, StringSplitOptions.RemoveEmptyEntries);
-            ViewBag.FanNames = fanNames;
-            ViewBag.FanNamesCount = fanNames.Count();
             ViewBag.ParametersCount = _fans[0].Values.Count;
+            List<string> fanNames = Config.Instance.FanObjectConfig.FansName.Split(new string[] { "!$!" }, StringSplitOptions.RemoveEmptyEntries).ToList();  
+            if (fanNames.Count() < _fans.Count())
+            {
+                for (int i = 0; i < _fans.Count() - fanNames.Count(); i++)
+                {
+                    fanNames.Add(fanNames.Count().ToString());
+                }
+            }
+            ViewBag.FanNamesCount = _fans.Count();
+            ViewBag.FanNames = fanNames;
             return View();
         }
 
@@ -55,6 +45,27 @@ namespace Mc.MvcWeb.Controllers
             ViewBag.FanObject = fanObject;
             ViewBag.FanName = Config.Instance.FanObjectConfig.FansName.Split(new string[] { "!$!" }, StringSplitOptions.RemoveEmptyEntries)[fanObjectId - 1];
             return View();
+        }
+        [HttpPost]
+        public ActionResult Control(RemoteData remoteData)
+        {
+            if (remoteData.Password == Config.Instance.RemotePassword)
+            {
+                RemoteLog remoteLog = new RemoteLog
+                    {
+                        FanObjectNum = remoteData.FanObjectId,
+                        Date = DateTime.Now,
+                        Person = "Веб",
+                        RemoteStateId = remoteData.Command,
+                        Sent = false
+                    };
+                using (var repoUnit = new RepoUnit())
+                {
+                    repoUnit.RemoteLog.Add(remoteLog);
+                    repoUnit.RemoteLog.SaveChanges();
+                }
+            }
+            return Control(remoteData.FanObjectId);
         }
     }
 }
