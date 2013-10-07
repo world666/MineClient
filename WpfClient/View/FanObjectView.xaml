@@ -203,6 +203,8 @@
                  Background="{Binding SystemState.State, Converter={StaticResource EnumToColor}}"/>
         <Label HorizontalContentAlignment="Center" Content="{Binding SystemState.Value}" FontSize="20" Canvas.Left="1595" 
                  Canvas.Top="50" Width="229" Background="{Binding SystemState.State, Converter={StaticResource EnumToColor}}"/>
+        <Label HorizontalContentAlignment="Center" Content="{Binding ConnectionState.Value}" FontSize="20" Canvas.Left="1595" 
+                 Canvas.Top="93" Width="229" Background="{Binding ConnectionState.State, Converter={StaticResource EnumToColor}}"/>
 
         <Border Grid.Row="0" Grid.Column="0" BorderThickness="1"  BorderBrush="#FFABADB3" Canvas.Top="62" Width="373" Canvas.Left="-76">
             <UniformGrid Rows="1" Background="WhiteSmoke">

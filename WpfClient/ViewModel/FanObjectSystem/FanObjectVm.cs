@@ -42,6 +42,7 @@ namespace WpfClient.ViewModel.FanObjectSystem
         }
         public void Dispose()
         {
+            TubeSystemVm.Dispose();
         }
         public void Update(FanLog fanLog)
         {

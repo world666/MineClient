@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -18,9 +19,10 @@ using WpfClient.ViewModel.General;
 
 namespace WpfClient.ViewModel.FanObjectSystem
 {
-    class TubeSystemVm : INotifyPropertyChanged
+    class TubeSystemVm : INotifyPropertyChanged, IDisposable
     {
         private ParameterVm _systemState;
+        private Timer timer;
         private readonly FanService _fanService;
         private int _fanObjectId;
 
@@ -336,17 +338,19 @@ namespace WpfClient.ViewModel.FanObjectSystem
             else
             {
                 PasswordBox psd = password as PasswordBox;
-                PasswordBoxVisibilityFan1 = false;
-                FirstFanOnOffMode = RotationV1 == true ? "Отключить" : "Включить";
                 if (psd.Password == Config.Instance.RemotePassword)
                 {
-                    RemouteFanControlService.SetData(_fanObjectId, FirstFanOnOffMode == "Включить" ? RemouteFanState.OnFan1 : RemouteFanState.Off);
-                    MessageBox.Show("Пароль введен верно", "Информация", MessageBoxButton.OK,
-                               MessageBoxImage.Information);
+                    RemouteFanControlService.SetData(_fanObjectId,
+                                                     FirstFanOnOffMode == "Включить"
+                                                         ? RemouteFanState.OnFan1
+                                                         : RemouteFanState.Off);
+                    PasswordBoxVisibilityFan1 = false;
+                    FirstFanOnOffMode = RotationV1 == true ? "Отключить" : "Включить";
                 }
                 else
-                    MessageBox.Show("Пароль введен неверно", "Ошибка", MessageBoxButton.OK,
-                               MessageBoxImage.Error);
+                {
+                    
+                }
                 psd.Password = "";
             }
         }
@@ -361,18 +365,15 @@ namespace WpfClient.ViewModel.FanObjectSystem
             }
             else
             {
-                PasswordBox psd = password as PasswordBox;
-                PasswordBoxVisibilityFan2 = false;
-                SecondFanOnOffMode = RotationV2 == true ? "Отключить" : "Включить";
+                PasswordBox psd = password as PasswordBox;   
                 if (psd.Password == Config.Instance.RemotePassword)
                 {
                     RemouteFanControlService.SetData(_fanObjectId,SecondFanOnOffMode == "Включить" ? RemouteFanState.OnFan2 : RemouteFanState.Off );
-                    MessageBox.Show("Пароль введен верно", "Информация", MessageBoxButton.OK,
-                              MessageBoxImage.Information);
+                    PasswordBoxVisibilityFan2 = false;
+                    SecondFanOnOffMode = RotationV2 == true ? "Отключить" : "Включить";
                 }
                 else
-                    MessageBox.Show("Пароль введен неверно", "Ошибка", MessageBoxButton.OK,
-                               MessageBoxImage.Error);
+                {}
                 psd.Password = "";
             }
 
@@ -391,6 +392,17 @@ namespace WpfClient.ViewModel.FanObjectSystem
             }
         }
 
+        private ParameterVm _connectionState;
+        public ParameterVm ConnectionState
+        {
+            get { return _connectionState ?? (_connectionState = new ParameterVm()); }
+            set
+            {
+                _connectionState = value;
+                OnPropertyChanged("ConnectionState");
+            }
+        }
+
         public TubeSystemVm(FanService fanService)
         {
             ClearTubes();
@@ -404,6 +416,23 @@ namespace WpfClient.ViewModel.FanObjectSystem
                 DoorsText.Add("WhiteSmoke");
             PasswordBoxVisibilityFan1 = false;
             PasswordBoxVisibilityFan2 = false;
+
+            timer = new Timer(10000);
+            timer.Elapsed += (sender, args) => UpdateSignalState();
+            timer.Start();
+            timer.Enabled = true;
+        }
+
+        public void Dispose()
+        {
+            timer.Dispose();
+        }
+
+        private void UpdateSignalState()
+        {
+            ParameterVm state = IoC.Resolve<FanService>().checkRemoteSignalState(_fanObjectId);
+            state.Value = "Сигнал" + state.Value;
+            ConnectionState = state;
         }
 
         public void Update(FanObject fanObject)
@@ -413,6 +442,7 @@ namespace WpfClient.ViewModel.FanObjectSystem
             setWorkingFan(fanObject.WorkingFanNumber);
             setDoorsState(fanObject.Doors);
             setOnOffModeState();
+            UpdateSignalState();
         }     
 
         private void setWorkingFan(int workingFan)

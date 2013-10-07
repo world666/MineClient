@@ -89,9 +89,9 @@ namespace WpfClient.ViewModel.General
             {
                 if(fan.Values.Count==0)
                     return;
-                fan.Values[0].Value = checkRemoteSignalState(fan.FanObjectId).Value;
-                fan.Values[0].Maximum = checkRemoteSignalState(fan.FanObjectId).Maximum;
-                fan.Values[0].State = checkRemoteSignalState(fan.FanObjectId).State;
+                fan.Values[0].Value = _fanService.checkRemoteSignalState(fan.FanObjectId).Value;
+                fan.Values[0].Maximum = _fanService.checkRemoteSignalState(fan.FanObjectId).Maximum;
+                fan.Values[0].State = _fanService.checkRemoteSignalState(fan.FanObjectId).State;
             }
         }
         public void Update(FanLog fanLog)
@@ -101,8 +101,8 @@ namespace WpfClient.ViewModel.General
             var parameterList = new List<ParameterVm>();
             var fanObject = _databaseService.GetFanObject(fanLog);
             if (fanObject == null) return;
-            parameterList.Add(checkRemoteSignalState(fanObject.FanObjectId));
-            parameterList.Add(getFanNumberParameter(fanObject));
+            parameterList.Add(_fanService.checkRemoteSignalState(fanObject.FanObjectId));
+            parameterList.Add(_fanService.getFanNumberParameter(fanObject));
             parameterList.Add(getFanStateParameter(fanObject));
             fanObject.Parameters.ForEach(p => parameterList.Add(new ParameterVm(p)));
             _fans[fanObject.FanObjectId-1].Values = parameterList;
@@ -120,8 +120,8 @@ namespace WpfClient.ViewModel.General
 
                 parametersList.Add(new List<ParameterVm>());
 
-                parametersList[i - 1].Add(checkRemoteSignalState(i));
-                parametersList[i - 1].Add(getFanNumberParameter(fanObject));
+                parametersList[i - 1].Add(_fanService.checkRemoteSignalState(i));
+                parametersList[i - 1].Add(_fanService.getFanNumberParameter(fanObject));
                 parametersList[i - 1].Add(getFanStateParameter(fanObject));
                 fanObject.Parameters.ForEach(p => parametersList[i - 1].Add(new ParameterVm(p)));
             }
@@ -131,37 +131,12 @@ namespace WpfClient.ViewModel.General
             }));
         }
 
-        private ParameterVm checkRemoteSignalState(int fanObjectId)
-        {
-            ParameterVm SignalState = new ParameterVm();
-            SignalState.Name = "Состояние сигнала";
-            if (System.DateTime.Now - RemoteService.GetLastRecieve(fanObjectId) > new TimeSpan(0, 1, 0))
-            {
-                SignalState.Value = "отсутствует";
-                SignalState.State = StateEnum.Dangerous;
-            }
-            else
-            {
-                SignalState.Value = "стабильный";
-                SignalState.State = StateEnum.Ok;
-            }
-            SignalState.Maximum = "0";
-            return SignalState;
-        }
+        
 
         private ParameterVm getFanStateParameter(FanObject fanObject)
         {
             return _fanService.GetFanMode(fanObject.WorkingFanNumber, fanObject.Doors);
         }
-
-        private ParameterVm getFanNumberParameter(FanObject fanObject)
-        {
-            var parameter = new ParameterVm {Value = fanObject.WorkingFanNumber == 0 ? "ОСТАНОВЛЕН" : string.Format("№{0}", fanObject.WorkingFanNumber), Maximum = "0", Name = "Вентилятор в работе"};
-            parameter.State = SystemStateService.GetFanState(fanObject.WorkingFanNumber);
-
-            return parameter;
-        }
-
         private void initialize()
         {
             //RemoteSignalState = new ParameterVm { Name = "Состояние сигнала:", Value = "неопределено" };
