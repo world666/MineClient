@@ -340,12 +340,12 @@ namespace WpfClient.ViewModel.FanObjectSystem
                 PasswordBox psd = password as PasswordBox;
                 if (psd.Password == Config.Instance.RemotePassword)
                 {
+                    PasswordBoxVisibilityFan1 = false;
+                    FirstFanOnOffMode = RotationV1 == true ? "Отключить" : "Включить";
                     RemouteFanControlService.SetData(_fanObjectId,
                                                      FirstFanOnOffMode == "Включить"
                                                          ? RemouteFanState.OnFan1
                                                          : RemouteFanState.Off);
-                    PasswordBoxVisibilityFan1 = false;
-                    FirstFanOnOffMode = RotationV1 == true ? "Отключить" : "Включить";
                 }
                 else
                 {
@@ -368,9 +368,9 @@ namespace WpfClient.ViewModel.FanObjectSystem
                 PasswordBox psd = password as PasswordBox;   
                 if (psd.Password == Config.Instance.RemotePassword)
                 {
-                    RemouteFanControlService.SetData(_fanObjectId,SecondFanOnOffMode == "Включить" ? RemouteFanState.OnFan2 : RemouteFanState.Off );
                     PasswordBoxVisibilityFan2 = false;
                     SecondFanOnOffMode = RotationV2 == true ? "Отключить" : "Включить";
+                    RemouteFanControlService.SetData(_fanObjectId,SecondFanOnOffMode == "Включить" ? RemouteFanState.OnFan2 : RemouteFanState.Off );
                 }
                 else
                 {}
@@ -431,7 +431,7 @@ namespace WpfClient.ViewModel.FanObjectSystem
         private void UpdateSignalState()
         {
             ParameterVm state = IoC.Resolve<FanService>().checkRemoteSignalState(_fanObjectId);
-            state.Value = "Сигнал" + state.Value;
+            state.Value = "Сигнал " + state.Value;
             ConnectionState = state;
         }
 

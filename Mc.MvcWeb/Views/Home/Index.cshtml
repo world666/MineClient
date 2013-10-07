@@ -14,26 +14,33 @@
     <h1 align="center">@ViewBag.MineName</h1>
     <table>
         <td align="center" bgcolor="#efefef"> @ViewBag.Date </td>
-                    @for(int j=0;j<ViewBag.FanNamesCount;j++)
-                    {
+        @for(int j=0;j<ViewBag.FanNamesCount;j++)
+        {
                         
-                            <td align="center" bgcolor="#fafafa">
-                                <a href="/Home/Control?fanObjectId=@((j+1).ToString())">
-                                    Вентиляторная установка @ViewBag.FanNames[j]
-                                </a>
-                            </td>
-                    }
-                    @for (int i = 0; i < @ViewBag.ParametersCount; i++)
-                    {
-                        <tr>
-                            <td align="center" bgcolor="#fafafa">@ViewBag.Fans[0].Values[i].Name</td> 
-                            @foreach (var fan in @ViewBag.Fans)
-                            {
-                                <td align="center" bgcolor="@fan.Values[i].HtmlState">@fan.Values[i].Value</td>
-                            }
-                        </tr>
-                    }
+            <td align="center" bgcolor="#fafafa">
+                <a href="/Home/Control?fanObjectId=@((j+1).ToString())">
+                    Вентиляторная установка @ViewBag.FanNames[j]
+                </a>
+            </td>
+        }
+        @for (int i = 0; i < @ViewBag.ParametersCount; i++)
+        {
+            <tr>
+                <td align="center" bgcolor="#fafafa">@ViewBag.Fans[0].Values[i].Name</td> 
+                @foreach (var fan in @ViewBag.Fans)
+                {
+                    <td align="center" bgcolor="@fan.Values[i].HtmlState">@fan.Values[i].Value</td>
+                }
+            </tr>
+        }
                   
     </table>
+
+    <script>
+        function fresh() {
+            location.reload();
+        }
+        setInterval("fresh()", 19000);
+    </script>
 </body>
 </html>

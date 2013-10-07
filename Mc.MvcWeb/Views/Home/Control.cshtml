@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width" />
     <link  type="text/css" rel="stylesheet" href="../../Content/Control.css" />
     <title>"Добассуглеавтоматика"</title>
-    <script type="text/javascript" src="../../Content/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="../../Content/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="../../Content/jqueryrotate.2.1.js"></script> 
 </head>
 <body>
@@ -65,19 +65,61 @@
             </form>
     </div>
 
+    <canvas id="canVas">
+    </canvas>
     <script type="text/javascript">
-        var angle = 0;
-        var workingFan = @ViewBag.fanObject.WorkingFanNumber;
-        if (workingFan == 2)
-            setInterval(function () {
-                angle += 3;
-                jQuery("#fan2").rotate(angle);
-            }, 30);
-        else if (workingFan == 1)
-            setInterval(function () {
-                angle += 3;
-                jQuery("#fan1").rotate(angle);
-            }, 30);
-</script>
+        function DrawHorizontalPipe(x, y, width, height) 
+        {
+            var c=document.getElementById("canVas");
+            var ctx=c.getContext("2d");
+           var grd=ctx.createLinearGradient(0,0,0,height);
+            grd.addColorStop(0,"#898989");
+            grd.addColorStop(0.5,"white");
+            grd.addColorStop(1,"#898989");
+            ctx.fillStyle=grd;
+            ctx.fillRect(x,y,width,height);
+            var img1 = new Image();
+            img1.src = "../../Images/img1.png";
+            img1.id = "img1";
+            
+            img1.onload = function() { // Событие onLoad, ждём момента пока загрузится изображение
+                ctx.drawImage(img1, 0, 0); // Рисуем изображение от точки с координатами 0, 0
+            };
+            $(document).ready(function() {
+                img1.animate({ "left": "-=50px" }, "slow");
+            });
+        }
+        function DrawPipeBinderDouble(x, y, width, height) 
+        {
+            var c=document.getElementById("canVas");
+            var ctx=c.getContext("2d");
+            ctx.fillStyle="#B9B9B9";
+            ctx.fillRect(x,y,width,height);
+        }
+
+        DrawHorizontalPipe(0, 0, 400, 80);
+       // DrawPipeBinderDouble(100, 100, 50, 50);
+    </script>
+
+            <script type="text/javascript">
+                var angle = 0;
+                var workingFan = @ViewBag.fanObject.WorkingFanNumber;
+                if (workingFan == 2)
+                    setInterval(function () {
+                        angle += 3;
+                        jQuery("#fan2").rotate(angle);
+                    }, 30);
+                else if (workingFan == 1)
+                    setInterval(function () {
+                        angle += 3;
+                        jQuery("#fan1").rotate(angle);
+                    }, 30);
+            </script>
+    <script>
+        function fresh() {
+            //location.reload();
+        }
+        setInterval("fresh()", 19000);
+    </script>
 </body>
 </html>
