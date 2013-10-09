@@ -2,14 +2,13 @@
     background-color: #efefef;
 }
 .fan_div {
-    position: relative;
     text-align: center;
-    margin-top: 160px;
+    margin-top: 200px;
     width: 100px;
     height: 110px;
 }
 .div_header {
-    height: 4px;
+    height: 220px;
     width: 2000px;
 }
 .div_content {
@@ -18,11 +17,11 @@
     height: 1000px;
 }
 .img_div {
-    position: absolute;
-    width: 67px;
-    height: 66px;
-    float: inherit;
-    background: white;
+	position: absolute;
+	width: 67px;
+	height: 66px;
+	float: inherit;
+	background: white;
 }
 form {
     position: relative;
@@ -35,12 +34,10 @@ input {
 .horizontal_pipe {
     position:absolute;
     background: #898989;
-    background: linear-gradient(to top,#898989, #ffffff, #898989);
 }
 .vertical_pipe {
     position:absolute;
     background: #898989;
-    background: linear-gradient(to right,#898989, #ffffff, #898989);
 }
 .pipe_binder_double {
     position:absolute;

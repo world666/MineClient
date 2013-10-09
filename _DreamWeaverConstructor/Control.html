@@ -7,11 +7,10 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <link  type="text/css" rel="stylesheet" href="../../Content/Control.css" />
+    <link  type="text/css" rel="stylesheet" href="Control.css" />
     <title>"Добассуглеавтоматика"</title>
-    <script type="text/javascript" src="../../Content/jquery-1.10.2.js"></script>
-    <script type="text/javascript" src="../../Content/jqueryrotate.2.1.js"></script> 
-    <script type="text/javascript" src="../../Content/CustomElements.js"></script> 
+    <script type="text/javascript" src="jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="jqueryrotate.2.1.js"></script>  
 </head>
 <body>
 <div class="div_header">
@@ -19,32 +18,19 @@
     <h2 align="center">Вентиляторная установка @ViewBag.FanName</h2>
 </div>
 <div class="div_content">
-<div class="fan_div" style="top: 190px">
+<div class="fan_div">
          <p style="background: white; border: 1px solid gray">Вентилятор 1</p>
             <form name="fan1" method="post" action="">
              <input align="top" type='password' name='Password' size='10' maxlength='20'>
-             <input type='hidden' name='FanObjectId' value='@ViewBag.fanObject.FanObjectId'>
-                 @if (@ViewBag.fanObject.WorkingFanNumber == 1)
-                 {
-                     <input type='submit' value='Выключить'>
-                     <input type='hidden' name='Command' value='3'>
-                 }
-                 else if (@ViewBag.fanObject.WorkingFanNumber == 2)
-                 {
-                     <input type='submit' value='Включить'>
-                     <input type='hidden' name='command' value='1'>
-                 }
-                 else {
-                     <input type='submit' value='Включить'>
-                     <input type='hidden' name='Command' value='1'>
-                 }
-            </form>
-   </div>
-    <div class="img_div" style="left:112px; top:219px;">
-        <img src="../../Images/fan.png"   alt="альтернативный текст" width="68" height="67" id="fan1">
-    </div>
+             <input type='hidden' name='FanObjectId' value='1111'>
+              <input type='submit' value='Выключить'>
 
-  	  	<div class="vertical_pipe" style="width: 67px; height: 224px; left: 346px; top: 155px"></div>
+            </form>
+  </div>
+
+  <img  src="fan.png" style="left:111px; top:698px;"  class="img_div" alt="альтернативный текст" width="68" height="67" id="fan1">
+
+  <div class="vertical_pipe" style="width: 67px; height: 224px; left: 346px; top: 155px"></div>
   <div class="vertical_pipe" style="width: 67px; height: 228px; left: 345px; top: 609px"></div>
   
   <div class="vertical_pipe" style="width: 67px; height: 90px; left: 112px; top: 129px"></div>
@@ -102,32 +88,18 @@
 
     <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 654px; top: 214px"></div>
   <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 1168px; top: 214px"></div>
-
-    <div  class="fan_div" style="margin-top:560px">
-        <p style="background: white; border: 1px solid gray">Вентилятор 2</p>
+  
+  <div  class="fan_div" style="margin-top:360px">
+<p>Вентилятор 2</p>
         <form name="fan2" method="post" action="">
         <input type='password' name='password' size='10' maxlength='20'>
-            <input type='hidden' name='FanObjectId' value='@ViewBag.fanObject.FanObjectId'>
-                 @if (@ViewBag.fanObject.WorkingFanNumber == 2)
-                 {
+            <input type='hidden' name='FanObjectId' value='1111'>
                      <input type='submit' value='Выключить'>
-                     <input type='hidden' name='command' value='3'>
-                 }
-                 else if (@ViewBag.fanObject.WorkingFanNumber == 1)
-                 {
-                     <input type='submit' value='Включить'>
-                     <input type='hidden' name='command' value='2'>
-                 }
-                 else {
-                     <input type='submit' value='Включить'>
-                     <input type='hidden' name='command' value='2'>
-                 }
-            </form>
-    </div>
-    <div class="img_div" style="left:113px; top:698px;" >
-        <img  src="../../Images/fan.png"  alt="альтернативный текст" width="68" height="67" id="fan2">
-    </div>
+    </form>
+  </div>
     
+        <img src="fan.png" class="img_div" style="left:112px; top:219px;"  alt="альтернативный текст" width="68" height="67" id="fan2">
+
 </div>
 
             <script type="text/javascript">
