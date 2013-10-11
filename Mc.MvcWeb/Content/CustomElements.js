@@ -5,16 +5,15 @@ imgArrowLeft.src = "../../Images/arrow_left.png";
 var imgArrowTop = new Image();
 imgArrowTop.src = "../../Images/arrow_top.png";
 var imgArrowBottom = new Image();
-imgArrowLeft.src = "../../Images/arrow_bottom.png";
+imgArrowBottom.src = "../../Images/arrow_bottom.png";
 
-function DrawHorizontalPipe(x, y, width, height, side) {
-    var c = document.getElementById("canVas");
+function DrawHorizontalArrow(id, side) {
+    var x = 0;
+    var y = 0;
+    var width = 300;
+    var height = 150;
+    var c = document.getElementById(id);
     var ctx = c.getContext("2d");
-    var grd = ctx.createLinearGradient(0, 0, 0, height);
-    grd.addColorStop(0, "#898989");
-    grd.addColorStop(0.5, "white");
-    grd.addColorStop(1, "#898989");
-
     var start;
     var current = 0;
     var end;
@@ -33,8 +32,6 @@ function DrawHorizontalPipe(x, y, width, height, side) {
     current = start;
     setInterval(function() {
         ctx.clearRect(x, y, width, height);
-        ctx.fillStyle = grd;
-        ctx.fillRect(x, y, width, height);
         if (side == "right") 
             ctx.drawImage(imgArrowRight, current += dx, y + height / 2 - 8);
         else 
@@ -44,14 +41,13 @@ function DrawHorizontalPipe(x, y, width, height, side) {
     }, 10);
 }
 
-function DrawVerticalPipe(x, y, width, height, side) {
-    var c = document.getElementById("canVas");
+function DrawVerticalArrow(id, side) {
+    var c = document.getElementById(id);
     var ctx = c.getContext("2d");
-    var grd = ctx.createLinearGradient(0, 0, width, 0);
-    grd.addColorStop(0, "#898989");
-    grd.addColorStop(0.5, "white");
-    grd.addColorStop(1, "#898989");
-
+    var x = 0;
+    var y = 0;
+    var width = 300;
+    var height = 300;
     var start;
     var current = 0;
     var end;
@@ -61,8 +57,8 @@ function DrawVerticalPipe(x, y, width, height, side) {
         end = y + height;
         dy = 1;
     } else if (side == "top") {
-        start = y + height;
-        end = y - 30;
+        start = y + height-20;
+        end = y-20;
         dy = -1;
     } else {
         dy = 0;
@@ -70,8 +66,6 @@ function DrawVerticalPipe(x, y, width, height, side) {
     current = start;
     setInterval(function() {
         ctx.clearRect(x, y, width, height);
-        ctx.fillStyle = grd;
-        ctx.fillRect(x, y, width, height);
         if (side=="bottom")
             ctx.drawImage(imgArrowBottom, x + width / 2 - 8, current += dy); // Рисуем изображение от точки с координатами 0, 0
         else
@@ -81,10 +75,38 @@ function DrawVerticalPipe(x, y, width, height, side) {
     }, 10);
 }
 
-function DrawPipeBinderDouble(x, y, width, height) 
-    {
-        var c=document.getElementById("canVas");
-        var ctx=c.getContext("2d");
-        ctx.fillStyle="#B9B9B9";
-        ctx.fillRect(x,y,width,height);
+
+function LadaSetState(name, state) {
+    var c = document.getElementById(name);
+    var ctx = c.getContext("2d");
+    if (c.className == "lada_horizontal") {
+        if (state == "Opened") {
+            ctx.fillStyle = "#90EE90";
+            if (name == "la")
+                ctx.fillStyle = "#FF0000";
+            ctx.fillRect(0, 0, 70, 200);
+        } else if (state == "Closed") {
+            ctx.fillStyle = "#FF0000";
+            if (name == "la")
+                ctx.fillStyle = "#90EE90";
+            ctx.fillRect(0, 0, 400, 30);
+        }
+    } else {
+        if (state == "Closed") {
+            ctx.fillStyle = "#FF0000";
+            ctx.fillRect(0, 0, 70, 200);
+        } else if (state == "Opened") {
+            ctx.fillStyle = "#90EE90";
+            ctx.fillRect(0, 0, 400, 30);
+        }
     }
+}
+
+function SetRevers() {
+    
+}
+
+function SetFan1Work() {
+    DrawVerticalArrow("fan1WorkTop", "top");
+    DrawHorizontalArrow("fan1WorkLeft", "left");
+}

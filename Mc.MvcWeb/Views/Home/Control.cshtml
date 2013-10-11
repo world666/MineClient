@@ -14,13 +14,13 @@
     <script type="text/javascript" src="../../Content/CustomElements.js"></script> 
 </head>
 <body>
-<div class="div_header">
+<div align="center" class="div_header">
     <h1 align="center">Управление вентилятором</h1>
     <h2 align="center">Вентиляторная установка @ViewBag.FanName</h2>
 </div>
 <div class="div_content">
 <div class="fan_div" style="top: 190px">
-         <p style="background: white; border: 1px solid gray">Вентилятор 1</p>
+         <p style="width: 105px; font-size: 18px; background: white; border: 1px solid gray">Вентилятор 1</p>
             <form name="fan1" method="post" action="">
              <input align="top" type='password' name='Password' size='10' maxlength='20'>
              <input type='hidden' name='FanObjectId' value='@ViewBag.fanObject.FanObjectId'>
@@ -31,7 +31,7 @@
                  }
                  else if (@ViewBag.fanObject.WorkingFanNumber == 2)
                  {
-                     <input type='submit' value='Включить'>
+                     <input type='submit' style="font-size: 18px" value='Включить'>
                      <input type='hidden' name='command' value='1'>
                  }
                  else {
@@ -44,36 +44,36 @@
         <img src="../../Images/fan.png"   alt="альтернативный текст" width="68" height="67" id="fan1">
     </div>
 
-  	  	<div class="vertical_pipe" style="width: 67px; height: 224px; left: 346px; top: 155px"></div>
-  <div class="vertical_pipe" style="width: 67px; height: 228px; left: 345px; top: 609px"></div>
+  <canvas id="fan1WorkTop" class="vertical_pipe" style="width: 67px; height: 224px; left: 346px; top: 155px"></canvas>
+  <div class="vertical_pipe" style="width: 67px; height: 228px; left: 345px; top: 569px"></div>
   
-  <div class="vertical_pipe" style="width: 67px; height: 90px; left: 112px; top: 129px"></div>
-  <div class="vertical_pipe" style="width: 67px; height: 90px; left: 112px; top: 607px"></div>
+  <canvas id="fan1WorkDown" class="vertical_pipe" style="width: 67px; height: 90px; left: 112px; top: 129px"></canvas>
+  <div class="vertical_pipe" style="width: 67px; height: 90px; left: 112px; top: 567px"></div>
 
   <div class="vertical_pipe" style="width: 67px; height: 90px; left: 113px; top: 286px"></div>
-  <div class="vertical_pipe" style="width: 67px; height: 90px; left: 113px; top: 766px"></div>
+  <div class="vertical_pipe" style="width: 67px; height: 90px; left: 113px; top: 726px"></div>
   
   <div class="vertical_pipe" style="width: 67px; height: 90px; left: 1173px; top: 126px"></div>
   <div class="vertical_pipe" style="width: 67px; height: 102px; left: 1173px; top: 280px"></div>
   
-  <div class="vertical_pipe" style="width: 67px; height: 116px; left: 1477px; top: -80px"></div>
+  <div class="vertical_pipe" style="width: 67px; height: 116px; left: 1447px; top: -90px"></div>
 
-<div class="horizontal_pipe" style="width: 309px; height: 67px; left: 601px; top: 382px"></div>
+  <canvas id="revers_left" class="horizontal_pipe" style="width: 309px; height: 67px; left: 601px; top: 382px"></canvas>
 
-  <div class="horizontal_pipe" style="width: 476px; height: 67px; left: 180px; top: 218px"></div>
-  <div class="horizontal_pipe" style="width: 359px; height: 67px; left: 180px; top: 698px"></div>
+  <canvas id="normaReversRight" class="horizontal_pipe" style="width: 476px; height: 67px; left: 180px; top: 218px"></canvas>
+  <div class="horizontal_pipe" style="width: 433px; height: 67px; left: 180px; top: 658px"></div>
   
   <div class="horizontal_pipe" style="width: 121px; height: 67px; left: 185px; top: 59px"></div>
-  <div class="horizontal_pipe" style="width: 154px; height: 67px; left: 185px; top: 538px"></div>
+  <div class="horizontal_pipe" style="width: 154px; height: 67px; left: 185px; top: 498px"></div>
   
   <div class="horizontal_pipe" style="width: 187px; height: 67px; left: 989px; top: 383px"></div>
   <div class="horizontal_pipe" style="width: 181px; height: 67px; left: 1243px; top: 383px"></div>
   
-  <div class="horizontal_pipe" style="width: 83px; height: 67px; left: 417px; top: 539px"></div>
+  <div class="horizontal_pipe" style="width: 83px; height: 67px; left: 417px; top: 499px"></div>
   <div class="horizontal_pipe" style="width: 110px; height: 67px; left: 419px; top: 383px"></div>
   
-  <div class="horizontal_pipe" style="width: 156px; height: 67px; left: 185px; top: 383px"></div>
-  <div class="horizontal_pipe" style="width: 121px; height: 67px; left: 187px; top: 859px"></div>
+  <canvas id="fan1WorkLeft" class="horizontal_pipe" style="width: 156px; height: 67px; left: 185px; top: 383px"></canvas>
+  <div class="horizontal_pipe" style="width: 121px; height: 67px; left: 187px; top: 819px"></div>
    
   <div class="horizontal_pipe" style="width: 156px; height: 67px; left: 1014px; top: 57px"></div>
   <div class="horizontal_pipe" style="width: 162px; height: 67px; left: 1241px; top: 58px"></div>
@@ -82,29 +82,75 @@
   <div class="horizontal_pipe" style="width: 450px; height: 67px; left: 722px; top: 218px"></div>
   <div class="vertical_pipe" style="width: 67px; height: 333px; left: 658px; top: 289px"></div>
   
-  <div class="vertical_pipe" style="width: 67px; height: 206px; left: 916px; top: 182px"></div>
+  <div class="vertical_pipe" style="width: 67px; height: 220px; left: 916px; top: 168px"></div>
   
   <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 107px; top: 54px"></div>
-  <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 107px; top: 532px"></div>
+  <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 107px; top: 492px"></div>
     
-  <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 339px; top: 534px"></div>  
+  <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 339px; top: 494px"></div>  
   <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 341px; top: 377px"></div>
-  
-  <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 528px; top: 378px"></div>
-  
+ 
   <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 911px; top: 378px"></div>
   <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 1166px; top: 378px"></div>
   
   <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 1168px; top: 52px"></div>
     
   <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 108px; top: 377px"></div>
-  <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 109px; top: 855px"></div>
+  <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 109px; top: 815px"></div>
 
     <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 654px; top: 214px"></div>
   <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 1168px; top: 214px"></div>
 
+    <div class="pipe_binder"  style="width: 120; height: 120; left: 297px; top: 53px"><img src="../../Images/pipe_binder.png" width="120" height="120"></div>
+    <div class="pipe_binder"  style="width: 120; height: 120; left: 912px; top: 53px"><img class="binder270" src="../../Images/pipe_binder.png" width="120" height="120"></div>
+    <div class="pipe_binder"  style="width: 120; height: 120; left: 485px; top: 450px"><img class="binder90" src="../../Images/pipe_binder.png" width="120" height="120"></div>
+    <div class="pipe_binder"  style="width: 120; height: 120; left: 610px; top: 610px"><img class="binder90" src="../../Images/pipe_binder.png" width="120" height="120"></div>
+    <div class="pipe_binder"  style="width: 120; height: 120; left: 297px; top: 770px"><img class="binder90" src="../../Images/pipe_binder.png" width="120" height="120"></div>
+    <div class="pipe_binder"  style="width: 120; height: 120; left: 1400px; top: 10px"><img class="binder90" src="../../Images/pipe_binder.png" width="120" height="120"></div>
+    
+    
+    <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 528px; top: 378px"></div>
+  
+    <canvas id="lna1"  class="lada_horizontal" style="width: 67px; height: 68px; left: 112px; top: 145px;"></canvas>
+    <p  style="position: absolute; width:65px; border: 1px solid gray; font-size: 20px; left: 190px; top: 125px; background: white;">НА №1</p>
+    <canvas  id="lna11"  class="lada_horizontal" style="width: 67px; height: 68px; left: 113px; top: 305px;"></canvas>
+    <canvas id="lna2"  class="lada_horizontal" style="width: 67px; height: 68px; left: 112px; top: 585px;"></canvas>
+    <p  style="position: absolute; width:65px; border: 1px solid gray; font-size: 20px; left: 190px; top: 565px; background: white;">НА №2</p>
+    <canvas id="lna22"  class="lada_horizontal" style="width: 67px; height: 68px; left: 113px; top: 743px;"></canvas>
+    <canvas id="lp2"  class="lada_vertical" style="width: 67px; height: 67px; left: 417px; top: 499px;"></canvas>
+    <p  style="position: absolute; width:65px; border: 1px solid gray; font-size: 20px; left: 419px; top: 549px; background: white;">ЛП №2</p>
+    <canvas id="lp1"  class="lada_vertical" style="width: 67px; height: 67px; left: 419px; top: 383px;"></canvas>
+    <p  style="position: absolute; width:65px; border: 1px solid gray; font-size: 20px; left: 419px; top: 335px; background: white;">ЛП №1</p>
+    <canvas id="lo1"  class="lada_vertical" style="width: 67px; height: 67px; left: 417px; top: 218px;"></canvas>
+    <p  style="position: absolute; width:65px; border: 1px solid gray; font-size: 20px; left: 419px; top: 170px; background: white;">ЛО №1</p>
+    <canvas id="lo2"  class="lada_vertical" style="width: 67px; height: 67px; left: 417px; top: 658px;"></canvas>
+    <p  style="position: absolute; width:65px; border: 1px solid gray; font-size: 20px; left: 419px; top: 710px; background: white;">ЛО №2</p>
+    <canvas id="la"  class="lada_horizontal" style="width: 67px; height: 67px; left: 1042px; top: 57px;"></canvas>
+    <p  style="position: absolute; width:30px; border: 1px solid gray; font-size: 20px; left: 1060px; top: 9px; background: white;">ЛА</p>
+    <canvas id="ld"  class="lada_horizontal" style="width: 76px; height: 74px; left: 1169px; top: 215px;"></canvas>
+    <p  style="position: absolute; width:30px; border: 1px solid gray; font-size: 20px; left: 1255px; top: 198px; background: white;">ЛД</p>
+    <canvas id="lpk"  class="lada_vertical" style="width: 75px; height: 76px; left: 1167px; top: 379px;"></canvas>
+    <p  style="position: absolute; width:40px; border: 1px solid gray; font-size: 20px; left: 1120px; top: 333px; background: white;">ЛПК</p>
+    
+
+    <script type="text/javascript">
+        LadaSetState("lna1", "@ViewBag.DoorsState[7]");
+        LadaSetState("lna11", "@ViewBag.DoorsState[7]");
+        LadaSetState("lna2", "@ViewBag.DoorsState[8]");
+        LadaSetState("lna22", "@ViewBag.DoorsState[8]");
+        LadaSetState("lp2", "@ViewBag.DoorsState[3]");
+        LadaSetState("lp1", "@ViewBag.DoorsState[1]");
+        LadaSetState("lo1", "@ViewBag.DoorsState[0]");
+        LadaSetState("lo2", "@ViewBag.DoorsState[2]");
+        LadaSetState("la", "@ViewBag.DoorsState[4]");
+        LadaSetState("ld", "@ViewBag.DoorsState[5]");
+        LadaSetState("lpk", "@ViewBag.DoorsState[6]");
+        SetFan1Work();    
+        
+    </script>
+
     <div  class="fan_div" style="margin-top:560px">
-        <p style="background: white; border: 1px solid gray">Вентилятор 2</p>
+        <p style="width: 105px; font-size: 18px; background: white; border: 1px solid gray">Вентилятор 2</p>
         <form name="fan2" method="post" action="">
         <input type='password' name='password' size='10' maxlength='20'>
             <input type='hidden' name='FanObjectId' value='@ViewBag.fanObject.FanObjectId'>
@@ -124,7 +170,7 @@
                  }
             </form>
     </div>
-    <div class="img_div" style="left:113px; top:698px;" >
+    <div class="img_div" style="left:113px; top:658px;" >
         <img  src="../../Images/fan.png"  alt="альтернативный текст" width="68" height="67" id="fan2">
     </div>
     

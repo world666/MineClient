@@ -1,5 +1,8 @@
 ﻿body {
     background-color: #efefef;
+    background: #add8e6;
+    margin: 0px;
+    padding: 0px;
 }
 .fan_div {
     position: relative;
@@ -10,12 +13,13 @@
 }
 .div_header {
     height: 4px;
-    width: 2000px;
+    width: 1550px;
 }
 .div_content {
     position: relative;
-    width: 2000px;
+    width: 1550px;
     height: 1000px;
+    
 }
 .img_div {
     position: absolute;
@@ -46,4 +50,30 @@ input {
     position:absolute;
     border: 1px solid black; /* Параметры границы */
     background: #B9B9B9;
+}
+.pipe_binder {
+    position:absolute;
+    border: none;
+} 
+.lada_horizontal {
+    position:absolute;
+}
+.lada_vertical {
+    position:absolute;
+}  
+.binder90 {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+  border: none;
+}
+.binder270 {
+  -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  -o-transform: rotate(270deg);
+  transform: rotate(270deg);
+  border: none;
 }

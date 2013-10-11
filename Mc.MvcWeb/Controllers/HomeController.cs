@@ -44,6 +44,8 @@ namespace Mc.MvcWeb.Controllers
             if (fanObject == null) return null;
             ViewBag.FanObject = fanObject;
             ViewBag.FanName = Config.Instance.FanObjectConfig.FansName.Split(new string[] { "!$!" }, StringSplitOptions.RemoveEmptyEntries)[fanObjectId - 1];
+            ViewBag.DoorsState = FanService.GetDoorsState(fanObject.Doors);
+            ViewBag.DoorsMode = FanService.GetDoorsMode(fanObject.WorkingFanNumber, fanObject.Doors);
             return View();
         }
         [HttpPost]
