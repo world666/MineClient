@@ -14,7 +14,7 @@
     <script type="text/javascript" src="../../Content/CustomElements.js"></script> 
 </head>
 <body>
-<div align="center" class="div_header">
+<div class="div_header">
     <h1 align="center">Управление вентилятором</h1>
     <h2 align="center">Вентиляторная установка @ViewBag.FanName</h2>
 </div>
@@ -26,7 +26,7 @@
              <input type='hidden' name='FanObjectId' value='@ViewBag.fanObject.FanObjectId'>
                  @if (@ViewBag.fanObject.WorkingFanNumber == 1)
                  {
-                     <input type='submit' value='Выключить'>
+                     <input type='submit' style="font-size: 16px" value='Выключить'>
                      <input type='hidden' name='Command' value='3'>
                  }
                  else if (@ViewBag.fanObject.WorkingFanNumber == 2)
@@ -34,8 +34,9 @@
                      <input type='submit' style="font-size: 18px" value='Включить'>
                      <input type='hidden' name='command' value='1'>
                  }
-                 else {
-                     <input type='submit' value='Включить'>
+                 else
+                 {
+                     <input type='submit' style="font-size: 18px" value='Включить'>
                      <input type='hidden' name='Command' value='1'>
                  }
             </form>
@@ -63,7 +64,7 @@
   <canvas id="normaReversRight" class="horizontal_pipe" style="width: 476px; height: 67px; left: 180px; top: 218px"></canvas>
   <div class="horizontal_pipe" style="width: 433px; height: 67px; left: 180px; top: 658px"></div>
   
-  <div class="horizontal_pipe" style="width: 121px; height: 67px; left: 185px; top: 59px"></div>
+  <canvas id="fan1WorkLeft2" class="horizontal_pipe" style="width: 121px; height: 67px; left: 185px; top: 59px"></canvas>
   <div class="horizontal_pipe" style="width: 154px; height: 67px; left: 185px; top: 498px"></div>
   
   <div class="horizontal_pipe" style="width: 187px; height: 67px; left: 989px; top: 383px"></div>
@@ -112,25 +113,25 @@
     <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 528px; top: 378px"></div>
   
     <canvas id="lna1"  class="lada_horizontal" style="width: 67px; height: 68px; left: 112px; top: 145px;"></canvas>
-    <p  style="position: absolute; width:65px; border: 1px solid gray; font-size: 20px; left: 190px; top: 125px; background: white;">НА №1</p>
+    <p  style="position: absolute; width:65px; border: 1px solid gray; font-size: 20px; left: 190px; top: 125px; background: @ViewBag.DoorsTextColor[7];">НА №1</p>
     <canvas  id="lna11"  class="lada_horizontal" style="width: 67px; height: 68px; left: 113px; top: 305px;"></canvas>
     <canvas id="lna2"  class="lada_horizontal" style="width: 67px; height: 68px; left: 112px; top: 585px;"></canvas>
-    <p  style="position: absolute; width:65px; border: 1px solid gray; font-size: 20px; left: 190px; top: 565px; background: white;">НА №2</p>
+    <p  style="position: absolute; width:65px; border: 1px solid gray; font-size: 20px; left: 190px; top: 565px; background: @ViewBag.DoorsTextColor[8];">НА №2</p>
     <canvas id="lna22"  class="lada_horizontal" style="width: 67px; height: 68px; left: 113px; top: 743px;"></canvas>
     <canvas id="lp2"  class="lada_vertical" style="width: 67px; height: 67px; left: 417px; top: 499px;"></canvas>
-    <p  style="position: absolute; width:65px; border: 1px solid gray; font-size: 20px; left: 419px; top: 549px; background: white;">ЛП №2</p>
+    <p  style="position: absolute; width:65px; border: 1px solid gray; font-size: 20px; left: 419px; top: 549px; background: @ViewBag.DoorsTextColor[3];">ЛП №2</p>
     <canvas id="lp1"  class="lada_vertical" style="width: 67px; height: 67px; left: 419px; top: 383px;"></canvas>
-    <p  style="position: absolute; width:65px; border: 1px solid gray; font-size: 20px; left: 419px; top: 335px; background: white;">ЛП №1</p>
+    <p  style="position: absolute; width:65px; border: 1px solid gray; font-size: 20px; left: 419px; top: 335px; background: @ViewBag.DoorsTextColor[1];">ЛП №1</p>
     <canvas id="lo1"  class="lada_vertical" style="width: 67px; height: 67px; left: 417px; top: 218px;"></canvas>
-    <p  style="position: absolute; width:65px; border: 1px solid gray; font-size: 20px; left: 419px; top: 170px; background: white;">ЛО №1</p>
+    <p  style="position: absolute; width:65px; border: 1px solid gray; font-size: 20px; left: 419px; top: 170px; background: @ViewBag.DoorsTextColor[0];">ЛО №1</p>
     <canvas id="lo2"  class="lada_vertical" style="width: 67px; height: 67px; left: 417px; top: 658px;"></canvas>
-    <p  style="position: absolute; width:65px; border: 1px solid gray; font-size: 20px; left: 419px; top: 710px; background: white;">ЛО №2</p>
+    <p  style="position: absolute; width:65px; border: 1px solid gray; font-size: 20px; left: 419px; top: 710px; background: @ViewBag.DoorsTextColor[2];">ЛО №2</p>
     <canvas id="la"  class="lada_horizontal" style="width: 67px; height: 67px; left: 1042px; top: 57px;"></canvas>
-    <p  style="position: absolute; width:30px; border: 1px solid gray; font-size: 20px; left: 1060px; top: 9px; background: white;">ЛА</p>
+    <p  style="position: absolute; width:30px; border: 1px solid gray; font-size: 20px; left: 1060px; top: 9px; background: @ViewBag.DoorsTextColor[4];">ЛА</p>
     <canvas id="ld"  class="lada_horizontal" style="width: 76px; height: 74px; left: 1169px; top: 215px;"></canvas>
-    <p  style="position: absolute; width:30px; border: 1px solid gray; font-size: 20px; left: 1255px; top: 198px; background: white;">ЛД</p>
+    <p  style="position: absolute; width:30px; border: 1px solid gray; font-size: 20px; left: 1255px; top: 198px; background: @ViewBag.DoorsTextColor[5];">ЛД</p>
     <canvas id="lpk"  class="lada_vertical" style="width: 75px; height: 76px; left: 1167px; top: 379px;"></canvas>
-    <p  style="position: absolute; width:40px; border: 1px solid gray; font-size: 20px; left: 1120px; top: 333px; background: white;">ЛПК</p>
+    <p  style="position: absolute; width:40px; border: 1px solid gray; font-size: 20px; left: 1120px; top: 333px; background: @ViewBag.DoorsTextColor[6];">ЛПК</p>
     
 
     <script type="text/javascript">
@@ -149,23 +150,24 @@
         
     </script>
 
-    <div  class="fan_div" style="margin-top:560px">
+    <div  class="fan_div" style="margin-top:500px">
         <p style="width: 105px; font-size: 18px; background: white; border: 1px solid gray">Вентилятор 2</p>
         <form name="fan2" method="post" action="">
         <input type='password' name='password' size='10' maxlength='20'>
             <input type='hidden' name='FanObjectId' value='@ViewBag.fanObject.FanObjectId'>
                  @if (@ViewBag.fanObject.WorkingFanNumber == 2)
                  {
-                     <input type='submit' value='Выключить'>
+                     <input type='submit' style="font-size: 16px" value='Выключить'>
                      <input type='hidden' name='command' value='3'>
                  }
                  else if (@ViewBag.fanObject.WorkingFanNumber == 1)
                  {
-                     <input type='submit' value='Включить'>
+                     <input type='submit' style="font-size: 18px" value='Включить'>
                      <input type='hidden' name='command' value='2'>
                  }
-                 else {
-                     <input type='submit' value='Включить'>
+                 else
+                 {
+                     <input type='submit' style="font-size: 18px" value='Включить'>
                      <input type='hidden' name='command' value='2'>
                  }
             </form>

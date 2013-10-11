@@ -8,40 +8,100 @@ var imgArrowBottom = new Image();
 imgArrowBottom.src = "../../Images/arrow_bottom.png";
 
 function DrawHorizontalArrow(id, side) {
-    var x = 0;
-    var y = 0;
-    var width = 300;
-    var height = 150;
-    var c = document.getElementById(id);
-    var ctx = c.getContext("2d");
+    var canvas = document.getElementById(id);
+    var obCanvas = canvas.getContext('2d');
     var start;
     var current = 0;
     var end;
     var dx;
     if (side == "right") {
-        start = x - 20;
-        end = x + width;
+        start = 0;
+        end = 0 + canvas.width;
         dx = 1;
     } else if (side == "left") {
-        start = x + width-10;
-        end = x - 30;
+        start = canvas.width;
+        end = 0;
         dx = -1;
     } else {
         dx = 0;
     }
     current = start;
-    setInterval(function() {
-        ctx.clearRect(x, y, width, height);
-        if (side == "right") 
-            ctx.drawImage(imgArrowRight, current += dx, y + height / 2 - 8);
-        else 
-            ctx.drawImage(imgArrowLeft, current += dx, y + height / 2 - 8);
+   setInterval(function () {
+        obCanvas.clearRect(0, 0, canvas.width, canvas.height);
+        if (side == "right") {
+            obCanvas.beginPath();
+            obCanvas.lineWidth = 3;
+            obCanvas.strokeStyle = 'black';
+            obCanvas.moveTo(0, canvas.height / 2);
+            obCanvas.lineTo(canvas.width / 5, canvas.height / 2);
+            obCanvas.stroke();
+        }
+        if (side == "left")
+        {
+            obCanvas.beginPath();
+            obCanvas.lineWidth = 5;
+            obCanvas.strokeStyle = 'black';
+            obCanvas.moveTo(current, canvas.height / 2);
+            obCanvas.lineTo(current - 70, canvas.height / 2);//main
+            obCanvas.lineTo(current - 70 + 15, canvas.height / 2 - 8);//arrow
+            obCanvas.moveTo(current - 73, canvas.height / 2);//main
+            obCanvas.lineTo(current - 70 + 15, canvas.height / 2 + 8);//arrow
+            obCanvas.stroke();
+            current += dx;
+        }
         if (current == end)
             current = start;
     }, 10);
+   
 }
 
 function DrawVerticalArrow(id, side) {
+    var canvas = document.getElementById(id);
+    var obCanvas = canvas.getContext('2d');
+    var start;
+    var current = 0;
+    var end;
+    var dx;
+    if (side == "top") {
+        start = canvas.height;
+        end = 0;
+        dx = -1;
+    } else if (side == "bottom") {
+        start = 0;
+        end = canvas.height;
+        dx = 1;
+    } else {
+        dx = 0;
+    }
+    current = start;
+    setInterval(function () {
+        obCanvas.clearRect(0, 0, canvas.width, canvas.height);
+        if (side == "right") {
+            obCanvas.beginPath();
+            obCanvas.lineWidth = 3;
+            obCanvas.strokeStyle = 'black';
+            obCanvas.moveTo(0, canvas.height / 2);
+            obCanvas.lineTo(canvas.width / 5, canvas.height / 2);
+            obCanvas.stroke();
+        }
+        if (side == "top") {
+            obCanvas.beginPath();
+            obCanvas.lineWidth = 7;
+            obCanvas.strokeStyle = 'black';
+            obCanvas.moveTo(canvas.width / 2,current);
+            obCanvas.lineTo(canvas.width / 2, current - 24);//main
+            obCanvas.lineTo(canvas.width / 2 + 10, current - 24 + 5);//arrow
+            obCanvas.moveTo(canvas.width / 2, current - 24);//main
+            obCanvas.lineTo(canvas.width / 2 - 10, current - 24 + 5);//arrow*/
+            obCanvas.stroke();
+            current += dx;
+        }
+        if (current == end)
+            current = start;
+    }, 20);
+
+}
+function DrawVerticalArrow1(id, side) {
     var c = document.getElementById(id);
     var ctx = c.getContext("2d");
     var x = 0;
@@ -109,4 +169,5 @@ function SetRevers() {
 function SetFan1Work() {
     DrawVerticalArrow("fan1WorkTop", "top");
     DrawHorizontalArrow("fan1WorkLeft", "left");
+    DrawHorizontalArrow("fan1WorkLeft2", "left");
 }

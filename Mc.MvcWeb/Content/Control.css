@@ -7,19 +7,21 @@
 .fan_div {
     position: relative;
     text-align: center;
-    margin-top: 160px;
+    margin-top: 10px;
     width: 100px;
     height: 110px;
 }
 .div_header {
-    height: 4px;
+    position: relative;
+    left: 5%;
+    height: 110px;
     width: 1550px;
 }
 .div_content {
+    left: 5%;
     position: relative;
     width: 1550px;
     height: 1000px;
-    
 }
 .img_div {
     position: absolute;

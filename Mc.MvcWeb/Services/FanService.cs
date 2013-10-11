@@ -33,6 +33,21 @@ namespace Mc.MvcWeb.Services
             for (var i = 0; i < parametersList.Count; i++) _fans[i].Values = parametersList[i];
             return _fans;
         }
+        public static List<string> GetDoorsTextColor(List<Door> doors)
+        {
+            List<string> colors = new List<string>();
+            foreach (var door in doors)
+            {
+                DoorStateEnum state = Enum.IsDefined(typeof (DoorStateEnum), door.StateId)
+                                          ? (DoorStateEnum) door.StateId
+                                          : DoorStateEnum.Undefined;
+                string s = state == DoorStateEnum.Undefined
+                                            ? "red"
+                               : "white";
+                colors.Add(s);
+            }
+            return colors;
+        }
         public static List<string> GetDoorsState(List<Door> doors)
         {
             List<string> states = new List<string>();
