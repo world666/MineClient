@@ -31,11 +31,16 @@ function DrawHorizontalArrow(id, side, length, size) {
    setInterval(function () {
         obCanvas.clearRect(0, 0, canvas.width, canvas.height);
         if (side == "right") {
-            obCanvas.beginPath();
-            obCanvas.lineWidth = 4;
+            obCanvas.lineWidth = 6;
             obCanvas.strokeStyle = 'black';
+            obCanvas.beginPath();
             obCanvas.moveTo(current, canvas.height / 2);
             obCanvas.lineTo(current + arrowLength, canvas.height / 2);//main
+            obCanvas.stroke();
+            obCanvas.lineWidth = 4;
+            obCanvas.strokeStyle = 'black';
+            obCanvas.beginPath();
+            obCanvas.moveTo(current + arrowLength, canvas.height / 2);
             obCanvas.lineTo(current + arrowLength - arrowSize, canvas.height / 2 - 8);//arrow
             obCanvas.moveTo(current + arrowLength + 3, canvas.height / 2);//main
             obCanvas.lineTo(current + arrowLength - arrowSize, canvas.height / 2 + 8);//arrow
@@ -44,11 +49,16 @@ function DrawHorizontalArrow(id, side, length, size) {
         }
         if (side == "left")
         {
-            obCanvas.beginPath();
-            obCanvas.lineWidth = 4;
+            obCanvas.lineWidth = 6;
             obCanvas.strokeStyle = 'black';
+            obCanvas.beginPath();
             obCanvas.moveTo(current, canvas.height / 2);
             obCanvas.lineTo(current - arrowLength, canvas.height / 2);//main
+            obCanvas.stroke();
+            obCanvas.lineWidth = 4;
+            obCanvas.strokeStyle = 'black';
+            obCanvas.beginPath();
+            obCanvas.moveTo(current - arrowLength, canvas.height / 2);
             obCanvas.lineTo(current - arrowLength + arrowSize, canvas.height / 2 - 8);//arrow
             obCanvas.moveTo(current - arrowLength, canvas.height / 2);//main
             obCanvas.lineTo(current - arrowLength + arrowSize, canvas.height / 2 + 8);//arrow
@@ -85,7 +95,7 @@ function DrawVerticalArrow(id, side, length, size) {
     setInterval(function () {
         obCanvas.clearRect(0, 0, canvas.width, canvas.height);
         if (side == "down") {
-            obCanvas.lineWidth = 8;
+            obCanvas.lineWidth = 10;
             obCanvas.strokeStyle = 'black';
             obCanvas.beginPath();
             obCanvas.moveTo(canvas.width / 2, current);
@@ -103,7 +113,7 @@ function DrawVerticalArrow(id, side, length, size) {
         }
         if (side == "top") {
             
-            obCanvas.lineWidth = 8;
+            obCanvas.lineWidth = 10;
             obCanvas.strokeStyle = 'black';
             obCanvas.beginPath();
             obCanvas.moveTo(canvas.width / 2,current);
@@ -209,7 +219,7 @@ function SetFan2Work() {
     DrawVerticalArrow("fan2WorkTop2", "top", 30, 4);
     DrawVerticalArrow("fan2WorkDown", "down", 30, 4);
     DrawHorizontalArrow("fan2WorkLeft3", "left", 80, 15);
-    DrawVerticalArrow("fan2WorkTop3", "top", 2, 0);
+    DrawVerticalArrow("fan2WorkTop3", "top", 0, -2);
 }
 function Revers() {
     DrawVerticalArrow("reversDown", "down", 30, 4);
@@ -222,7 +232,7 @@ function Revers() {
     DrawHorizontalArrow("reversNormaLeft", "left", 14, 2);
 }
 function Norma() {
-    DrawHorizontalArrow("reversRightNormaLeft", "right", 50, 15);
+    DrawHorizontalArrow("reversRightNormaLeft", "left", 50, 15);
     DrawVerticalArrow("reversDownNormaTop", "top", 30, 4);
     DrawHorizontalArrow("reversLeftNormaRight", "right", 50, 15);
     DrawHorizontalArrow("reversNormaRight", "right", 0, 0);

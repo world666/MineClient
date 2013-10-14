@@ -36,7 +36,25 @@ namespace Mc.MvcWeb.Controllers
             ViewBag.FanNames = fanNames;
             return View();
         }
-
+        public ActionResult IndexContent()
+        {
+            List<Fan> _fans = FanService.getFans();
+            ViewBag.Fans = _fans;
+            ViewBag.MineName = Config.Instance.FanObjectConfig.MineName;
+            ViewBag.Date = DateTime.Now;
+            ViewBag.ParametersCount = _fans[0].Values.Count;
+            List<string> fanNames = Config.Instance.FanObjectConfig.FansName.Split(new string[] { "!$!" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            if (fanNames.Count() < _fans.Count())
+            {
+                for (int i = 0; i < _fans.Count() - fanNames.Count(); i++)
+                {
+                    fanNames.Add(fanNames.Count().ToString());
+                }
+            }
+            ViewBag.FanNamesCount = _fans.Count();
+            ViewBag.FanNames = fanNames;
+            return View();
+        }
         [HttpGet]
         public ActionResult Control(int fanObjectId)
         {
@@ -69,6 +87,18 @@ namespace Mc.MvcWeb.Controllers
                 }
             }
             return Control(remoteData.FanObjectId);
+        }
+
+        public ActionResult ControlContent(int fanObjectId)
+        {
+            var fanObject = _databaseService.GetFanObject(fanObjectId);
+            if (fanObject == null) return null;
+            ViewBag.FanObject = fanObject;
+            ViewBag.FanName = Config.Instance.FanObjectConfig.FansName.Split(new string[] { "!$!" }, StringSplitOptions.RemoveEmptyEntries)[fanObjectId - 1];
+            ViewBag.DoorsState = FanService.GetDoorsState(fanObject.Doors);
+            ViewBag.DoorsMode = FanService.GetDoorsMode(fanObject.WorkingFanNumber, fanObject.Doors);
+            ViewBag.DoorsTextColor = FanService.GetDoorsTextColor(fanObject.Doors);
+            return View();
         }
     }
 }

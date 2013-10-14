@@ -133,7 +133,22 @@
     <Content Include="Content\Control.css" />
     <Content Include="Content\CustomElements.js" />
     <Content Include="Content\jquery-1.10.2.js" />
+    <None Include="Content\jquery-1.7.1.intellisense.js" />
+    <Content Include="Content\jquery-1.7.1.js" />
+    <Content Include="Content\jquery-1.7.1.min.js" />
+    <Content Include="Content\jquery-ui-1.8.20.js" />
+    <Content Include="Content\jquery-ui-1.8.20.min.js" />
+    <Content Include="Content\jquery.unobtrusive-ajax.js" />
+    <Content Include="Content\jquery.unobtrusive-ajax.min.js" />
+    <None Include="Content\jquery.validate-vsdoc.js" />
+    <Content Include="Content\jquery.validate.js" />
+    <Content Include="Content\jquery.validate.min.js" />
+    <Content Include="Content\jquery.validate.unobtrusive.js" />
+    <Content Include="Content\jquery.validate.unobtrusive.min.js" />
     <Content Include="Content\jqueryrotate.2.1.js" />
+    <Content Include="Content\knockout-2.1.0.debug.js" />
+    <Content Include="Content\knockout-2.1.0.js" />
+    <Content Include="Content\modernizr-2.5.3.js" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Images\arrow_bottom.png" />
@@ -150,6 +165,8 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
+    <Content Include="Views\Home\ControlContent.cshtml" />
+    <Content Include="Views\Home\IndexContent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -180,6 +197,7 @@
   <ItemGroup>
     <None Include="Properties\PublishProfiles\MineWeb.pubxml" />
     <None Include="Properties\PublishProfiles\MvcWeb.pubxml" />
+    <None Include="Properties\PublishProfiles\MvcWeb2.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,197 @@
+﻿ 
+@using (Ajax.BeginForm("ControlContent", new { fanObjectId = 1 }, new AjaxOptions { UpdateTargetId = "content" }))
+{
+}
+<div class="div_header">
+    <h1 align="center">Управление вентилятором</h1>
+    <h2 align="center">Вентиляторная установка @ViewBag.FanName</h2>
+</div>
+<div class="div_content">
+<div class="fan_div" style="top: 190px">
+         <p style="width: 105px; font-size: 18px; background: white; border: 1px solid gray">Вентилятор 1</p>
+            <form name="fan1" method="post" action="">
+             <input align="top" type='password' name='Password' size='10' maxlength='20'>
+             <input type='hidden' name='FanObjectId' value='@ViewBag.fanObject.FanObjectId'>
+                 @if (@ViewBag.fanObject.WorkingFanNumber == 1)
+                 {
+                     <input type='submit' style="font-size: 16px" value='Выключить'>
+                     <input type='hidden' name='Command' value='3'>
+                 }
+                 else if (@ViewBag.fanObject.WorkingFanNumber == 2)
+                 {
+                     <input type='submit' style="font-size: 18px" value='Включить'>
+                     <input type='hidden' name='command' value='1'>
+                 }
+                 else
+                 {
+                     <input type='submit' style="font-size: 18px" value='Включить'>
+                     <input type='hidden' name='Command' value='1'>
+                 }
+            </form>
+   </div>
+    <div class="img_div" style="left:112px; top:219px;">
+        <img src="../../Images/fan.png"   alt="альтернативный текст" width="68" height="67" id="fan1">
+    </div>
+    <canvas id="fan1WorkTop" class="vertical_pipe" style="width: 67px; height: 224px; left: 346px; top: 155px"></canvas>
+  <canvas id="fan2WorkDown2" class="vertical_pipe" style="width: 67px; height: 228px; left: 345px; top: 569px"></canvas>
+  
+  <canvas id="fan1WorkDown" class="vertical_pipe" style="width: 67px; height: 90px; left: 112px; top: 129px"></canvas>
+  <canvas id="fan2WorkDown" class="vertical_pipe" style="width: 67px; height: 90px; left: 112px; top: 567px"></canvas>
+
+  <canvas id="fan1WorkTop2" class="vertical_pipe" style="width: 67px; height: 90px; left: 113px; top: 286px"></canvas>
+  <canvas id="fan2WorkTop2" class="vertical_pipe" style="width: 67px; height: 90px; left: 113px; top: 726px"></canvas>
+  
+  <div class="vertical_pipe" style="width: 67px; height: 90px; left: 1173px; top: 126px"></div>
+  <canvas id="reversDown" class="vertical_pipe" style="width: 67px; height: 102px; left: 1173px; top: 280px"></canvas>
+  
+  <canvas id="reversDownNormaTop" class="vertical_pipe" style="width: 67px; height: 116px; left: 1447px; top: -90px"></canvas>
+
+  <canvas id="reversNormaLeft" class="horizontal_pipe" style="width: 309px; height: 67px; left: 601px; top: 382px"></canvas>
+
+  <canvas id="fan1WorkRight" class="horizontal_pipe" style="width: 476px; height: 67px; left: 180px; top: 218px"></canvas>
+  <canvas id="fan2WorkRight" class="horizontal_pipe" style="width: 433px; height: 67px; left: 180px; top: 658px"></canvas>
+  
+  <canvas id="fan1WorkLeft2" class="horizontal_pipe" style="width: 121px; height: 67px; left: 185px; top: 59px"></canvas>
+  <canvas id="fan2WorkLeft2" class="horizontal_pipe" style="width: 154px; height: 67px; left: 185px; top: 498px"></canvas>
+  
+  <canvas id="normaLeft" class="horizontal_pipe" style="width: 187px; height: 67px; left: 989px; top: 383px"></canvas>
+  <canvas id="reversRightNormaLeft" class="horizontal_pipe" style="width: 181px; height: 67px; left: 1243px; top: 383px"></canvas>
+  
+  <canvas id="fan2WorkLeft3" class="horizontal_pipe" style="width: 83px; height: 67px; left: 417px; top: 499px"></canvas>
+  <canvas id="fan1WorkLeft3" class="horizontal_pipe" style="width: 110px; height: 67px; left: 419px; top: 383px"></canvas>
+  
+  <canvas id="fan1WorkLeft" class="horizontal_pipe" style="width: 156px; height: 67px; left: 185px; top: 383px"></canvas>
+  <canvas id="fan2WorkLeft" class="horizontal_pipe" style="width: 121px; height: 67px; left: 187px; top: 819px"></canvas>
+
+  <canvas id="reversLeft" class="horizontal_pipe" style="width: 156px; height: 67px; left: 1014px; top: 57px"></canvas>
+  <canvas id="reversLeftNormaRight" class="horizontal_pipe" style="width: 162px; height: 67px; left: 1241px; top: 58px"></canvas>
+
+
+  <canvas id="reversNormaRight" class="horizontal_pipe" style="width: 450px; height: 67px; left: 722px; top: 218px"></canvas>
+  <canvas id="fan2WorkTop3" class="vertical_pipe" style="width: 67px; height: 333px; left: 658px; top: 289px"></canvas>
+  
+  <canvas id="reversDown2" class="vertical_pipe" style="width: 67px; height: 220px; left: 916px; top: 168px"></canvas>
+  
+  <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 107px; top: 54px"></div>
+  <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 107px; top: 492px"></div>
+    
+  <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 339px; top: 494px"></div>  
+  <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 341px; top: 377px"></div>
+ 
+  <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 911px; top: 378px"></div>
+  <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 1166px; top: 378px"></div>
+  
+  <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 1168px; top: 52px"></div>
+    
+  <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 108px; top: 377px"></div>
+  <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 109px; top: 815px"></div>
+
+  <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 654px; top: 214px"></div>
+  <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 1168px; top: 214px"></div>
+
+    <div class="pipe_binder"  style="width: 120; height: 120; left: 297px; top: 53px"><img src="../../Images/pipe_binder.png" width="120" height="120"></div>
+    <div class="pipe_binder"  style="width: 120; height: 120; left: 912px; top: 53px"><img class="binder270" src="../../Images/pipe_binder.png" width="120" height="120"></div>
+    <div class="pipe_binder"  style="width: 120; height: 120; left: 485px; top: 450px"><img class="binder90" src="../../Images/pipe_binder.png" width="120" height="120"></div>
+    <div class="pipe_binder"  style="width: 120; height: 120; left: 610px; top: 610px"><img class="binder90" src="../../Images/pipe_binder.png" width="120" height="120"></div>
+    <div class="pipe_binder"  style="width: 120; height: 120; left: 297px; top: 770px"><img class="binder90" src="../../Images/pipe_binder.png" width="120" height="120"></div>
+    <div class="pipe_binder"  style="width: 120; height: 120; left: 1400px; top: 10px"><img class="binder90" src="../../Images/pipe_binder.png" width="120" height="120"></div>
+    
+    
+    <div class="pipe_binder_double" style="width: 75px; height: 75px; left: 528px; top: 378px"></div>
+
+
+     <canvas id="lna1"  class="lada_horizontal" style="width: 67px; height: 68px; left: 112px; top: 145px;"></canvas>
+    <p  style="position: absolute; width:68px; border: 1px solid gray; font-size: 20px; left: 190px; top: 125px; background: @ViewBag.DoorsTextColor[7];">НА №1</p>
+    <canvas  id="lna11"  class="lada_horizontal" style="width: 67px; height: 68px; left: 113px; top: 305px;"></canvas>
+    <canvas id="lna2"  class="lada_horizontal" style="width: 67px; height: 68px; left: 112px; top: 585px;"></canvas>
+    <p  style="position: absolute; width:68px; border: 1px solid gray; font-size: 20px; left: 190px; top: 565px; background: @ViewBag.DoorsTextColor[8];">НА №2</p>
+    <canvas id="lna22"  class="lada_horizontal" style="width: 67px; height: 68px; left: 113px; top: 743px;"></canvas>
+    <canvas id="lp2"  class="lada_vertical" style="width: 67px; height: 67px; left: 417px; top: 499px;"></canvas>
+    <p  style="position: absolute; width:68px; border: 1px solid gray; font-size: 20px; left: 419px; top: 549px; background: @ViewBag.DoorsTextColor[3];">ЛП №2</p>
+    <canvas id="lp1"  class="lada_vertical" style="width: 67px; height: 67px; left: 419px; top: 383px;"></canvas>
+    <p  style="position: absolute; width:68px; border: 1px solid gray; font-size: 20px; left: 419px; top: 335px; background: @ViewBag.DoorsTextColor[1];">ЛП №1</p>
+    <canvas id="lo1"  class="lada_vertical" style="width: 67px; height: 67px; left: 417px; top: 218px;"></canvas>
+    <p  style="position: absolute; width:68px; border: 1px solid gray; font-size: 20px; left: 419px; top: 170px; background: @ViewBag.DoorsTextColor[0];">ЛО №1</p>
+    <canvas id="lo2"  class="lada_vertical" style="width: 67px; height: 67px; left: 417px; top: 658px;"></canvas>
+    <p  style="position: absolute; width:68px; border: 1px solid gray; font-size: 20px; left: 419px; top: 710px; background: @ViewBag.DoorsTextColor[2];">ЛО №2</p>
+    <canvas id="la"  class="lada_vertical" style="width: 67px; height: 67px; left: 1042px; top: 57px;"></canvas>
+    <p  style="position: absolute; width:30px; border: 1px solid gray; font-size: 20px; left: 1060px; top: 9px; background: @ViewBag.DoorsTextColor[4];">ЛА</p>
+    <canvas id="ld"  class="lada_horizontal" style="width: 76px; height: 74px; left: 1169px; top: 215px;"></canvas>
+    <p  style="position: absolute; width:30px; border: 1px solid gray; font-size: 20px; left: 1255px; top: 198px; background: @ViewBag.DoorsTextColor[5];">ЛД</p>
+    <canvas id="lpk"  class="lada_vertical" style="width: 75px; height: 76px; left: 1167px; top: 379px;"></canvas>
+    <p  style="position: absolute; width:40px; border: 1px solid gray; font-size: 20px; left: 1120px; top: 333px; background: @ViewBag.DoorsTextColor[6];">ЛПК</p>
+
+     <script type="text/javascript">
+         LadaSetState("lna1", "@ViewBag.DoorsState[7]");
+         LadaSetState("lna11", "@ViewBag.DoorsState[7]");
+         LadaSetState("lna2", "@ViewBag.DoorsState[8]");
+         LadaSetState("lna22", "@ViewBag.DoorsState[8]");
+         LadaSetState("lp2", "@ViewBag.DoorsState[3]");
+         LadaSetState("lp1", "@ViewBag.DoorsState[1]");
+         LadaSetState("lo1", "@ViewBag.DoorsState[0]");
+         LadaSetState("lo2", "@ViewBag.DoorsState[2]");
+         LadaSetState("la", "@ViewBag.DoorsState[4]");
+         LadaSetState("ld", "@ViewBag.DoorsState[5]");
+         LadaSetState("lpk", "@ViewBag.DoorsState[6]");
+         if ("@ViewBag.DoorsMode.Value" == "Реверс")
+             Revers();
+         else if ("@ViewBag.DoorsMode.Value" == "Норма")
+            Norma();
+        if ("@ViewBag.DoorsMode.Value" == "Реверс" || "@ViewBag.DoorsMode.Value" == "Норма") {
+             if ("@ViewBag.FanObject.WorkingFanNumber" == "1")
+                SetFan1Work();
+            else if ("@ViewBag.FanObject.WorkingFanNumber" == "2")
+                SetFan2Work();
+        }
+
+  </script>
+
+    <div  class="fan_div" style="margin-top:500px">
+        <p style="width: 105px; font-size: 18px; background: white; border: 1px solid gray">Вентилятор 2</p>
+        <form name="fan2" method="post" action="">
+        <input type='password' name='password' size='10' maxlength='20'>
+            <input type='hidden' name='FanObjectId' value='@ViewBag.fanObject.FanObjectId'>
+                 @if (@ViewBag.fanObject.WorkingFanNumber == 2)
+                 {
+                     <input type='submit' style="font-size: 16px" value='Выключить'>
+                     <input type='hidden' name='command' value='3'>
+                 }
+                 else if (@ViewBag.fanObject.WorkingFanNumber == 1)
+                 {
+                     <input type='submit' style="font-size: 18px" value='Включить'>
+                     <input type='hidden' name='command' value='2'>
+                 }
+                 else
+                 {
+                     <input type='submit' style="font-size: 18px" value='Включить'>
+                     <input type='hidden' name='command' value='2'>
+                 }
+            </form>
+    </div>
+    <div class="img_div" style="left:113px; top:658px;" >
+        <img  src="../../Images/fan.png"  alt="альтернативный текст" width="68" height="67" id="fan2">
+    </div>
+    
+</div>  
+<script type="text/javascript">
+    var angle1 = 0;
+    var angle2 = 0;
+    var workingFan = @ViewBag.fanObject.WorkingFanNumber;
+    var angleF1 = 0;
+    var angleF2 = 0;
+    if (workingFan == 1) {
+        angleF1 = 3;
+        angleF2 = 0;
+    }
+    else if(workingFan == 2)
+    {
+        angleF2 = 3;
+        angleF1 = 0;
+    } 
+    else {
+        angleF2 = 0;
+        angleF1 = 0;
+    }
+</script>
+
+ 
