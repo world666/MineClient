@@ -15,12 +15,34 @@
     position: relative;
     left: 5%;
     height: 110px;
-    width: 1550px;
+    width: 1750px;
+}
+.div_right_header {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 90px;
+    width: 220px;
+}
+.div_left_header_top {
+    position: absolute;
+    width: 360px;
+    height: 100px;
+    background: #f5f5f5;
+    border: 1px solid #c0c0c0;
+}
+.div_left_header_bottom {
+    position: absolute;
+    width: 360px;
+    height: 20px;
+    top: 100px;
+    background: #f5f5f5;
+    border: 1px solid #c0c0c0;
 }
 .div_content {
     left: 5%;
     position: relative;
-    width: 1550px;
+    width: 1750px;
     height: 1000px;
 }
 .img_div {

@@ -80,8 +80,8 @@ namespace Mc.MvcWeb.Services
             doors.ForEach(d => pattern.Append(d.StateId));
 
             var mode = getModeString(workingFanNum, pattern.ToString());
-            var state = mode.Equals("АВАРИЯ", StringComparison.InvariantCultureIgnoreCase)
-                            ? StateEnum.Dangerous : mode.Equals("Реверс", StringComparison.InvariantCultureIgnoreCase)
+            var state = mode.Contains("АВАРИЯ")
+                            ? StateEnum.Dangerous : mode.Contains("Реверс")
                             ? StateEnum.Warning
                             : StateEnum.Ok;
 
@@ -99,14 +99,14 @@ namespace Mc.MvcWeb.Services
             if (workingFanNum == 1)
             {
                 return pattern == "332223332" ? "Норма" :
-                       pattern == "332232232" ? "Реверс" : "АВАРИЯ";
+                       pattern == "332232232" ? "Реверс" : "АВАРИЯ (Ляды не собраны)";
             }
             if (workingFanNum == 2)
             {
                 return pattern == "223323323" ? "Норма" :
-                        pattern == "223332223" ? "Реверс" : "АВАРИЯ";
+                        pattern == "223332223" ? "Реверс" : "АВАРИЯ (Ляды не собраны)";
             }
-            return "АВАРИЯ";
+            return "АВАРИЯ (Вентилятор выключен)";
         }
     
     }

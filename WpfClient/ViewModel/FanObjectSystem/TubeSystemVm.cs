@@ -475,20 +475,8 @@ namespace WpfClient.ViewModel.FanObjectSystem
 
             //Get if reverse or normal
             var fanMode = _fanService.GetFanMode(fanObject.WorkingFanNumber, fanObject.Doors);
-            state = fanMode.State;
-            value.Append(fanMode.Value);
 
-            //Check if working fan number is correct
-            var fanState = SystemStateService.GetFanState(fanObject.WorkingFanNumber);
-
-            if (fanState == StateEnum.Dangerous || fanMode.State == StateEnum.Dangerous)
-            {
-                state = StateEnum.Dangerous;
-                if (fanState == StateEnum.Dangerous) value.Append("\nВентилятор остановлен");
-                else if (fanMode.State == StateEnum.Dangerous) value.Append("\nЛяды не собраны");
-            }
-
-            SystemState = new ParameterVm { Value = value.ToString(), State = state };
+            SystemState = fanMode;
         }
 
         private void setDoorsState(List<Door> doors)

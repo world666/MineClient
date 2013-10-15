@@ -1,12 +1,4 @@
 ﻿ 
-@using (Ajax.BeginForm("ControlContent", new { fanObjectId = 1 }, new AjaxOptions { UpdateTargetId = "content" }))
-{
-}
-<div class="div_header">
-    <h1 align="center">Управление вентилятором</h1>
-    <h2 align="center">Вентиляторная установка @ViewBag.FanName</h2>
-</div>
-<div class="div_content">
 <div class="fan_div" style="top: 190px">
          <p style="width: 105px; font-size: 18px; background: white; border: 1px solid gray">Вентилятор 1</p>
             <form name="fan1" method="post" action="">
@@ -171,12 +163,10 @@
     <div class="img_div" style="left:113px; top:658px;" >
         <img  src="../../Images/fan.png"  alt="альтернативный текст" width="68" height="67" id="fan2">
     </div>
-    
-</div>  
-<script type="text/javascript">
-    var angle1 = 0;
-    var angle2 = 0;
-    var workingFan = @ViewBag.fanObject.WorkingFanNumber;
+    <script type="text/javascript">
+        var angle1 = 0;
+        var angle2 = 0;
+        var workingFan = @ViewBag.fanObject.WorkingFanNumber;
     var angleF1 = 0;
     var angleF2 = 0;
     if (workingFan == 1) {
@@ -192,6 +182,4 @@
         angleF2 = 0;
         angleF1 = 0;
     }
-</script>
-
- 
+</script> 

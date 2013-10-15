@@ -65,6 +65,7 @@ namespace Mc.MvcWeb.Controllers
             ViewBag.DoorsState = FanService.GetDoorsState(fanObject.Doors);
             ViewBag.DoorsMode = FanService.GetDoorsMode(fanObject.WorkingFanNumber, fanObject.Doors);
             ViewBag.DoorsTextColor = FanService.GetDoorsTextColor(fanObject.Doors);
+
             return View();
         }
         [HttpPost]
@@ -94,7 +95,6 @@ namespace Mc.MvcWeb.Controllers
             var fanObject = _databaseService.GetFanObject(fanObjectId);
             if (fanObject == null) return null;
             ViewBag.FanObject = fanObject;
-            ViewBag.FanName = Config.Instance.FanObjectConfig.FansName.Split(new string[] { "!$!" }, StringSplitOptions.RemoveEmptyEntries)[fanObjectId - 1];
             ViewBag.DoorsState = FanService.GetDoorsState(fanObject.Doors);
             ViewBag.DoorsMode = FanService.GetDoorsMode(fanObject.WorkingFanNumber, fanObject.Doors);
             ViewBag.DoorsTextColor = FanService.GetDoorsTextColor(fanObject.Doors);

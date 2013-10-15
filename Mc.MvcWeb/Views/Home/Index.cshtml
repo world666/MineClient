@@ -1,27 +1,18 @@
 ﻿@{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Главная";
 }
 
-<!DOCTYPE html>
+@Html.Partial("IndexContent");
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <link  type="text/css" rel="stylesheet" href="../../Content/Site.css" />
-    <script src="@Url.Content("~/Content/jquery-1.7.1.min.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Content/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Content/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
-    <title>ООО «Донбассуглеавтоматика»</title>
-</head>
-    <body id="content">
-    
-        @Html.Partial("IndexContent");
-    
-    </body>
+@section Footer
+{
     <script>
         function fresh() {
             $("#form0").submit();
         }
         setInterval("fresh()", 19000);
     </script>
-</html>
+}
+    
+
