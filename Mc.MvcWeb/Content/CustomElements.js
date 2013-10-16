@@ -28,7 +28,7 @@ function DrawHorizontalArrow(id, side, length, size) {
         dx = 0;
     }
     current = start;
-   setInterval(function () {
+    setInterval(function () {
         obCanvas.clearRect(0, 0, canvas.width, canvas.height);
         if (side == "right") {
             obCanvas.lineWidth = 6;
@@ -134,39 +134,7 @@ function DrawVerticalArrow(id, side, length, size) {
     }, 20);
 
 }
-function DrawVerticalArrow1(id, side) {
-    var c = document.getElementById(id);
-    var ctx = c.getContext("2d");
-    var x = 0;
-    var y = 0;
-    var width = 300;
-    var height = 300;
-    var start;
-    var current = 0;
-    var end;
-    var dy;
-    if (side == "bottom") {
-        start = y - 30;
-        end = y + height;
-        dy = 1;
-    } else if (side == "top") {
-        start = y + height-20;
-        end = y-20;
-        dy = -1;
-    } else {
-        dy = 0;
-    }
-    current = start;
-    setInterval(function() {
-        ctx.clearRect(x, y, width, height);
-        if (side=="bottom")
-            ctx.drawImage(imgArrowBottom, x + width / 2 - 8, current += dy); // Рисуем изображение от точки с координатами 0, 0
-        else
-            ctx.drawImage(imgArrowTop, x + width / 2 - 8, current += dy);
-        if (current == end)
-            current = start;
-    }, 10);
-}
+
 
 
 function LadaSetState(name, state) {
@@ -197,11 +165,10 @@ function LadaSetState(name, state) {
         }
     }
 }
-
-function SetRevers() {
-    
+function ClearIntervals() {
+    for (var i = 1; i < 10000; i++)
+        window.clearInterval(i);
 }
-
 function SetFan1Work() {
     DrawVerticalArrow("fan1WorkTop", "top",8,1);
     DrawHorizontalArrow("fan1WorkLeft", "left",50,15);
@@ -238,4 +205,46 @@ function Norma() {
     DrawHorizontalArrow("reversNormaRight", "right", 0, 0);
     DrawHorizontalArrow("reversNormaLeft", "left", 14, 2);
     DrawHorizontalArrow("normaLeft", "left", 50, 15);
+}
+
+function CountTime() {
+    var pos1 = document.getElementById("time");
+    var pos2 = document.getElementById("date");
+
+    function time() {
+        var today = new Date();
+        var day_of_week = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
+        var month_of_year = ["Января", "Февраля", "Марта", "Апреля", "Мая", "Июня", "Июля", "Августа", "Сентября", "Октября", "Ноября", "Декабря"];
+        var date_ = today.getDate();
+        var month_ = today.getMonth();
+        var year_ = today.getFullYear();
+        var hours_ = today.getHours();
+        var min_ = today.getMinutes();
+        var sec_ = today.getSeconds();
+        var zerom = zeros = '';
+        if (min_ < 10) zerom = '0';
+        if (sec_ < 10) zeros = '0';
+        pos1.innerHTML = hours_ + ':' + zerom + min_ + ':' + zeros + sec_;
+        pos2.innerHTML = date_ + '.' + month_ + '.' + year_;
+    }
+
+    setInterval(time, 100);
+}
+
+function RotateFan(workingFan) {
+    var angle1 = 0;
+    var angle2 = 0;
+    if (workingFan == 2) {
+        setInterval(function () {
+            angle2 += 3;
+            jQuery("#fan2").rotate(angle2);
+        }, 30);
+    }
+    else if(workingFan == 1)
+    {
+        setInterval(function () {
+            angle1 += 3;
+            jQuery("#fan1").rotate(angle1);
+        }, 30);
+    }     
 }

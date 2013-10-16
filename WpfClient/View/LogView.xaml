@@ -1,0 +1,91 @@
+﻿<UserControl x:Class="WpfClient.View.LogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModel="clr-namespace:WpfClient.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="900"
+             d:DataContext="{d:DesignInstance viewModel:LogVm}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="180" />
+            <ColumnDefinition Width="80" />
+            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="280" />
+            <ColumnDefinition Width="120" />
+            <ColumnDefinition Width="30" />
+            <ColumnDefinition Width="50" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="52"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+        <Button BorderBrush="{x:Null}" Grid.Column="0" Grid.Row="0" Background="WhiteSmoke" Margin="0"  
+                Width="55" Height="55" HorizontalAlignment="Left" Command="{Binding BackArrowClick}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/left_arrow.png" />
+            </StackPanel>
+        </Button>
+        <DatePicker  VerticalAlignment="Center" FontSize="20" Margin="1"
+            BorderThickness="1" Grid.Row="2" Grid.Column="7" Grid.ColumnSpan="2" Text="{Binding DateDisplayFrom}" SelectedDate="{Binding DateSelectedFrom}"/>
+
+        <Border Margin="3" Grid.Row="2" Grid.Column="6" Background="Beige" BorderThickness="1" 
+                BorderBrush="DarkGray">
+            <TextBlock VerticalAlignment="Center" FontSize="20" TextAlignment="Center" Text="Дата (от):"></TextBlock>
+        </Border>
+
+        <DatePicker  VerticalAlignment="Center" FontSize="20" Margin="1"
+            BorderThickness="1" Grid.Row="3" Grid.Column="7" Grid.ColumnSpan="2" Text="{Binding DateDisplayTill}" SelectedDate="{Binding DateSelectedTill}"/>
+        <Border Margin="3" Grid.Row="3" Grid.Column="6" Background="Beige" BorderThickness="1" 
+                BorderBrush="DarkGray">
+            <TextBlock FontSize="20" VerticalAlignment="Center" TextAlignment="Center" Text="Дата (до):"></TextBlock>
+        </Border>
+
+
+
+
+        <ListView SelectedIndex="{Binding SelectedItem}" FontSize="18" Grid.Column="0" Grid.Row="5" Grid.RowSpan="2" Grid.ColumnSpan="5" ItemsSource="{Binding ListCollection}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="200" Header="Дата" DisplayMemberBinding="{Binding DateFormat}"/>
+                    <GridViewColumn Width="200" Header="Номер вентилятора" DisplayMemberBinding="{Binding FanObjectNum}"/>
+                    <GridViewColumn Width="200" Header="Источник" DisplayMemberBinding="{Binding Person}"/>
+                    <GridViewColumn Width="250" Header="Команда" DisplayMemberBinding="{Binding RemoteCommand}"/>
+                    <GridViewColumn Width="200" Header="Статус" DisplayMemberBinding="{Binding State}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ProgressBar Minimum="0" Maximum="{Binding ProgressMax}" Value="{Binding ProgressValue}" Margin="2 2" Grid.Column="7" Grid.Row="6" Grid.ColumnSpan="2"/>
+        <Button FontSize="20" Height="50" Grid.Column="7" VerticalAlignment="Top"  Grid.Row="4" Command="{Binding FindClick}" Margin="0,10,0,0">
+            <TextBlock Text="Поиск"></TextBlock>
+        </Button>
+
+        <Border Margin="3" Grid.Row="2" Grid.Column="1" Background="Beige" BorderThickness="1" 
+                BorderBrush="DarkGray">
+            <TextBlock FontSize="20" VerticalAlignment="Center" TextAlignment="Center" Text="Найдено записей:"></TextBlock>
+        </Border>
+        <Border Margin="3" Grid.Row="2" Grid.Column="2" Background="White" BorderThickness="1" 
+                BorderBrush="DarkGray">
+            <TextBlock FontSize="26" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding RecordsFound}"></TextBlock>
+        </Border>
+        
+        
+
+        <Button Margin="3"  Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="1" Command="{Binding DeleteAllClick}">
+            <TextBlock FontSize="19" TextAlignment="Center" Text="Удалить все"></TextBlock>
+        </Button>
+
+        <Button Margin="3"  Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="1" Command="{Binding DeleteClick}">
+            <TextBlock FontSize="19" TextAlignment="Center" Text="Удалить"></TextBlock>
+        </Button>
+    </Grid>
+</UserControl>

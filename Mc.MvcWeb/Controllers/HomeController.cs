@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DataRepository.DataAccess.GenericRepository;
@@ -77,7 +78,7 @@ namespace Mc.MvcWeb.Controllers
                     {
                         FanObjectNum = remoteData.FanObjectId,
                         Date = DateTime.Now,
-                        Person = "Веб",
+                        Person = "Веб-сервер",
                         RemoteStateId = remoteData.Command,
                         Sent = false
                     };

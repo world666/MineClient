@@ -40,6 +40,8 @@
                           Command="{Binding MenuClick}" CommandParameter="GeneralView" />
                 <MenuItem Header="График" VerticalAlignment="Center" Width="Auto"
                           Command="{Binding MenuClick}" CommandParameter="PlotView" />
+                <MenuItem Header="Журнал" VerticalAlignment="Center" Width="Auto"
+                          Command="{Binding MenuClick}" CommandParameter="LogView" />
             </MenuItem> 
         </Menu>
 
@@ -63,6 +65,9 @@
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type plot:PlotVm}">
                     <plot2:PlotView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type loc:LogVm}">
+                    <wpfApplication3:LogView/>
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

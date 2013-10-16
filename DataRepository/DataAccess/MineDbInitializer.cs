@@ -115,8 +115,8 @@ namespace DataRepository.DataAccess
 
             var remoteState = new List<RemoteState>
                 {
-                    new RemoteState {State = "Включить В1"},
-                    new RemoteState {State = "Включить В2"},
+                    new RemoteState {State = "Включить вентилятор №1"},
+                    new RemoteState {State = "Включить вентилятор №2"},
                     new RemoteState {State = "Выключить"}
                 };
             remoteState.ForEach(s => context.RemoteState.Add(s));

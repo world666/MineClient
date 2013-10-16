@@ -26,7 +26,19 @@ namespace Mc.CustomControls.Controls
     {
         public static readonly DependencyProperty LevelProperty = DependencyProperty.Register("Level", typeof(double), typeof(ThermometerControl));
 
+        public static readonly DependencyProperty MaxProperty = DependencyProperty.Register("Max", typeof(double), typeof(ThermometerControl), new PropertyMetadata(0.0, OnStartPropertyChanged));
+
+        private static void OnStartPropertyChanged(DependencyObject dependencyObject,
+                                                   DependencyPropertyChangedEventArgs e)
+        {
+            ThermometerControl thermometerControl = dependencyObject as ThermometerControl;
+            for (int i = (int)thermometerControl.Max / 15; i >= 0; i--)
+                thermometerControl.Lines.Add(i * 15);
+        }
+
         private double _level;
+
+        private double _max;
 
         public ObservableCollection<int> Lines { get; set; }
 
@@ -40,11 +52,19 @@ namespace Mc.CustomControls.Controls
             }
         }
 
+        public double Max
+        {
+            get { return (double)GetValue(MaxProperty); }
+            set
+            {
+                SetValue(MaxProperty, value);
+                OnPropertyChanged();
+            }
+        }
+
         public ThermometerControl()
         {
             Lines = new ObservableCollection<int>();
-            for (int i = 8; i >= 0; i-- )
-                Lines.Add(i*15);
 
                 InitializeComponent();
         }

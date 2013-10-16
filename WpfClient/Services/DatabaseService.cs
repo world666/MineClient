@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DataRepository.DataAccess.GenericRepository;
 using DataRepository.Models;
+using WpfClient.Model.Concrete;
 using WpfClient.Model.Entities;
 using WpfClient.Model.Plot;
 using WpfClient.ViewModel.Plot;
@@ -213,6 +214,29 @@ namespace WpfClient.Services
                     repoUnit.FanLog.Delete(fansLog);
                 }
                 repoUnit.FanLog.SaveChanges();
+            }
+        }
+        public List<RemoteLogData> LogFind(DateTime dateFrom, DateTime dateTill)
+        {
+            var remoteList = new List<RemoteLogData>();
+            using (var repoUnit = new RepoUnit())
+            {
+                var remoteLogRepo = repoUnit.RemoteLog;
+                var remoteLogs =
+                    remoteLogRepo.Load()
+                               .Where(n => n.Date >= dateFrom && n.Date <= dateTill);
+                remoteList.AddRange(remoteLogs.Select(f => new RemoteLogData {Id = f.Id, Date = f.Date, FanObjectNum = f.FanObjectNum, Person = f.Person,RemoteCommand = f.RemoteState.State, State = f.Sent == true ? "Выполнено" : "Не выполнено"}));
+                return remoteList;
+            }
+        }
+        public void DeleteRemoteLogById(int id)
+        {
+            using (var repoUnit = new RepoUnit())
+            {
+                RemoteLog remoteLog = repoUnit.RemoteLog.Find(id);
+                if (remoteLog == null) return;
+                repoUnit.RemoteLog.Delete(remoteLog);
+                repoUnit.RemoteLog.SaveChanges();
             }
         }
     }

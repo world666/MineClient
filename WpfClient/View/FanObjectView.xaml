@@ -312,28 +312,28 @@
             <UniformGrid Rows="1" Grid.Column="4" Grid.Row="6" Grid.RowSpan="3"
                          DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.ThermometerVm}">
                 <Border>
-                    <elements:ThermometerControl Level="{Binding Levels[0]}"/>
+                    <elements:ThermometerControl Level="{Binding Levels[0]}" Max="{Binding MaxTemperature}"/>
                     <Border.InputBindings>
                         <MouseBinding  Gesture="LeftClick" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.ParameterClick}"
                                        CommandParameter="3"/>
                     </Border.InputBindings>
                 </Border>
                 <Border>
-                    <elements:ThermometerControl Level="{Binding Levels[1]}"/>
+                    <elements:ThermometerControl Level="{Binding Levels[1]}" Max="{Binding MaxTemperature}"/>
                     <Border.InputBindings>
                         <MouseBinding  Gesture="LeftClick" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.ParameterClick}"
                                        CommandParameter="4"/>
                     </Border.InputBindings>
                 </Border>
                 <Border>
-                     <elements:ThermometerControl Level="{Binding Levels[2]}"/>
+                    <elements:ThermometerControl Level="{Binding Levels[2]}" Max="{Binding MaxTemperature}"/>
                     <Border.InputBindings>
                         <MouseBinding  Gesture="LeftClick" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.ParameterClick}"
                                        CommandParameter="5"/>
                     </Border.InputBindings>
                 </Border>
                 <Border>
-                    <elements:ThermometerControl Level="{Binding Levels[3]}"/>
+                    <elements:ThermometerControl Level="{Binding Levels[3]}" Max="{Binding MaxTemperature}"/>
                     <Border.InputBindings>
                         <MouseBinding  Gesture="LeftClick" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.ParameterClick}"
                                        CommandParameter="6"/>

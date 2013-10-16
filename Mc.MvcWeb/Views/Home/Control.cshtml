@@ -16,55 +16,11 @@
         <script type="text/javascript" src="../../Content/CustomElements.js"></script> 
 
     </head>
-    <body>
+    <body id="div_content">
 
 
-        <div class="div_header">
-            <div class="div_left_header_top">
-                <p style="font-size: 24px" align="center">ООО </br>ДОНБАССУГЛЕАВТОМАТИКА</p>
-            </div>
-            <div class="div_left_header_bottom">
-                <div style="float:left; margin-left: 50px; font-size: 20px; font-style: italic;" id="time"></div>
-                <div style="float: left; margin-left: 120px; font-size: 20px; font-style: italic;" id="date"></div>
-            </div>
-            <h1 align="center">Управление вентилятором</h1>
-            <h2 align="center">Вентиляторная установка @ViewBag.FanName</h2>
-            <div align="right" class="div_right_header">
-                <div style="position: relative; border: 1px solid black;height: 40px; width: 100%; background: @ViewBag.DoorsMode.HtmlState">
-                    <p align="center">Режим работы</p>
-                </div>
-                <div style="position: relative; margin-top: 10px; border: 1px solid black;height: 40px; width: 100%; background: @ViewBag.DoorsMode.HtmlState">
-                    <p align="center">@ViewBag.DoorsMode.Value</p>
-                </div>
-            </div>
-        </div>
-        <script language="JavaScript">
-<!--
-            var pos1 = document.getElementById("time");
-            var pos2 = document.getElementById("date");
-            function time() {
-                var today = new Date();
-                var day_of_week = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
-                var month_of_year = ["Января", "Февраля", "Марта", "Апреля", "Мая", "Июня", "Июля", "Августа", "Сентября", "Октября", "Ноября", "Декабря"];
-                var date_ = today.getDate();
-                var month_ = today.getMonth();
-                var year_ = today.getFullYear();
-                var hours_ = today.getHours();
-                var min_ = today.getMinutes();
-                var sec_ = today.getSeconds();
-                var zerom = zeros = '';
-                if (min_ < 10) zerom = '0';
-                if (sec_ < 10) zeros = '0';
-                pos1.innerHTML = hours_ + ':' + zerom + min_ + ':' + zeros + sec_;
-                pos2.innerHTML = date_ + '.' + month_ + '.' + year_;
-            }
-            setInterval(time, 1000);
-        //-->
-</script>
- @using (Ajax.BeginForm("ControlContent", new { fanObjectId = 1 }, new AjaxOptions { UpdateTargetId = "div_content" })){}
-<div id="div_content" class="div_content">
+
         @Html.Partial("ControlContent")
-</div> 
 
     
   
@@ -72,23 +28,5 @@
     
 
    
-    </body>
-    <script>
-        $(document).ready(function () {
-            setInterval(function () {
-                angle2 += angleF2;
-                jQuery("#fan2").rotate(angle2);
-            }, 30);
-            setInterval(function () {
-                angle1 += angleF1;
-                jQuery("#fan1").rotate(angle1);
-            }, 30);
-
-        });
-        
-        function fresh() {
-            $("#form0").submit();
-        }
-        setInterval("fresh()", 19000);
-    </script>      
+    </body>  
 </html>

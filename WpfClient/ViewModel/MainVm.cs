@@ -74,6 +74,8 @@ namespace WpfClient.ViewModel
                 CurrentView = IoC.Resolve<SettingsVm>();
             if (menuStr.Equals("PlotView", StringComparison.InvariantCulture))
                 CurrentView = IoC.Resolve<PlotVm>();
+            if (menuStr.Equals("LogView", StringComparison.InvariantCulture))
+                CurrentView = IoC.Resolve<LogVm>();
         }
     }
 }

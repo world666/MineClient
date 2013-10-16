@@ -1,4 +1,26 @@
 ﻿ 
+        <div class="div_header">
+            <div class="div_left_header_top">
+                <p style="font-size: 24px" align="center">ООО </br>ДОНБАССУГЛЕАВТОМАТИКА</p>
+            </div>
+            <div class="div_left_header_bottom">
+                <div style="float:left; margin-left: 50px; font-size: 20px; font-style: italic;" id="time"></div>
+                <div style="float: left; margin-left: 120px; font-size: 20px; font-style: italic;" id="date"></div>
+            </div>
+            <h1 align="center">Управление вентилятором</h1>
+            <h2 align="center">Вентиляторная установка @ViewBag.FanName</h2>
+            <div align="right" class="div_right_header">
+                <div style="position: relative; border: 1px solid black;height: 40px; width: 100%; background: @ViewBag.DoorsMode.HtmlState">
+                    <p align="center">Режим работы</p>
+                </div>
+                <div style="position: relative; margin-top: 10px; border: 1px solid black;height: 40px; width: 100%; background: @ViewBag.DoorsMode.HtmlState">
+                    <p align="center">@ViewBag.DoorsMode.Value</p>
+                </div>
+            </div>
+        </div>
+ @using (Ajax.BeginForm("ControlContent", new { fanObjectId = 1 }, new AjaxOptions { UpdateTargetId = "div_content" })){}
+
+<div class="div_content">
 <div class="fan_div" style="top: 190px">
          <p style="width: 105px; font-size: 18px; background: white; border: 1px solid gray">Вентилятор 1</p>
             <form name="fan1" method="post" action="">
@@ -125,6 +147,7 @@
          LadaSetState("la", "@ViewBag.DoorsState[4]");
          LadaSetState("ld", "@ViewBag.DoorsState[5]");
          LadaSetState("lpk", "@ViewBag.DoorsState[6]");
+         ClearIntervals();
          if ("@ViewBag.DoorsMode.Value" == "Реверс")
              Revers();
          else if ("@ViewBag.DoorsMode.Value" == "Норма")
@@ -164,22 +187,14 @@
         <img  src="../../Images/fan.png"  alt="альтернативный текст" width="68" height="67" id="fan2">
     </div>
     <script type="text/javascript">
-        var angle1 = 0;
-        var angle2 = 0;
         var workingFan = @ViewBag.fanObject.WorkingFanNumber;
-    var angleF1 = 0;
-    var angleF2 = 0;
-    if (workingFan == 1) {
-        angleF1 = 3;
-        angleF2 = 0;
+        RotateFan(workingFan);
+        CountTime();
+    function fresh() {
+        $("#form0").submit();
     }
-    else if(workingFan == 2)
-    {
-        angleF2 = 3;
-        angleF1 = 0;
-    } 
-    else {
-        angleF2 = 0;
-        angleF1 = 0;
-    }
+    setInterval("fresh()", 19000);     
 </script> 
+
+</div>
+
