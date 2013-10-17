@@ -6,7 +6,6 @@ var imgArrowTop = new Image();
 imgArrowTop.src = "../../Images/arrow_top.png";
 var imgArrowBottom = new Image();
 imgArrowBottom.src = "../../Images/arrow_bottom.png";
-
 function DrawHorizontalArrow(id, side, length, size) {
     var canvas = document.getElementById(id);
     var obCanvas = canvas.getContext('2d');
@@ -167,7 +166,8 @@ function LadaSetState(name, state) {
 }
 function ClearIntervals() {
     for (var i = 1; i < 10000; i++)
-        window.clearInterval(i);
+        if (i != timeId)
+            window.clearInterval(i);
 }
 function SetFan1Work() {
     DrawVerticalArrow("fan1WorkTop", "top",8,1);
@@ -227,8 +227,8 @@ function CountTime() {
         pos1.innerHTML = hours_ + ':' + zerom + min_ + ':' + zeros + sec_;
         pos2.innerHTML = date_ + '.' + month_ + '.' + year_;
     }
-
-    setInterval(time, 100);
+    
+    timeId = setInterval(time, 100);
 }
 
 function RotateFan(workingFan) {

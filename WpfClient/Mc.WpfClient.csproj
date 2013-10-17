@@ -142,6 +142,7 @@
     <Compile Include="Services\RemouteFanControlService.cs" />
     <Compile Include="Services\SystemStateService.cs" />
     <Compile Include="ViewModel\DateTimeVm.cs" />
+    <Compile Include="ViewModel\ElectricDriveVm.cs" />
     <Compile Include="ViewModel\FanObjectSystem\FanObjectVm.cs" />
     <Compile Include="ViewModel\FanObjectSystem\IndicatorVm.cs" />
     <Compile Include="ViewModel\FanObjectSystem\ThermometerVm.cs" />
@@ -158,6 +159,9 @@
     <Compile Include="ViewModel\Settings\PasswordsSettingsVm.cs" />
     <Compile Include="ViewModel\Settings\SensorSettingsVm.cs" />
     <Compile Include="ViewModel\Settings\SettingsVm.cs" />
+    <Compile Include="View\ElectricDriveView.xaml.cs">
+      <DependentUpon>ElectricDriveView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\FanObjectView.xaml.cs">
       <DependentUpon>FanObjectView.xaml</DependentUpon>
     </Compile>
@@ -200,6 +204,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\ElectricDriveView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\FanObjectView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

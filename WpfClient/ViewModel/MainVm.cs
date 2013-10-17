@@ -76,6 +76,8 @@ namespace WpfClient.ViewModel
                 CurrentView = IoC.Resolve<PlotVm>();
             if (menuStr.Equals("LogView", StringComparison.InvariantCulture))
                 CurrentView = IoC.Resolve<LogVm>();
+            if (menuStr.Equals("ElectricDriveView", StringComparison.InvariantCulture))
+                CurrentView = IoC.Resolve<ElectricDriveVm>();
         }
     }
 }

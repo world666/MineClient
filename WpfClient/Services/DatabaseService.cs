@@ -49,7 +49,6 @@ namespace WpfClient.Services
 
         public FanObject GetFanObject(int fanOjbectNum)
         {
-            var fanObjectVm = new FanObject {FanObjectId = fanOjbectNum};
             try
             {
                 using (var unit = new RepoUnit())
@@ -61,27 +60,14 @@ namespace WpfClient.Services
                     //var fansLogId = fansLogRepo.Load().Where(f => f.FanNumber == fanOjbectNum).Max(n => n.Id);
                     //var fanLog = fansLogRepo.Find(fansLogId);
                     var fanLog = fansLogRepo.LastRecord(f => f.FanNumber == fanOjbectNum);
-                    fanObjectVm.Parameters.AddRange(
-                        fanLog.AnalogSignalLogs.Select(
-                            s =>
-                            new Parameter
-                                {
-                                    Name = s.SignalType.Type,
-                                    Value = SystemStateService.GetLinearAnalogValue(s.SignalType.Type, s.SignalValue)
-                                }));
-                    fanObjectVm.Parameters.ForEach(f => f.State = SystemStateService.GetParameterState(f.Name, f.Value));
-
-                    fanObjectVm.Doors.AddRange(
-                        fanLog.DoorsLogs.Select(d => new Door {StateId = d.DoorStateId, TypeId = d.DoorTypeId}));
-                    fanObjectVm.WorkingFanNumber = GetWorkingFanNumber(fanLog.Fan1State_Id, fanLog.Fan2State_Id);
-                    fanObjectVm.Date = fanLog.Date;
+                    return GetFanObject(fanLog);
                 }
             }
             catch (Exception)
             {
                 //nothing in db
             }
-            return fanObjectVm;
+            return null;
         }
 
         public FanObject GetFanObject(FanLog fanLog)

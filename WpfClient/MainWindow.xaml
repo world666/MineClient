@@ -32,6 +32,8 @@
             <MenuItem Header="СРЕДСТВА">
                 <MenuItem Header="Настройки" VerticalAlignment="Center" Width="Auto"
                           Command="{Binding MenuClick}" CommandParameter="SettingsView"/>
+                <MenuItem Header="Привод" VerticalAlignment="Center" Width="Auto"
+                          Command="{Binding MenuClick}" CommandParameter="ElectricDriveView"/>
             </MenuItem>
             <MenuItem Header="ВИД">
                 <MenuItem Header="История" VerticalAlignment="Center" Width="Auto"
@@ -68,6 +70,9 @@
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type loc:LogVm}">
                     <wpfApplication3:LogView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type loc:ElectricDriveVm}">
+                    <wpfApplication3:ElectricDriveView/>
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

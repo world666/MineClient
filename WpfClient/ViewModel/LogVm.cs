@@ -131,7 +131,7 @@ namespace WpfClient.ViewModel
         {
             var result = MessageBox.Show("Вы хотите удалить выбранную запись?", "Вопрос", MessageBoxButton.YesNo,
                                 MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
+            if (result == MessageBoxResult.Yes && SelectedItem>=0)
             {
                 IoC.Resolve<DatabaseService>().DeleteRemoteLogById(ListCollection[SelectedItem].Id);
                 UpdateProperyValue();

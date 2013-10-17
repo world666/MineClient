@@ -1,12 +1,5 @@
-﻿ 
+﻿
         <div class="div_header">
-            <div class="div_left_header_top">
-                <p style="font-size: 24px" align="center">ООО </br>ДОНБАССУГЛЕАВТОМАТИКА</p>
-            </div>
-            <div class="div_left_header_bottom">
-                <div style="float:left; margin-left: 50px; font-size: 20px; font-style: italic;" id="time"></div>
-                <div style="float: left; margin-left: 120px; font-size: 20px; font-style: italic;" id="date"></div>
-            </div>
             <h1 align="center">Управление вентилятором</h1>
             <h2 align="center">Вентиляторная установка @ViewBag.FanName</h2>
             <div align="right" class="div_right_header">
@@ -189,7 +182,6 @@
     <script type="text/javascript">
         var workingFan = @ViewBag.fanObject.WorkingFanNumber;
         RotateFan(workingFan);
-        CountTime();
     function fresh() {
         $("#form0").submit();
     }

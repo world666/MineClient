@@ -16,7 +16,7 @@ namespace WpfClient.Model.Concrete
         public string State { get; set; }
         public string DateFormat
         {
-            get { return Date.ToString("dd.mm.yyyy hh:mm:ss"); }
+            get { return Date.ToString("dd.mm.yyyy HH:mm:ss"); }
         }
     }
 }

@@ -16,12 +16,21 @@
         <script type="text/javascript" src="../../Content/CustomElements.js"></script> 
 
     </head>
-    <body id="div_content">
+    <script type="text/javascript">
+        var timeId=0;
+    </script>
+    <body>
 
-
-
-        @Html.Partial("ControlContent")
-
+            <div class="div_left_header_top">
+                <p style="font-size: 24px" align="center">ООО </br>ДОНБАССУГЛЕАВТОМАТИКА</p>
+            </div>
+            <div class="div_left_header_bottom">
+                <div style="float:left; margin-left: 50px; font-size: 20px; font-style: italic;" id="time"></div>
+                <div style="float: left; margin-left: 120px; font-size: 20px; font-style: italic;" id="date"></div>
+            </div>
+        <div id="div_content">
+            @Html.Partial("ControlContent")
+        </div>
     
   
 
@@ -29,4 +38,7 @@
 
    
     </body>  
+    <script type="text/javascript">
+        CountTime();
+    </script>
 </html>
