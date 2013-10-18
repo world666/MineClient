@@ -16,7 +16,6 @@ namespace WpfClient.Model
     {
         mb11, mb12, fn
     }
-
     public enum StateEnum
     {
         None, Ok, Warning, Dangerous

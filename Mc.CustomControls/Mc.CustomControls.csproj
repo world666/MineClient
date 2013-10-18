@@ -77,6 +77,7 @@
     <Compile Include="Converters\PercentageFontConverter.cs" />
     <Compile Include="Model\DoorStateEnum.cs" />
     <Compile Include="Model\PiePiece.cs" />
+    <Compile Include="Model\RoundedCornersPolygon.cs" />
     <Compile Include="Model\Util\Utils.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
