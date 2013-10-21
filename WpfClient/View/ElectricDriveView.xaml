@@ -4,11 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModel="clr-namespace:WpfClient.ViewModel"
+             xmlns:converters="clr-namespace:WpfClient.Converters"
              xmlns:CustomRoundedCornersPolygon="clr-namespace:Mc.CustomControls.Model;assembly=Mc.CustomControls"
              mc:Ignorable="d" 
              d:DesignHeight="1000" d:DesignWidth="1900" Background="LightBlue"
              d:DataContext="{d:DesignInstance viewModel:ElectricDriveVm}">
     <UserControl.Resources>
+        <converters:EnumToColorConverter x:Key="EnumToColor"/>
         <VisualBrush x:Key="HatchBrush" TileMode="Tile" Viewport="0,0,5,5"
       ViewportUnits="Absolute" Viewbox="0,0,5,5"   
       ViewboxUnits="Absolute">
@@ -30,12 +32,14 @@
         </VisualBrush.Visual>
         </VisualBrush>
             <Style TargetType="TextBlock">
-                <Setter Property="FontSize" Value="28"/>
+                <Setter Property="FontSize" Value="22"/>
             </Style>
         <Style TargetType="TextBox">
             <Setter Property="IsReadOnly" Value="True"/>
-            <Setter Property="FontSize" Value="23"/>
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="FontSize" Value="18"/>
             <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
         <Style TargetType="Label">
             <Setter Property="Width" Value="190"/>
@@ -78,7 +82,7 @@
         <Polyline Points="35,50 100,-40 165,50" Stroke="Black" StrokeThickness="3" Fill="LightSeaGreen" Canvas.Left="488" Canvas.Top="642" />
         <Polygon Points="0,30 40,0 80,0 120,30 120,100 80,130 40,130 0,100" Stroke="Black" StrokeThickness="3" Fill="LightSeaGreen" Canvas.Left="529" Canvas.Top="426"></Polygon>
         <Polygon Points="0,0 40,0 40,130 0,130" Stroke="Black" StrokeThickness="3" Fill="LightSeaGreen" Canvas.Left="568" Canvas.Top="426"></Polygon>
-        <Rectangle   Width="80" Height="80" Stroke="Black" StrokeThickness="3" Fill="{StaticResource HatchBrush}" Canvas.Left="548" Canvas.Top="450" />
+        <Rectangle     Height="80" Stroke="Black" StrokeThickness="3" Fill="{StaticResource HatchBrush}" Canvas.Left="548" Canvas.Top="450" />
         <Rectangle Width="14" Height="54" Stroke="Black" StrokeThickness="3" Fill="White" Canvas.Left="625" Canvas.Top="464" />
         <Rectangle Width="87" Height="44" Stroke="Black" StrokeThickness="3" Fill="Yellow" Canvas.Left="541" Canvas.Top="468" />
         <Rectangle Width="63" Height="108" Stroke="Black" StrokeThickness="3" Fill="DarkGray" Canvas.Left="142" Canvas.Top="456" />
@@ -139,7 +143,7 @@
                 <TransformGroup>
                     <ScaleTransform/>
                     <SkewTransform AngleY="0.418"/>
-                    <RotateTransform/>
+                    <RotateTransform Angle="{Binding NaAngleBottom}"/>
                     <TranslateTransform Y="-0.493"/>
                 </TransformGroup>
             </CustomRoundedCornersPolygon:RoundedCornersPolygon.RenderTransform>
@@ -150,7 +154,7 @@
                 <TransformGroup>
                     <ScaleTransform/>
                     <SkewTransform AngleY="0.418"/>
-                    <RotateTransform Angle="-179.82"/>
+                    <RotateTransform Angle="{Binding NaAngleTop}"/>
                     <TranslateTransform Y="-0.493"/>
                 </TransformGroup>
             </CustomRoundedCornersPolygon:RoundedCornersPolygon.RenderTransform>
@@ -161,7 +165,7 @@
                 <TransformGroup>
                     <ScaleTransform/>
                     <SkewTransform AngleY="0.418"/>
-                    <RotateTransform/>
+                    <RotateTransform Angle="{Binding NaAngleBottom}"/>
                     <TranslateTransform Y="-0.493"/>
                 </TransformGroup>
             </CustomRoundedCornersPolygon:RoundedCornersPolygon.RenderTransform>
@@ -172,7 +176,7 @@
                 <TransformGroup>
                     <ScaleTransform/>
                     <SkewTransform AngleY="0.418"/>
-                    <RotateTransform Angle="-179.82"/>
+                    <RotateTransform Angle="{Binding NaAngleTop}"/>
                     <TranslateTransform Y="-0.493"/>
                 </TransformGroup>
             </CustomRoundedCornersPolygon:RoundedCornersPolygon.RenderTransform>
@@ -184,45 +188,60 @@
         <Line StrokeThickness="4" Stroke="Black" X1="0" Y1="0" X2="0" Y2="426" Canvas.Top="278" Canvas.Left="769"></Line>
         <Line StrokeThickness="4" Stroke="Black" X1="0" Y1="0" X2="0" Y2="426" Canvas.Top="278" Canvas.Left="409"></Line>
         
-        <Line StrokeThickness="3" Stroke="Black" X1="0" Y1="0" X2="130" Y2="240" Canvas.Top="218" Canvas.Left="22"></Line>
+        <Line StrokeThickness="3" Stroke="Black" X1="100" Y1="0" X2="130" Y2="240" Canvas.Top="218" Canvas.Left="48"></Line>
         <Line StrokeThickness="3" Stroke="Black" X1="0" Y1="0" X2="130" Y2="240" Canvas.Top="218" Canvas.Left="913"></Line>
         <Line StrokeThickness="3" Stroke="Black" X1="0" Y1="0" X2="130" Y2="240" Canvas.Top="218" Canvas.Left="1175"/>
         <Line StrokeThickness="3" Stroke="Black" X1="0" Y1="0" X2="130" Y2="240" Canvas.Top="220" Canvas.Left="1638"/>
+        <Line StrokeThickness="3" Stroke="Black" X1="180" Y1="0" X2="100" Y2="160" Canvas.Top="704" Canvas.Left="260"></Line>
+        <Line StrokeThickness="3" Stroke="Black" X1="0" Y1="0" X2="70" Y2="108" Canvas.Top="218" Canvas.Left="1454"/>
+
         <Rectangle Width="309" Height="34" Stroke="Black" StrokeThickness="3" Fill="Yellow" Canvas.Left="234" Canvas.Top="472" />
         <Rectangle Width="309" Height="34" Stroke="Black" StrokeThickness="3" Fill="Yellow" Canvas.Left="636" Canvas.Top="472" />
 
         <Grid Width="1901"
-              Height="1000" Canvas.Left="-1">
+              Height="1000">
             <Grid.RowDefinitions>
                 <RowDefinition  Height="20"/>
                 <RowDefinition  Height="200"/>
                 <RowDefinition  Height="1*"/>
+                <RowDefinition Height="40"/>
                 <RowDefinition Height="80"/>
-                <RowDefinition Height="150"/>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="130"/>
                 <RowDefinition Height="10"/>
 
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="270"/>
+                <ColumnDefinition Width="380"/>
+                <ColumnDefinition Width="270"/>
                 <ColumnDefinition Width="20"/>
-                <ColumnDefinition Width="300"/>
-                <ColumnDefinition Width="430"/>
-                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="270"/>
                 <ColumnDefinition Width="20"/>
-                <ColumnDefinition Width="300"/>
+                
+                <ColumnDefinition Width="270"/>
                 <ColumnDefinition Width="20"/>
-                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="270"/>
+                <ColumnDefinition Width="10"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
+            <Button BorderBrush="{x:Null}" Grid.Column="0" Grid.Row="1" Background="WhiteSmoke" Margin="0"  
+                Width="55" Height="55" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding BackArrowClick}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../Images/left_arrow.png" />
+                </StackPanel>
+            </Button>
             <Border BorderBrush="Black" BorderThickness="3" Grid.Column="1" Grid.Row="1" >
-                <StackPanel Orientation="Vertical" Background="WhiteSmoke">
+                <StackPanel Orientation="Vertical" Background="WhiteSmoke" HorizontalAlignment="Left" Width="294">
                     <TextBlock FontWeight="Bold" TextAlignment="Center" Text="Подшипник №1"></TextBlock>
                     <StackPanel Margin="0 10" Orientation="Horizontal">
                         <Label FontSize="20" >Температура (град):</Label>
-                        <TextBox Text="{Binding Temperatures[0]}" Margin="10 0" Width="80"></TextBox>
+                        <TextBox Text="{Binding Temperatures[0]}" Background="{Binding TemperaturesState[0], Converter={StaticResource EnumToColor}}"  Margin="10 0"  ></TextBox>
                     </StackPanel>
                     <StackPanel Margin="0 10" Orientation="Horizontal">
                         <Label FontSize="20" >Вибрация (мкм):</Label>
-                        <TextBox Text="{Binding Pillovs[0]}" Margin="10 0" Width="80"></TextBox>
+                        <TextBox Text="{Binding Pillovs[0]}" Background="{Binding PillovsState[0], Converter={StaticResource EnumToColor}}" Margin="10 0"  ></TextBox>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -231,11 +250,11 @@
                     <TextBlock FontWeight="Bold" TextAlignment="Center" Text="Подшипник №2"></TextBlock>
                     <StackPanel Margin="0 10" Orientation="Horizontal">
                         <Label FontSize="20" >Температура (град):</Label>
-                        <TextBox Text="{Binding Temperatures[1]}" Margin="10 0" Width="80"></TextBox>
+                        <TextBox Text="{Binding Temperatures[1]}" Background="{Binding TemperaturesState[1], Converter={StaticResource EnumToColor}}" Margin="10 0"  ></TextBox>
                     </StackPanel>
                     <StackPanel Margin="0 10" Orientation="Horizontal">
                         <Label FontSize="20" >Вибрация (мкм):</Label>
-                        <TextBox Text="{Binding Pillovs[1]}" Margin="10 0" Width="80"></TextBox>
+                        <TextBox Text="{Binding Pillovs[1]}" Background="{Binding PillovsState[1], Converter={StaticResource EnumToColor}}" Margin="10 0"  ></TextBox>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -244,52 +263,75 @@
                     <TextBlock FontWeight="Bold" TextAlignment="Center" Text="Подшипник №3"></TextBlock>
                     <StackPanel Margin="0 10" Orientation="Horizontal">
                         <Label FontSize="20" >Температура (град):</Label>
-                        <TextBox Text="{Binding Temperatures[2]}" Margin="10 0" Width="90"></TextBox>
+                        <TextBox Text="{Binding Temperatures[2]}" Background="{Binding TemperaturesState[2], Converter={StaticResource EnumToColor}}" Margin="10 0"></TextBox>
                     </StackPanel>
                     <StackPanel Margin="0 10" Orientation="Horizontal">
                         <Label FontSize="20" >Вибрация (мкм):</Label>
-                        <TextBox Text="{Binding Pillovs[2]}" Margin="10 0" Width="90"></TextBox>
+                        <TextBox Text="{Binding Pillovs[2]}" Background="{Binding PillovsState[2], Converter={StaticResource EnumToColor}}" Margin="10 0" ></TextBox>
                     </StackPanel>
                 </StackPanel>
             </Border>
             <Border BorderBrush="Black" BorderThickness="3" Grid.Column="7" Grid.Row="1" >
                 <StackPanel Orientation="Vertical" Background="WhiteSmoke">
-                    <TextBlock FontWeight="Bold" TextAlignment="Center" Text="Подшипник №4"></TextBlock>
+                    <TextBlock FontWeight="Bold" TextAlignment="Center" Text="Двигатель"></TextBlock>
                     <StackPanel Margin="0 10" Orientation="Horizontal">
-                        <Label FontSize="20" >Температура (град):</Label>
-                        <TextBox Text="{Binding Temperatures[3]}" Margin="10 0" Width="80"></TextBox>
+                        <Label FontSize="20" >Скорость (об/мин):</Label>
+                        <TextBox Text=""  Margin="10 0"  ></TextBox>
                     </StackPanel>
                     <StackPanel Margin="0 10" Orientation="Horizontal">
-                        <Label FontSize="20" >Вибрация (мкм):</Label>
-                        <TextBox Text="{Binding Pillovs[3]}" Margin="10 0" Width="80"></TextBox>
+                        <Label FontSize="20" >Ток статора (А):</Label>
+                        <TextBox Text=""  Margin="10 0"  ></TextBox>
+                    </StackPanel>
+                    <StackPanel Margin="0 10" Orientation="Horizontal">
+                        <Label FontSize="20" >Ток ротора (А):</Label>
+                        <TextBox Text=""  Margin="10 0"  ></TextBox>
                     </StackPanel>
                 </StackPanel>
             </Border>
-            <Border BorderBrush="Black" BorderThickness="3" Grid.Column="7" Grid.Row="3" Grid.RowSpan="2" >
+            <Border BorderBrush="Black" BorderThickness="3" Grid.Column="9" Grid.Row="1" >
+                <StackPanel Orientation="Vertical" Background="WhiteSmoke">
+                    <TextBlock FontWeight="Bold" TextAlignment="Center" Text="Подшипник №4"></TextBlock>
+                    <StackPanel Margin="0 10" Orientation="Horizontal">
+                        <Label FontSize="20" >Температура (град):</Label>
+                        <TextBox Text="{Binding Temperatures[3]}" Background="{Binding TemperaturesState[3], Converter={StaticResource EnumToColor}}" Margin="10 0"  ></TextBox>
+                    </StackPanel>
+                    <StackPanel Margin="0 10" Orientation="Horizontal">
+                        <Label FontSize="20" >Вибрация (мкм):</Label>
+                        <TextBox Text="{Binding Pillovs[3]}" Background="{Binding PillovsState[3], Converter={StaticResource EnumToColor}}" Margin="10 0"  ></TextBox>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            
+            <Border BorderBrush="Black" BorderThickness="3" Grid.Column="7" Grid.Row="5" Grid.RowSpan="2" >
                 <StackPanel Orientation="Vertical" Background="WhiteSmoke">
                     <TextBlock FontWeight="Bold" TextAlignment="Center" Text="Маслонасос №1"></TextBlock>
                     <StackPanel Margin="0 10" Orientation="Horizontal">
                         <Label FontSize="20" >Температура (град):</Label>
-                        <TextBox Margin="10 0" Width="80"></TextBox>
+                        <TextBox Margin="10 0"  ></TextBox>
                     </StackPanel>
                     <StackPanel Margin="0 10" Orientation="Horizontal">
                         <Label FontSize="20" >Вибрация (мкм):</Label>
-                        <TextBox Margin="10 0" Width="80"></TextBox>
+                        <TextBox Margin="10 0"  ></TextBox>
                     </StackPanel>
                     <StackPanel Margin="0 10" Orientation="Horizontal">
                         <Label FontSize="20" >Проток (л/мин):</Label>
-                        <TextBox Margin="10 0" Width="80"></TextBox>
+                        <TextBox Margin="10 0"  ></TextBox>
                     </StackPanel>
                 </StackPanel>
             </Border>
-            <Border  BorderBrush="Black" BorderThickness="3" Grid.Column="1" Grid.Row="4" >
+            <Border  BorderBrush="Black" BorderThickness="3" Grid.Column="1" Grid.Row="6" >
                 <StackPanel  Orientation="Vertical" Background="WhiteSmoke">
                     <TextBlock TextWrapping="Wrap" FontWeight="Bold" TextAlignment="Center" Text="Направляющий аппарат"></TextBlock>
-                    <TextBox Text="{Binding NaState}" TextAlignment="Center" Height="30" Margin="10"  Width="100"/>
+                    <TextBlock Text="{Binding NaState}" Background="{Binding NaStateColor, Converter={StaticResource EnumToColor}}" TextAlignment="Center" Height="30" Margin="10" Width="100"/>
                 </StackPanel>
             </Border>
-            
-            
+
+            <Canvas>
+                <Ellipse Canvas.Top="704" Canvas.Left="920" Fill="Magenta" Height="290" Width="290" StrokeThickness="5" Stroke="Blue"/>
+                <Ellipse Canvas.Top="764" Canvas.Left="980" Fill="White" Height="170" Width="170" StrokeThickness="5" Stroke="Blue"/>
+                <Ellipse Canvas.Top="785" Canvas.Left="1000" Fill="LightYellow" Height="130" Width="130" StrokeThickness="5" Stroke="Blue"/>
+                <Ellipse Canvas.Top="836" Canvas.Left="1048" Fill="Red" Height="30" Width="30" StrokeThickness="1" Stroke="Blue"/>
+            </Canvas>
         </Grid>
         
     </Canvas>

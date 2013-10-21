@@ -29,6 +29,12 @@ namespace WpfClient.ViewModel.FanObjectSystem
             get { return _paramClickCommand ?? (_paramClickCommand = new RelayCommand<object>(OnParamClick)); }
         }
 
+        private RelayCommand<object> _fanClickCommand;
+        public ICommand FanClick
+        {
+            get { return _fanClickCommand ?? (_fanClickCommand = new RelayCommand<object>(OnFanClick)); }
+        }
+
         public FanObjectVm(int fanObjectId, DatabaseService databaseService, TubeSystemVm tubeSystemVm, IndicatorVm indicatorVm, ThermometerVm thermometerVm)
         {
             _databaseService = databaseService;
@@ -80,6 +86,10 @@ namespace WpfClient.ViewModel.FanObjectSystem
             IDisposable dispose = (IDisposable)IoC.Resolve<MainVm>().CurrentView;
             dispose.Dispose();
             IoC.Resolve<MainVm>().CurrentView = analogParametersVm;
+        }
+        private void OnFanClick(object t)
+        {
+            IoC.Resolve<MainVm>().CurrentView = new ElectricDriveVm(this,_fanObjectId, int.Parse(t.ToString()));
         }
     }
 }

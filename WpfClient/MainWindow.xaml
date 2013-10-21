@@ -31,9 +31,7 @@
             <MenuItem Header="ФАЙЛ"/>
             <MenuItem Header="СРЕДСТВА">
                 <MenuItem Header="Настройки" VerticalAlignment="Center" Width="Auto"
-                          Command="{Binding MenuClick}" CommandParameter="SettingsView"/>
-                <MenuItem Header="Привод" VerticalAlignment="Center" Width="Auto"
-                          Command="{Binding MenuClick}" CommandParameter="ElectricDriveView"/>
+                          Command="{Binding MenuClick}" CommandParameter="SettingsView"/> 
             </MenuItem>
             <MenuItem Header="ВИД">
                 <MenuItem Header="История" VerticalAlignment="Center" Width="Auto"

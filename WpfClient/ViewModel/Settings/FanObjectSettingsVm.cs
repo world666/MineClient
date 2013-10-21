@@ -55,6 +55,11 @@ namespace WpfClient.ViewModel.Settings
         {
             string fanNames = FanNames.Aggregate("", (current, fanName) => current + fanName.FanName+"!$!");
             Config.Instance.FanObjectConfig.FansName = fanNames;
+            Config.Instance.FanObjectConfig.PillowTemperature = PillowTemperature.RangeValueElement;
+            Config.Instance.FanObjectConfig.PillowVibration = PillowVibration.RangeValueElement;
+            Config.Instance.FanObjectConfig.Pressure = Pressure.RangeValueElement;
+            Config.Instance.FanObjectConfig.AirConsumption = AirConsumption.RangeValueElement;
+            Config.Instance.FanObjectConfig.GprsQuality = GprsQuality.RangeValueElement;
         }
 
         public int FanObjectCount
@@ -81,7 +86,7 @@ namespace WpfClient.ViewModel.Settings
             }
         }
 
-        public RangeValueElementVm PillowTemperature { get; set; }
+        public RangeValueElementVm PillowTemperature {get; set; }
 
         public RangeValueElementVm PillowVibration { get; set; }
 

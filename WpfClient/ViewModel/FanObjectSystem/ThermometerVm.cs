@@ -28,7 +28,7 @@ namespace WpfClient.ViewModel.FanObjectSystem
         {
             for (int i = 0; i < temperatures.Count; i++)
             {
-                Levels[i] = 60 / _maxTemperature;    
+                Levels[i] = temperatures[i].Value / _maxTemperature;    
             }
             MaxTemperature = _maxTemperature;
         }

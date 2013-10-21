@@ -194,9 +194,20 @@
         </Button>
         <TextBox Background="WhiteSmoke" FontSize="24" Text="Вентилятор №2" Canvas.Top="701" RenderTransformOrigin="0.445,0.41" Canvas.Left="-72"/>
         <PasswordBox Name="Password2" PasswordChar="*" Visibility="{Binding PasswordBoxVisibilityFan2, Converter={StaticResource BoolToVisibility}}"  Width="185" FontSize="24"  Background="WhiteSmoke"  Canvas.Top="799" RenderTransformOrigin="0.445,0.41" Canvas.Left="-74"/>
-
-        <elements:Fan Rotation="{Binding RotationV2}" Radius="30" Canvas.Top="698" Canvas.Left="114"/>
-        <elements:Fan Rotation="{Binding RotationV1}" Radius="30"  Canvas.Top="345" Canvas.Left="115"/>
+        <Border Canvas.Top="698" Canvas.Left="114">
+            <elements:Fan Rotation="{Binding RotationV2}" Radius="30" />
+            <Border.InputBindings>
+                <MouseBinding  Gesture="LeftClick" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.FanClick}"
+                                       CommandParameter="2"/>
+            </Border.InputBindings>
+        </Border>
+         <Border Canvas.Top="345" Canvas.Left="115">
+            <elements:Fan Rotation="{Binding RotationV1}" Radius="30"  />
+            <Border.InputBindings>
+                <MouseBinding  Gesture="LeftClick" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.FanClick}"
+                                       CommandParameter="1"/>
+            </Border.InputBindings>
+        </Border>
         <TextBox IsReadOnly="True" FontFamily="Arial" Background="WhiteSmoke" FontSize="26" TextAlignment="Center"
                  Text="ООО&#x0a;ДОНБАССУГЛЕАВТОМАТИКА " RenderTransformOrigin="0.445,0.41" Canvas.Left="-77"/>
         <Label Content="РЕЖИМ РАБОТЫ" Canvas.Left="1594" Width="229" FontSize="26" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"

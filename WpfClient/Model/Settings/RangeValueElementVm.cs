@@ -6,7 +6,7 @@ namespace WpfClient.Model.Settings
     {
         private double _warningLevel;
         private double _dangerLevel;
-        private readonly RangeValueElement _rangeValueElement;
+        private RangeValueElement _rangeValueElement;
 
         public double DangerLevel
         {
@@ -28,6 +28,9 @@ namespace WpfClient.Model.Settings
             }
         }
 
+        public RangeValueElement RangeValueElement {
+            get { return _rangeValueElement; }
+        }
 
         public RangeValueElementVm(RangeValueElement rangeValueElement)
         {
