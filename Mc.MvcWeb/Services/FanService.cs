@@ -28,7 +28,14 @@ namespace Mc.MvcWeb.Services
                 parametersList[i - 1].Add(SystemStateService.checkRemoteSignalState(fanObject.Date));
                 parametersList[i - 1].Add((SystemStateService.getFanNumberParameter(fanObject)));
                 parametersList[i - 1].Add((SystemStateService.getFanStateParameter(fanObject)));
-                fanObject.Parameters.ForEach(p => parametersList[i - 1].Add(p));
+                string[] analogSignalsView = Config.Instance.FanObjectConfig.GeneralAnalogSignalsView; // show analog signals which were cheked in general setings
+                int index = 0;
+                foreach (var p in fanObject.Parameters)
+                {
+                    if (analogSignalsView.Contains(index.ToString()))
+                        parametersList[i - 1].Add(p);
+                    index++;
+                }
             }
             for (var i = 0; i < parametersList.Count; i++) _fans[i].Values = parametersList[i];
             return _fans;

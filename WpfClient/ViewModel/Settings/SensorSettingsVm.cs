@@ -30,6 +30,21 @@ namespace WpfClient.ViewModel.Settings
             get { return Config.Instance.MaxPillowValue; }
             set { Config.Instance.MaxPillowValue = value; }
         }
+        public double MaxSpeedText
+        {
+            get { return Config.Instance.MaxSpeedValue; }
+            set { Config.Instance.MaxSpeedValue = value; }
+        }
+        public double MaxOilFlowText
+        {
+            get { return Config.Instance.MaxOilFlowValue; }
+            set { Config.Instance.MaxOilFlowValue = value; }
+        }
+        public double MaxCurrentText
+        {
+            get { return Config.Instance.MaxCurrentValue; }
+            set { Config.Instance.MaxPillowValue = value; }
+        }
         public double MaxSignalQualityText
         {
             get { return Config.Instance.MaxSignalQualityValue; }

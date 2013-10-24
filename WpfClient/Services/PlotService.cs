@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
 using DataRepository.DataAccess.GenericRepository;
+using Mc.Settings.Model.Concrete;
 using Ninject.Parameters;
 using OxyPlot;
 using OxyPlot.Axes;
@@ -109,7 +110,9 @@ namespace WpfClient.Services
                         .Select(s => new OxyPlotData { DateTime = s.Date, Value = s.AnalogSignal.SignalValue, ParamName = s.AnalogSignal.SignalType.Type });
 
                     List<OxyPlotData> plotDatas = tmp.ToList();
-                    plotDatas.ForEach(f => f.Value = SystemStateService.GetLinearAnalogValue(f.ParamName, f.Value));
+                    if(plotDatas.Count<1) return;
+                    double coefficient = SystemStateService.GetCoefficient(paramName);
+                    plotDatas.ForEach(f => f.Value = f.Value * coefficient);
                     LoadData(plotModel, plotDatas);
                 }
             }

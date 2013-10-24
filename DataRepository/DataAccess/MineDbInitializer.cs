@@ -49,68 +49,115 @@ namespace DataRepository.DataAccess
             //Init AnalogSignalType table
             var analogSignalType = new List<AnalogSignal>
                 {
-                    new AnalogSignal {Type = "Расход Воздуха (м3/c)"},
-                    new AnalogSignal {Type = "Депрессия (кПа)"},
-                    new AnalogSignal {Type = "Температура подшипника №1 (град)"},
-                    new AnalogSignal {Type = "Температура подшипника №2 (град)"},
-                    new AnalogSignal {Type = "Температура подшипника №3 (град)"},
-                    new AnalogSignal {Type = "Температура подшипника №4 (град)"},
-                    new AnalogSignal {Type = "Вибрация подшипника №1 (мкм)"},
-                    new AnalogSignal {Type = "Вибрация подшипника №2 (мкм)"},
-                    new AnalogSignal {Type = "Вибрация подшипника №3 (мкм)"},
-                    new AnalogSignal {Type = "Вибрация подшипника №4 (мкм)"},
+                    new AnalogSignal {Type = "Расход Воздуха В1 (м3/c)"},
+                    new AnalogSignal {Type = "Депрессия В1 (кПа)"},
+                    new AnalogSignal {Type = "Температура подшипника №1 В1 (град)"},
+                    new AnalogSignal {Type = "Температура подшипника №2 В1 (град)"},
+                    new AnalogSignal {Type = "Температура подшипника №3 В1 (град)"},
+                    new AnalogSignal {Type = "Температура подшипника №4 В1 (град)"},
+                    new AnalogSignal {Type = "Вибрация подшипника №1 В1 (мкм)"},
+                    new AnalogSignal {Type = "Вибрация подшипника №2 В1 (мкм)"},
+                    new AnalogSignal {Type = "Вибрация подшипника №3 В1 (мкм)"},
+                    new AnalogSignal {Type = "Вибрация подшипника №4 В1 (мкм)"},
+                    new AnalogSignal {Type = "Расход Воздуха В2 (м3/c)"},
+                    new AnalogSignal {Type = "Депрессия В2 (кПа)"},
+                    new AnalogSignal {Type = "Температура подшипника №1 В2 (град)"},
+                    new AnalogSignal {Type = "Температура подшипника №2 В2 (град)"},
+                    new AnalogSignal {Type = "Температура подшипника №3 В2 (град)"},
+                    new AnalogSignal {Type = "Температура подшипника №4 В2 (град)"},
+                    new AnalogSignal {Type = "Вибрация подшипника №1 В2 (мкм)"},
+                    new AnalogSignal {Type = "Вибрация подшипника №2 В2 (мкм)"},
+                    new AnalogSignal {Type = "Вибрация подшипника №3 В2 (мкм)"},
+                    new AnalogSignal {Type = "Вибрация подшипника №4 В2 (мкм)"},
+                    new AnalogSignal {Type = "Скорость двигателя В1 (об/мин)"},
+                    new AnalogSignal {Type = "Ток статора В1 (А)"},
+                    new AnalogSignal {Type = "Ток ротора В1 (А)"},
+                    new AnalogSignal {Type = "Скорость двигателя В2 (об/мин)"},
+                    new AnalogSignal {Type = "Ток статора В2 (А)"},
+                    new AnalogSignal {Type = "Ток ротора В2 (А)"},
+                    new AnalogSignal {Type = "Температура масла (град)"},
+                    new AnalogSignal {Type = "Давление масла (кПа)"},
+                    new AnalogSignal {Type = "Проток масла (л/мин)"},
                     new AnalogSignal {Type = "Качество сигнала"}
                 };
             analogSignalType.ForEach(s => context.AnalogSignals.Add(s));
 
             //Init Settings дублирование настроек в базу для веб сервера mvc
             var settings = new List<SettingsLog>
+            {
+                new SettingsLog {Name = "MaxTemperature", DValue = 120},
+                new SettingsLog {Name = "MaxPillowValue", DValue = 35},
+                new SettingsLog {Name = "MaxAirFlowValue", DValue = 80},
+                new SettingsLog {Name = "MaxPressureValue", DValue = 6},
+                new SettingsLog {Name = "MaxSpeedValue", DValue = 300},
+                new SettingsLog {Name = "MaxCurrentValue", DValue = 300},
+                new SettingsLog {Name = "MaxOilFlowValue", DValue = 10},
+                new SettingsLog {Name = "MaxSignalQualityValue", DValue = 32},
+                new SettingsLog {Name = "TemperatureСoefficient", DValue = 1.2},
+                new SettingsLog {Name = "PillowСoefficient", DValue = 1},
+                new SettingsLog {Name = "AirFlowСoefficient", DValue = 1.97},
+                new SettingsLog {Name = "PressureСoefficient", DValue = 0.1},
+                new SettingsLog {Name = "RemotePassword", SValue = "2243"},
+                new SettingsLog {Name = "FanObjectCount", DValue = 2},
+                new SettingsLog {Name = "mineName", SValue = "Название шахты"},
+                new SettingsLog {Name = "fansName", SValue = "Один!$!Два"},
+                new SettingsLog {Name = "generalAnalogSignalsView", SValue = "0!$!1!$!2!$!3!$!4!$!5!$!6"},
+                new SettingsLog
                 {
-                    new SettingsLog {Name = "MaxTemperature", DValue = 120},
-                    new SettingsLog {Name = "MaxPillowValue", DValue = 35},
-                    new SettingsLog {Name = "MaxAirFlowValue", DValue = 80},
-                    new SettingsLog {Name = "MaxPressureValue", DValue = 6},
-                    new SettingsLog {Name = "MaxSignalQualityValue", DValue = 32},
-                    new SettingsLog {Name = "TemperatureСoefficient", DValue = 1.2},
-                    new SettingsLog {Name = "PillowСoefficient", DValue = 1},
-                    new SettingsLog {Name = "AirFlowСoefficient", DValue = 1.97},
-                    new SettingsLog {Name = "PressureСoefficient", DValue = 0.1},
-                    new SettingsLog {Name = "RemotePassword", SValue = "2243"},
-                    new SettingsLog {Name = "FanObjectCount", DValue = 2},
-                    new SettingsLog {Name = "mineName", SValue = "Название шахты"},
-                    new SettingsLog {Name = "fansName", SValue = "Один!$!Два"},
-                    new SettingsLog
-                        {
-                            Name = "pressure",
-                            Warning = 1,
-                            Danger = 0.5
-                        },
-                    new SettingsLog
-                        {
-                            Name = "airConsumption",
-                            Warning = 40,
-                            Danger = 30
-                        },
-                    new SettingsLog
-                        {
-                            Name = "pillowTemperature",
-                            Warning = 60,
-                            Danger = 80
-                        },
-                    new SettingsLog
-                        {
-                            Name = "pillowVibration",
-                            Warning = 20,
-                            Danger = 30
-                        },
-                    new SettingsLog
-                        {
-                            Name = "gprsQuality",
-                            Warning = 21,
-                            Danger = 17
-                        }
+                    Name = "pressure",
+                    Warning = 1,
+                    Danger = 0.5
+                },
+                new SettingsLog
+                {
+                    Name = "airConsumption",
+                    Warning = 40,
+                    Danger = 30
+                },
+                new SettingsLog
+                {
+                    Name = "pillowTemperature",
+                    Warning = 60,
+                    Danger = 80
+                },
+                new SettingsLog
+                {
+                    Name = "pillowVibration",
+                    Warning = 20,
+                    Danger = 30
+                },
+                new SettingsLog
+                {
+                    Name = "statorCurrent",
+                    Warning = 100,
+                    Danger = 150
+                },
+                new SettingsLog
+                {
+                    Name = "rotorCurrentLow",
+                    Warning = 200,
+                    Danger = 180
+                },
+                new SettingsLog
+                {
+                    Name = "rotorCurrentHigh",
+                    Warning = 280,
+                    Danger = 290
+                },
+                new SettingsLog
+                {
+                    Name = "oilFlow",
+                    Warning = 6,
+                    Danger = 2
+                },
+                new SettingsLog
+                {
+                    Name = "gprsQuality",
+                    Warning = 21,
+                    Danger = 17
+                }
 
-                };
+            };
             settings.ForEach(s => context.SettingsLog.Add(s));
 
             var remoteState = new List<RemoteState>

@@ -11,6 +11,7 @@ using GalaSoft.MvvmLight.Command;
 using Mc.CustomControls.Model;
 using WpfClient.Model;
 using WpfClient.Model.Abstract;
+using WpfClient.Model.ElectricDrive;
 using WpfClient.Model.Entities;
 using WpfClient.Services;
 using WpfClient.ViewModel.FanObjectSystem;
@@ -18,9 +19,9 @@ using WpfClient.ViewModel.General;
 
 namespace WpfClient.ViewModel
 {
-    class ElectricDriveVm : ViewModelBase,IDisposable,IUpDatable 
+    class ElectricDriveVm : ViewModelBase,IDisposable,IUpDatable
     {
-        
+        #region Properties
         public ObservableCollection<double> Temperatures { get; set; }
         public ObservableCollection<double> Pillovs { get; set; }
         public ObservableCollection<StateEnum> TemperaturesState { get; set; }
@@ -48,12 +49,16 @@ namespace WpfClient.ViewModel
             get { return _naStateColor; }
             set { _naStateColor = value; RaisePropertyChanged("NaStateColor"); }
         }
+        public string FanName { get; set; }
+        public EngineData Engine { get; set; }
+        public OilPumpData OilPump { get; set; }
         private RelayCommand _backArrowClickCommand;
         public ICommand BackArrowClick
         {
             get { return _backArrowClickCommand ?? (_backArrowClickCommand = new RelayCommand(BackArrowClickHandler)); }
         }
-        
+        #endregion
+
         private void BackArrowClickHandler()
         {
             IDisposable dispose = (IDisposable)IoC.Resolve<MainVm>().CurrentView;
@@ -65,6 +70,7 @@ namespace WpfClient.ViewModel
             _fanObjectId = fanObjectId;
             _fanId = fanId;
             _prevView = prevView;
+            FanName = "Вертилятор №" + _fanId.ToString();
             initialize();
             LoadFromDb();
         }
@@ -85,21 +91,61 @@ namespace WpfClient.ViewModel
         {
             if (fanObject == null)
                 return;
-            for (int i = 2; i <= 5; i++)
+            SetTermometers(fanObject);
+            SetIndocators(fanObject);
+            SetNA(fanObject);
+            SetEngine(fanObject);
+
+            OilPump.OilTemperature = new ParameterVm(fanObject.Parameters[(int)WpfClient.Model.AnalogSignalType.mi61 - 1]);
+            OilPump.OilPressure = new ParameterVm(fanObject.Parameters[(int)WpfClient.Model.AnalogSignalType.mi62 - 1]);
+            OilPump.OilFlow = new ParameterVm(fanObject.Parameters[(int)WpfClient.Model.AnalogSignalType.mi63 - 1]);
+        }
+
+        private void SetTermometers(FanObject fanObject)
+        {
+            //set termometers
+            for (int i = 0; i < 4; i++)
             {
-                Temperatures[i - 2] = fanObject.Parameters[i].Value;
-                TemperaturesState[i - 2] = fanObject.Parameters[i].State;
+                if (_fanId == 1)
+                {
+                    Temperatures[i] = fanObject.Parameters[(int)WpfClient.Model.AnalogSignalType.mi6 - 1 + i].Value;
+                    TemperaturesState[i] =
+                        fanObject.Parameters[(int)WpfClient.Model.AnalogSignalType.mi6 - 1 + i].State;
+                }
+                else
+                {
+                    Temperatures[i] = fanObject.Parameters[(int)WpfClient.Model.AnalogSignalType.mi46 - 1 + i].Value;
+                    TemperaturesState[i] =
+                        fanObject.Parameters[(int)WpfClient.Model.AnalogSignalType.mi46 - 1 + i].State;
+                }
             }
-            for (int i = 6; i <= 9; i++)
+        }
+
+        private void SetIndocators(FanObject fanObject)
+        {
+            //set indicators
+            for (int i = 0; i < 4; i++)
             {
-                Pillovs[i - 6] = fanObject.Parameters[i].Value;
-                PillovsState[i - 6] = fanObject.Parameters[i].State;
+                if (_fanId == 1)
+                {
+                    Pillovs[i] = fanObject.Parameters[(int)WpfClient.Model.AnalogSignalType.mi28 - 1 + i].Value;
+                    PillovsState[i] = fanObject.Parameters[(int)WpfClient.Model.AnalogSignalType.mi28 - 1 + i].State;
+                }
+                else
+                {
+                    Pillovs[i] = fanObject.Parameters[(int)WpfClient.Model.AnalogSignalType.mi50 - 1 + i].Value;
+                    PillovsState[i] = fanObject.Parameters[(int)WpfClient.Model.AnalogSignalType.mi50 - 1 + i].State;
+                }
             }
+        }
+
+        private void SetNA(FanObject fanObject)
+        {
             int stateId;
-            if(_fanId==1)
-                stateId = fanObject.Doors[(int)WpfClient.Model.DoorType.mb114 -1].StateId;//направляющий апарат 1/2
+            if (_fanId == 1)
+                stateId = fanObject.Doors[(int)WpfClient.Model.DoorType.mb114 - 1].StateId;//направляющий апарат 1/2
             else//=2
-                stateId = fanObject.Doors[(int)WpfClient.Model.DoorType.mb115 -1].StateId;//направляющий апарат 1/2
+                stateId = fanObject.Doors[(int)WpfClient.Model.DoorType.mb115 - 1].StateId;//направляющий апарат 1/2
             var stateEnum = Enum.IsDefined(typeof(DoorStateEnum), stateId) ? (DoorStateEnum)stateId : DoorStateEnum.Undefined;
             NaState = stateEnum == DoorStateEnum.Open
                           ? "Открыт"
@@ -114,12 +160,30 @@ namespace WpfClient.ViewModel
                           ? -20
                           : (stateEnum == DoorStateEnum.Close ? 0 : -90);
         }
+
+        private void SetEngine(FanObject fanObject)
+        {
+            if (_fanId == 1)
+            {
+                Engine.EngineSpeed = new ParameterVm(fanObject.Parameters[(int)WpfClient.Model.AnalogSignalType.mi55 - 1]);
+                Engine.RotorCurent = new ParameterVm(fanObject.Parameters[(int)WpfClient.Model.AnalogSignalType.mi56 - 1]);
+                Engine.StatorCurent = new ParameterVm(fanObject.Parameters[(int)WpfClient.Model.AnalogSignalType.mi57 - 1]);
+            }
+            else
+            {
+                Engine.EngineSpeed = new ParameterVm(fanObject.Parameters[(int)WpfClient.Model.AnalogSignalType.mi58 - 1]);
+                Engine.RotorCurent = new ParameterVm(fanObject.Parameters[(int)WpfClient.Model.AnalogSignalType.mi59 - 1]);
+                Engine.StatorCurent = new ParameterVm(fanObject.Parameters[(int)WpfClient.Model.AnalogSignalType.mi60 - 1]);
+            }
+        }
         private void initialize()
         {
             Temperatures = new ObservableCollection<double>();
             Pillovs = new ObservableCollection<double>();
             TemperaturesState = new ObservableCollection<StateEnum>();
             PillovsState = new ObservableCollection<StateEnum>();
+            Engine = new EngineData();
+            OilPump = new OilPumpData();
             for (var i = 0; i < _thermometerCount; i++)
             {
                 Temperatures.Add(0);

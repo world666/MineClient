@@ -122,6 +122,8 @@
     <Compile Include="Model\Concrete\RemoteData.cs" />
     <Compile Include="Model\Concrete\RemoteLogData.cs" />
     <Compile Include="Model\Concrete\TcpRemoteListener.cs" />
+    <Compile Include="Model\ElectricDrive\EngineData.cs" />
+    <Compile Include="Model\ElectricDrive\OilPumpData.cs" />
     <Compile Include="Model\Entities\Door.cs" />
     <Compile Include="Model\Entities\FanObject.cs" />
     <Compile Include="Model\Entities\Parameter.cs" />
@@ -129,7 +131,7 @@
     <Compile Include="Model\IoC.cs" />
     <Compile Include="Model\Plot\OnPlotClickData.cs" />
     <Compile Include="Model\Plot\OxyPlotData.cs" />
-    <Compile Include="Model\Plot\PlotData.cs" />
+    <Compile Include="Model\Plot\CheckBoxData.cs" />
     <Compile Include="Model\Settings\FanObjectConfigData.cs" />
     <Compile Include="Model\Settings\RangeValueElementVm.cs" />
     <Compile Include="Properties\Annotations.cs" />

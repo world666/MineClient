@@ -94,7 +94,7 @@ namespace WpfClient.Services
                     streamWriter.WriteLine("<table>");
 
                     streamWriter.WriteLine(@"<td align=""center"" bgcolor=""#efefef"">" + DateTime.Now + "</td>");
-                    string[] fanNames = Config.Instance.FanObjectConfig.FansName.Split(new string[] { "!$!" }, StringSplitOptions.RemoveEmptyEntries);
+                    string[] fanNames = Config.Instance.FanObjectConfig.FansName;
                     int j = 1;
                     foreach (var fanName in fanNames)
                     {

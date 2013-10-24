@@ -6,7 +6,7 @@
              xmlns:general="clr-namespace:WpfClient.ViewModel.Settings"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance general:FanObjectSettingsVm}"
-             d:DesignHeight="500" d:DesignWidth="900">
+             d:DesignHeight="1000" d:DesignWidth="900">
     <UserControl.Resources>
         <Style TargetType="TextBox">
             <Setter Property="MinHeight" Value="29"/>
@@ -35,6 +35,12 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="300"/>
             <RowDefinition Height="20"/>
             <RowDefinition Height="40"/>
             <RowDefinition/>
@@ -46,7 +52,7 @@
             <ColumnDefinition Width="300"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-            <Button Grid.Column="3" Grid.Row="13"  FontSize="20"  VerticalContentAlignment="Center" 
+            <Button Grid.Column="3" Grid.Row="19"  FontSize="20"  VerticalContentAlignment="Center" 
                     Width="140" Height="38" Command="{Binding SaveClick}" VerticalAlignment="Top" Margin="150,0,10,0">
                 <TextBlock Text="Сохранить"/>
                 </Button>
@@ -74,7 +80,7 @@
                  HorizontalContentAlignment="Center"/>
         </StackPanel>
 
-        <Label FontSize="18" Grid.Row="5" Grid.Column="2" Content="Давление (кПа):"/>
+        <Label FontSize="18" Grid.Row="5" Grid.Column="2" Content="Депрессия (кПа):"/>
         <StackPanel Grid.Row="5" Grid.Column="3" Orientation="Horizontal">
             <Label FontSize="18" Content="Опасно &lt;"/>
             <TextBox VerticalContentAlignment="Center" Text="{Binding Pressure.WarningLevel}"
@@ -103,9 +109,47 @@
             <TextBox VerticalContentAlignment="Center" Text="{Binding PillowVibration.DangerLevel}"
                  HorizontalContentAlignment="Center"/>
         </StackPanel>
-       
-        <Label FontSize="18" Grid.Row="8" Grid.Column="2" Content="Качество Сигнала"/>
+
+        <Label FontSize="18" Grid.Row="8" Grid.Column="2" Content="Ток статора (А):"/>
         <StackPanel Grid.Row="8" Grid.Column="3" Orientation="Horizontal">
+            <Label FontSize="18" Content="Опасно >"/>
+            <TextBox VerticalContentAlignment="Center" Text="{Binding StatorCurrent.WarningLevel}"
+                 HorizontalContentAlignment="Center"/>
+            <Label FontSize="18" Content="Авария >" Margin="20 0 0 0"/>
+            <TextBox VerticalContentAlignment="Center" Text="{Binding StatorCurrent.DangerLevel}"
+                 HorizontalContentAlignment="Center"/>
+        </StackPanel>
+
+        <Label FontSize="18" Grid.Row="9" Grid.Column="2" Content="Ток ротора (А):"/>
+        <StackPanel Grid.Row="9" Grid.Column="3" Orientation="Horizontal">
+            <Label FontSize="18" Content="Опасно &lt;"/>
+            <TextBox VerticalContentAlignment="Center" Text="{Binding RotorCurrentLow.WarningLevel}"
+                 HorizontalContentAlignment="Center"/>
+            <Label FontSize="18" Content="Авария &lt;" Margin="20 0 0 0"/>
+            <TextBox VerticalContentAlignment="Center" Text="{Binding RotorCurrentLow.DangerLevel}"
+                 HorizontalContentAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Grid.Row="10" Grid.Column="3" Orientation="Horizontal">
+            <Label FontSize="18" Content="Опасно >"/>
+            <TextBox VerticalContentAlignment="Center" Text="{Binding RotorCurrentHigh.WarningLevel}"
+                 HorizontalContentAlignment="Center"/>
+            <Label FontSize="18" Content="Авария >" Margin="20 0 0 0"/>
+            <TextBox VerticalContentAlignment="Center" Text="{Binding RotorCurrentHigh.DangerLevel}"
+                 HorizontalContentAlignment="Center"/>
+        </StackPanel>
+
+        <Label FontSize="18" Grid.Row="11" Grid.Column="2" Content="Проток масла (л/мин):"/>
+        <StackPanel Grid.Row="11" Grid.Column="3" Orientation="Horizontal">
+            <Label FontSize="18" Content="Опасно &lt;"/>
+            <TextBox VerticalContentAlignment="Center" Text="{Binding OilFlow.WarningLevel}"
+                 HorizontalContentAlignment="Center"/>
+            <Label FontSize="18" Content="Авария &lt;" Margin="20 0 0 0"/>
+            <TextBox VerticalContentAlignment="Center" Text="{Binding OilFlow.DangerLevel}"
+                 HorizontalContentAlignment="Center"/>
+        </StackPanel>
+        
+        <Label FontSize="18" Grid.Row="12" Grid.Column="2" Content="Качество Сигнала"/>
+        <StackPanel Grid.Row="12" Grid.Column="3" Orientation="Horizontal">
             <Label FontSize="18" Content="Опасно &lt;"/>
             <TextBox VerticalContentAlignment="Center" Text="{Binding  GprsQuality.WarningLevel}"
                  HorizontalContentAlignment="Center"/>
@@ -114,15 +158,15 @@
                  HorizontalContentAlignment="Center"/>
         </StackPanel>
 
-        <DockPanel Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="3">
+        <DockPanel Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="3">
             <Label FontSize="20" Content="Названия"/>
             <Separator/>
         </DockPanel>
 
-        <Label FontSize="18" Grid.Row="10" Grid.Column="2" Content="Название Шахты:"/>
-        <TextBox Grid.Row="10" Grid.Column="3" TextAlignment="Center" Text="{Binding MineName}"/>
+        <Label FontSize="18" Grid.Row="14" Grid.Column="2" Content="Название Шахты:"/>
+        <TextBox Grid.Row="14" Grid.Column="3" TextAlignment="Center" Text="{Binding MineName}"/>
 
-        <ItemsControl ItemsSource="{Binding  FanNames}" Grid.Row="11" Grid.Column="2" Grid.ColumnSpan="2">
+        <ItemsControl ItemsSource="{Binding  FanNames}" Grid.Row="15" Grid.Column="2" Grid.ColumnSpan="2">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Vertical"/>
@@ -139,5 +183,18 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
+        <DockPanel Grid.Row="16" Grid.Column="1" Grid.ColumnSpan="3">
+            <Label FontSize="20" Content="Параметры для отображения"/>
+            <Separator/>
+        </DockPanel>
+        <Label FontSize="18" Grid.Row="17" Grid.Column="2" Content="Выберите параметры:"/>
+        <ListBox HorizontalAlignment="Right" FontSize="18" Grid.Row="17" Width="390" Grid.Column="2" Grid.ColumnSpan="2" ItemsSource="{Binding ListCollectionAnalog}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox Content="{Binding Name}" Command="{Binding Click}" IsChecked="{Binding IsChecked}" Margin="5 5 0 0"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        
     </Grid>
 </UserControl>

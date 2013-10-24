@@ -109,6 +109,72 @@ namespace Mc.Settings.Services
             }
         }
 
+        public double MaxSpeedValue
+        {
+            set
+            {
+                using (var repoUnit = new RepoUnit())
+                {
+                    var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "MaxSpeedValue");
+                    log.DValue = value;
+                    repoUnit.SettingsLog.Edit(log);
+                }
+            }
+            get
+            {
+                double value;
+                using (var repoUnit = new RepoUnit())
+                {
+                    value = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "MaxSpeedValue").DValue;
+                }
+                return value;
+            }
+        }
+
+        public double MaxCurrentValue
+        {
+            set
+            {
+                using (var repoUnit = new RepoUnit())
+                {
+                    var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "MaxCurrentValue");
+                    log.DValue = value;
+                    repoUnit.SettingsLog.Edit(log);
+                }
+            }
+            get
+            {
+                double value;
+                using (var repoUnit = new RepoUnit())
+                {
+                    value = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "MaxCurrentValue").DValue;
+                }
+                return value;
+            }
+        }
+
+        public double MaxOilFlowValue
+        {
+            set
+            {
+                using (var repoUnit = new RepoUnit())
+                {
+                    var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "MaxOilFlowValue");
+                    log.DValue = value;
+                    repoUnit.SettingsLog.Edit(log);
+                }
+            }
+            get
+            {
+                double value;
+                using (var repoUnit = new RepoUnit())
+                {
+                    value = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "MaxOilFlowValue").DValue;
+                }
+                return value;
+            }
+        }
+
         public double MaxSignalQualityValue
         {
             set

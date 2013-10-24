@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Linq;
 using DataRepository.DataAccess.GenericRepository;
 
 namespace Mc.Settings.Model.Settings
@@ -50,14 +51,15 @@ namespace Mc.Settings.Model.Settings
             }
         }
 
-        public string FansName
+        public string[] FansName
         {
             set
             {
                 using (var repoUnit = new RepoUnit())
                 {
                     var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "fansName");
-                    log.SValue = value;
+                    string fanNames = value.Aggregate("", (current, fanName) => current + fanName + "!$!");
+                    log.SValue = fanNames;
                     repoUnit.SettingsLog.Edit(log);
                 }
             }
@@ -68,7 +70,32 @@ namespace Mc.Settings.Model.Settings
                 {
                     value = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "fansName").SValue;
                 }
-                return value;
+                string[] result = value.Split(new string[] { "!$!" }, StringSplitOptions.RemoveEmptyEntries);
+                return result;
+            }
+        }
+
+        public string[] GeneralAnalogSignalsView
+        {
+            set
+            {
+                using (var repoUnit = new RepoUnit())
+                {
+                    var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "generalAnalogSignalsView");
+                    string generalAnalogSignalsView = value.Aggregate("", (current, checkElement) => current + checkElement + "!$!");
+                    log.SValue = generalAnalogSignalsView;
+                    repoUnit.SettingsLog.Edit(log);
+                }
+            }
+            get
+            {
+                string value;
+                using (var repoUnit = new RepoUnit())
+                {
+                    value = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "generalAnalogSignalsView").SValue;
+                }
+                string[] result = value.Split(new string[] { "!$!" }, StringSplitOptions.RemoveEmptyEntries);
+                return result;
             }
         }
 
@@ -76,24 +103,11 @@ namespace Mc.Settings.Model.Settings
         {
             set
             {
-                using (var repoUnit = new RepoUnit())
-                {
-                    var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "airConsumption");
-                    log.Warning = value.WarningLevel;
-                    log.Danger = value.DangerLevel;
-                    repoUnit.SettingsLog.Edit(log);
-                }
+                WriteInDB("airConsumption", value);
             }
             get
             {
-                RangeValueElement value = new RangeValueElement();
-                using (var repoUnit = new RepoUnit())
-                {
-                    var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "airConsumption");
-                    value.WarningLevel = log.Warning;
-                    value.DangerLevel = log.Danger;
-                }
-                return value;
+                return ReadFromDB("airConsumption");
             }
         }
 
@@ -101,24 +115,11 @@ namespace Mc.Settings.Model.Settings
         {
             set
             {
-                using (var repoUnit = new RepoUnit())
-                {
-                    var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "pressure");
-                    log.Warning = value.WarningLevel;
-                    log.Danger = value.DangerLevel;
-                    repoUnit.SettingsLog.Edit(log);
-                }
+                WriteInDB("pressure", value);
             }
             get
             {
-                RangeValueElement value = new RangeValueElement();
-                using (var repoUnit = new RepoUnit())
-                {
-                    var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "pressure");
-                    value.WarningLevel = log.Warning;
-                    value.DangerLevel = log.Danger;
-                }
-                return value;
+                return ReadFromDB("pressure");
             }
         }
 
@@ -126,24 +127,11 @@ namespace Mc.Settings.Model.Settings
         {
             set
             {
-                using (var repoUnit = new RepoUnit())
-                {
-                    var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "pillowTemperature");
-                    log.Warning = value.WarningLevel;
-                    log.Danger = value.DangerLevel;
-                    repoUnit.SettingsLog.Edit(log);
-                }
+                WriteInDB("pillowTemperature", value);
             }
             get
             {
-                RangeValueElement value = new RangeValueElement();
-                using (var repoUnit = new RepoUnit())
-                {
-                    var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "pillowTemperature");
-                    value.WarningLevel = log.Warning;
-                    value.DangerLevel = log.Danger;
-                }
-                return value;
+                return ReadFromDB("pillowTemperature");
             }
         }
 
@@ -151,49 +139,91 @@ namespace Mc.Settings.Model.Settings
         {
             set
             {
-                using (var repoUnit = new RepoUnit())
-                {
-                    var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "pillowVibration");
-                    log.Warning = value.WarningLevel;
-                    log.Danger = value.DangerLevel;
-                    repoUnit.SettingsLog.Edit(log);
-                }
+                WriteInDB("pillowVibration", value);
             }
             get
             {
-                RangeValueElement value = new RangeValueElement();
-                using (var repoUnit = new RepoUnit())
-                {
-                    var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "pillowVibration");
-                    value.WarningLevel = log.Warning;
-                    value.DangerLevel = log.Danger;
-                }
-                return value;
+                return ReadFromDB("pillowVibration");
             }
         }
+        public RangeValueElement StatorCurrent
+        {
+            set
+            {
+                WriteInDB("statorCurrent", value);
+            }
+            get
+            {
+                return ReadFromDB("statorCurrent");
+            }
+        }
+        public RangeValueElement RotorCurrentLow
+        {
+            set
+            {
+                WriteInDB("rotorCurrentLow", value);
+            }
+            get
+            {
+                return ReadFromDB("rotorCurrentLow");
+            }
+        }
+        public RangeValueElement RotorCurrentHigh
+        {
+            set
+            {
+                WriteInDB("rotorCurrentHigh", value);
+            }
+            get
+            {
+                return ReadFromDB("rotorCurrentHigh");
+            }
+        }
+        public RangeValueElement OilFlow
+        {
+            set
+            {
+                WriteInDB("oilFlow", value);
+            }
+            get
+            {
+                return ReadFromDB("oilFlow");
+            }
+        }
+
         public RangeValueElement GprsQuality
         {
             set
             {
-                using (var repoUnit = new RepoUnit())
-                {
-                    var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "gprsQuality");
-                    log.Warning = value.WarningLevel;
-                    log.Danger = value.DangerLevel;
-                    repoUnit.SettingsLog.Edit(log);
-                }
+                WriteInDB("gprsQuality", value);
             }
             get
             {
-                RangeValueElement value = new RangeValueElement();
-                using (var repoUnit = new RepoUnit())
-                {
-                    var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == "gprsQuality");
-                    value.WarningLevel = log.Warning;
-                    value.DangerLevel = log.Danger;
-                }
-                return value;
+                return ReadFromDB("gprsQuality");
             }
+        }
+
+        private void WriteInDB(string name,RangeValueElement rangeValueElement)
+        {
+            using (var repoUnit = new RepoUnit())
+            {
+                var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == name);
+                log.Warning = rangeValueElement.WarningLevel;
+                log.Danger = rangeValueElement.DangerLevel;
+                repoUnit.SettingsLog.Edit(log);
+            }
+        }
+
+        private RangeValueElement ReadFromDB(string name)
+        {
+            RangeValueElement value = new RangeValueElement();
+            using (var repoUnit = new RepoUnit())
+            {
+                var log = repoUnit.SettingsLog.FindFirstBy(f => f.Name == name);
+                value.WarningLevel = log.Warning;
+                value.DangerLevel = log.Danger;
+            }
+            return value;
         }
     }
 }

@@ -71,18 +71,63 @@ namespace WpfClient.ViewModel.FanObjectSystem
 
         private List<Parameter> getThermometerValues(FanObject fanObject)
         {
-            return new List<Parameter> { fanObject.Parameters[2], fanObject.Parameters[3], fanObject.Parameters[4], fanObject.Parameters[5] };
+            //show working fan number parameters
+            if (fanObject.WorkingFanNumber == 2)
+                return new List<Parameter>
+                {
+                    fanObject.Parameters[(int) WpfClient.Model.AnalogSignalType.mi46 - 1],
+                    fanObject.Parameters[(int) WpfClient.Model.AnalogSignalType.mi47 - 1],
+                    fanObject.Parameters[(int) WpfClient.Model.AnalogSignalType.mi48 - 1],
+                    fanObject.Parameters[(int) WpfClient.Model.AnalogSignalType.mi49 - 1]
+                };
+            else
+                return new List<Parameter>
+                {
+                    fanObject.Parameters[(int) WpfClient.Model.AnalogSignalType.mi6 - 1],
+                    fanObject.Parameters[(int) WpfClient.Model.AnalogSignalType.mi25 - 1],
+                    fanObject.Parameters[(int) WpfClient.Model.AnalogSignalType.mi26 - 1],
+                    fanObject.Parameters[(int) WpfClient.Model.AnalogSignalType.mi27 - 1]
+                };
         }
 
         private List<Parameter> getIndicatorValues(FanObject fanObject)
         {
-
-            return new List<Parameter> { fanObject.Parameters[0], fanObject.Parameters[1], fanObject.Parameters[6], fanObject.Parameters[7], fanObject.Parameters[8], fanObject.Parameters[9] };
+            if (fanObject.WorkingFanNumber == 2)
+                return new List<Parameter>
+                {
+                    fanObject.Parameters[(int) WpfClient.Model.AnalogSignalType.mi44 - 1],
+                    fanObject.Parameters[(int) WpfClient.Model.AnalogSignalType.mi45 - 1],
+                    fanObject.Parameters[(int) WpfClient.Model.AnalogSignalType.mi50 - 1],
+                    fanObject.Parameters[(int) WpfClient.Model.AnalogSignalType.mi51 - 1],
+                    fanObject.Parameters[(int) WpfClient.Model.AnalogSignalType.mi52 - 1],
+                    fanObject.Parameters[(int) WpfClient.Model.AnalogSignalType.mi53 - 1]
+                };
+            else
+                return new List<Parameter>
+                {
+                    fanObject.Parameters[(int) WpfClient.Model.AnalogSignalType.mi2 - 1],
+                    fanObject.Parameters[(int) WpfClient.Model.AnalogSignalType.mi4 - 1],
+                    fanObject.Parameters[(int) WpfClient.Model.AnalogSignalType.mi28 - 1],
+                    fanObject.Parameters[(int) WpfClient.Model.AnalogSignalType.mi29 - 1],
+                    fanObject.Parameters[(int) WpfClient.Model.AnalogSignalType.mi30 - 1],
+                    fanObject.Parameters[(int) WpfClient.Model.AnalogSignalType.mi31 - 1]
+                };
         }
 
         private void OnParamClick(object t)
         {
-            var analogParametersVm = IoC.Resolve<PlotVm>(new ConstructorArgument("fanObjectId", _fanObjectId), new ConstructorArgument("parameterNum", Int32.Parse(t.ToString())));
+            PlotVm analogParametersVm;
+            int paramIndex = int.Parse(t.ToString());
+            var fanObject = _databaseService.GetFanObject(_fanObjectId);
+            if (fanObject.WorkingFanNumber == 2)
+            {
+                paramIndex += (int)WpfClient.Model.AnalogSignalType.mi44 - 1;
+                analogParametersVm = IoC.Resolve<PlotVm>(new ConstructorArgument("fanObjectId", _fanObjectId),
+                    new ConstructorArgument("parameterNum", Int32.Parse(paramIndex.ToString())));
+            }
+            else
+                analogParametersVm = IoC.Resolve<PlotVm>(new ConstructorArgument("fanObjectId", _fanObjectId),
+                    new ConstructorArgument("parameterNum", Int32.Parse(t.ToString())));
             IDisposable dispose = (IDisposable)IoC.Resolve<MainVm>().CurrentView;
             dispose.Dispose();
             IoC.Resolve<MainVm>().CurrentView = analogParametersVm;

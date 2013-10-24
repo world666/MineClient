@@ -32,10 +32,7 @@ namespace WpfClient.ViewModel.General
                 try
                 {
                     return string.Format("Вентиляторная установка {0}",
-                                         Config.Instance.FanObjectConfig.FansName.Split(new string[] {"!$!"},
-                                                                                        StringSplitOptions
-                                                                                            .RemoveEmptyEntries)[
-                                                                                                FanObjectId - 1]);
+                                         Config.Instance.FanObjectConfig.FansName[FanObjectId - 1]);
                 }
                 catch (Exception)
                 {
@@ -74,9 +71,9 @@ namespace WpfClient.ViewModel.General
 
         private void OnParamClick(object t)
         {
-            if ((int)t <= 1) return;
-
-            var analogParametersVm = IoC.Resolve<PlotVm>(new ConstructorArgument("fanObjectId", FanObjectId), new ConstructorArgument("parameterNum", (int)t - 2));
+            if ((int)t <= 2) return;
+            int realIndex = int.Parse(Config.Instance.FanObjectConfig.GeneralAnalogSignalsView[(int)t - 2 - 1]);
+            var analogParametersVm = IoC.Resolve<PlotVm>(new ConstructorArgument("fanObjectId", FanObjectId), new ConstructorArgument("parameterNum", realIndex+1));
             IDisposable dispose = (IDisposable)IoC.Resolve<MainVm>().CurrentView;
             dispose.Dispose();
             IoC.Resolve<MainVm>().CurrentView = analogParametersVm;

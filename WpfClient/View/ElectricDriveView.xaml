@@ -137,7 +137,7 @@
 
 
 
-        <CustomRoundedCornersPolygon:RoundedCornersPolygon Fill="Green" Points="0,180 20,0 40,179 " 
+        <CustomRoundedCornersPolygon:RoundedCornersPolygon Fill="{Binding NaStateColor, Converter={StaticResource EnumToColor}}" Points="0,180 20,0 40,179 " 
                 StrokeThickness="1" ArcRoundness="17" UseRoundnessPercentage="False" Stroke="Black" IsClosed="True" Canvas.Left="434" Canvas.Top="522" Height="182" Width="41" RenderTransformOrigin="0.5,0.5">
             <CustomRoundedCornersPolygon:RoundedCornersPolygon.RenderTransform>
                 <TransformGroup>
@@ -148,7 +148,7 @@
                 </TransformGroup>
             </CustomRoundedCornersPolygon:RoundedCornersPolygon.RenderTransform>
         </CustomRoundedCornersPolygon:RoundedCornersPolygon>
-        <CustomRoundedCornersPolygon:RoundedCornersPolygon Fill="Green" Points="0,180 20,0 40,179 " 
+        <CustomRoundedCornersPolygon:RoundedCornersPolygon Fill="{Binding NaStateColor, Converter={StaticResource EnumToColor}}" Points="0,180 20,0 40,179 " 
                 StrokeThickness="1" ArcRoundness="17" UseRoundnessPercentage="False" Stroke="Black" IsClosed="True" Canvas.Left="434" Canvas.Top="280" Height="182" Width="41" RenderTransformOrigin="0.5,0.5">
             <CustomRoundedCornersPolygon:RoundedCornersPolygon.RenderTransform>
                 <TransformGroup>
@@ -159,7 +159,7 @@
                 </TransformGroup>
             </CustomRoundedCornersPolygon:RoundedCornersPolygon.RenderTransform>
         </CustomRoundedCornersPolygon:RoundedCornersPolygon>
-        <CustomRoundedCornersPolygon:RoundedCornersPolygon Fill="Green" Points="0,180 20,0 40,179 " 
+        <CustomRoundedCornersPolygon:RoundedCornersPolygon Fill="{Binding NaStateColor, Converter={StaticResource EnumToColor}}" Points="0,180 20,0 40,179 " 
                 StrokeThickness="1" ArcRoundness="17" UseRoundnessPercentage="False" Stroke="Black" IsClosed="True" Canvas.Left="701" Canvas.Top="522" Height="182" Width="41" RenderTransformOrigin="0.5,0.5">
             <CustomRoundedCornersPolygon:RoundedCornersPolygon.RenderTransform>
                 <TransformGroup>
@@ -170,7 +170,7 @@
                 </TransformGroup>
             </CustomRoundedCornersPolygon:RoundedCornersPolygon.RenderTransform>
         </CustomRoundedCornersPolygon:RoundedCornersPolygon>
-        <CustomRoundedCornersPolygon:RoundedCornersPolygon Fill="Green" Points="0,180 20,0 40,179 " 
+        <CustomRoundedCornersPolygon:RoundedCornersPolygon Fill="{Binding NaStateColor, Converter={StaticResource EnumToColor}}" Points="0,180 20,0 40,179 " 
                 StrokeThickness="1" ArcRoundness="17" UseRoundnessPercentage="False" Stroke="Black" IsClosed="True" Canvas.Left="700" Canvas.Top="279" Height="182" Width="41" RenderTransformOrigin="0.5,0.5">
             <CustomRoundedCornersPolygon:RoundedCornersPolygon.RenderTransform>
                 <TransformGroup>
@@ -232,6 +232,9 @@
                     <Image Source="../Images/left_arrow.png" />
                 </StackPanel>
             </Button>
+            <Border Margin="121,80,59,0" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" Height="38" Width="200" Grid.Column="2" Grid.Row="1">
+              <TextBlock  TextAlignment="Center" Text="{Binding FanName}" Background="WhiteSmoke"></TextBlock>
+            </Border>
             <Border BorderBrush="Black" BorderThickness="3" Grid.Column="1" Grid.Row="1" >
                 <StackPanel Orientation="Vertical" Background="WhiteSmoke" HorizontalAlignment="Left" Width="294">
                     <TextBlock FontWeight="Bold" TextAlignment="Center" Text="Подшипник №1"></TextBlock>
@@ -276,15 +279,15 @@
                     <TextBlock FontWeight="Bold" TextAlignment="Center" Text="Двигатель"></TextBlock>
                     <StackPanel Margin="0 10" Orientation="Horizontal">
                         <Label FontSize="20" >Скорость (об/мин):</Label>
-                        <TextBox Text=""  Margin="10 0"  ></TextBox>
+                        <TextBox Background="{Binding Engine.EngineSpeed.State, Converter={StaticResource EnumToColor}}" Text="{Binding Engine.EngineSpeed.Value}"  Margin="10 0"  ></TextBox>
                     </StackPanel>
                     <StackPanel Margin="0 10" Orientation="Horizontal">
                         <Label FontSize="20" >Ток статора (А):</Label>
-                        <TextBox Text=""  Margin="10 0"  ></TextBox>
+                        <TextBox Background="{Binding Engine.StatorCurent.State, Converter={StaticResource EnumToColor}}" Text="{Binding Engine.StatorCurent.Value}"  Margin="10 0"  ></TextBox>
                     </StackPanel>
                     <StackPanel Margin="0 10" Orientation="Horizontal">
                         <Label FontSize="20" >Ток ротора (А):</Label>
-                        <TextBox Text=""  Margin="10 0"  ></TextBox>
+                        <TextBox Background="{Binding Engine.RotorCurent.State, Converter={StaticResource EnumToColor}}" Text="{Binding Engine.RotorCurent.Value}"  Margin="10 0"  ></TextBox>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -302,20 +305,20 @@
                 </StackPanel>
             </Border>
             
-            <Border BorderBrush="Black" BorderThickness="3" Grid.Column="7" Grid.Row="5" Grid.RowSpan="2" >
+            <Border BorderBrush="Black" BorderThickness="3" Grid.Column="5" Grid.Row="5" Grid.RowSpan="2" >
                 <StackPanel Orientation="Vertical" Background="WhiteSmoke">
                     <TextBlock FontWeight="Bold" TextAlignment="Center" Text="Маслонасос №1"></TextBlock>
                     <StackPanel Margin="0 10" Orientation="Horizontal">
                         <Label FontSize="20" >Температура (град):</Label>
-                        <TextBox Margin="10 0"  ></TextBox>
+                        <TextBox Background="{Binding OilPump.OilTemperature.State, Converter={StaticResource EnumToColor}}" Text="{Binding OilPump.OilTemperature.Value}" Margin="10 0"  ></TextBox>
                     </StackPanel>
                     <StackPanel Margin="0 10" Orientation="Horizontal">
                         <Label FontSize="20" >Вибрация (мкм):</Label>
-                        <TextBox Margin="10 0"  ></TextBox>
+                        <TextBox Background="{Binding OilPump.OilPressure.State, Converter={StaticResource EnumToColor}}" Text="{Binding OilPump.OilPressure.Value}" Margin="10 0"  ></TextBox>
                     </StackPanel>
                     <StackPanel Margin="0 10" Orientation="Horizontal">
                         <Label FontSize="20" >Проток (л/мин):</Label>
-                        <TextBox Margin="10 0"  ></TextBox>
+                        <TextBox Background="{Binding OilPump.OilFlow.State, Converter={StaticResource EnumToColor}}" Text="{Binding OilPump.OilFlow.Value}" Margin="10 0"  ></TextBox>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -327,11 +330,38 @@
             </Border>
 
             <Canvas>
-                <Ellipse Canvas.Top="704" Canvas.Left="920" Fill="Magenta" Height="290" Width="290" StrokeThickness="5" Stroke="Blue"/>
-                <Ellipse Canvas.Top="764" Canvas.Left="980" Fill="White" Height="170" Width="170" StrokeThickness="5" Stroke="Blue"/>
-                <Ellipse Canvas.Top="785" Canvas.Left="1000" Fill="LightYellow" Height="130" Width="130" StrokeThickness="5" Stroke="Blue"/>
-                <Ellipse Canvas.Top="836" Canvas.Left="1048" Fill="Red" Height="30" Width="30" StrokeThickness="1" Stroke="Blue"/>
+                <Ellipse Canvas.Top="741" Canvas.Left="1396" Fill="Magenta" Height="260" Width="260" StrokeThickness="5" Stroke="Blue"/>
+                <Ellipse Canvas.Top="789" Canvas.Left="1441" Fill="White" Height="170" Width="170" StrokeThickness="5" Stroke="Blue"/>
+                <Ellipse Canvas.Top="810" Canvas.Left="1460" Fill="LightYellow" Height="130" Width="130" StrokeThickness="5" Stroke="Blue"/>
+                <Ellipse Canvas.Top="863" Canvas.Left="1509" Fill="Red" Height="30" Width="30" StrokeThickness="1" Stroke="Blue"/>
             </Canvas>
+            <Border VerticalAlignment="Center" Background="White" Width="40" Height="40" CornerRadius="90" BorderThickness="1" BorderBrush="Black" Grid.Column="7" Grid.Row="5" Margin="72,76,158,94" Grid.RowSpan="2">     
+                <TextBox VerticalAlignment="Center" Text="00.0" TextAlignment="Center" FontSize="19" Background="Transparent" BorderThickness="0" Height="40"  Width="40" Margin="0,4,-2,-6" />
+            </Border>
+            <Border VerticalAlignment="Center" Background="White" Width="40" Height="40" CornerRadius="90" BorderThickness="1" BorderBrush="Black" Grid.Column="7" Grid.Row="4" Margin="174,47,56,73" Grid.RowSpan="2">
+                <TextBox VerticalAlignment="Center" Text="00.0" TextAlignment="Center" FontSize="19" Background="Transparent" BorderThickness="0" Height="40"  Width="40" Margin="0,4,-2,-6" />
+            </Border>
+            <Border VerticalAlignment="Center" Background="White" Width="40" Height="40" CornerRadius="90" BorderThickness="1" BorderBrush="Black" Grid.Column="8" Grid.Row="5" Margin="10,76,240,94" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                <TextBox VerticalAlignment="Center" Text="00.0" TextAlignment="Center" FontSize="19" Background="Transparent" BorderThickness="0" Height="40"  Width="40" Margin="0,4,-2,-6" />
+            </Border>
+            <Border VerticalAlignment="Center" Background="White" Width="40" Height="40" CornerRadius="90" BorderThickness="1" BorderBrush="Black" Grid.Column="7" Grid.Row="6" Margin="174,99,56,1" Grid.RowSpan="2">
+                <TextBox VerticalAlignment="Center" Text="00.0" TextAlignment="Center" FontSize="19" Background="Transparent" BorderThickness="0" Height="40"  Width="40" Margin="0,4,-2,-6" />
+            </Border>
+            <Border VerticalAlignment="Center" Background="White" Width="40" Height="40" CornerRadius="90" BorderThickness="1" BorderBrush="Black" Grid.Column="7" Grid.Row="6" Margin="93,59,137,31">
+                <TextBox VerticalAlignment="Center" Text="00.0" TextAlignment="Center" FontSize="19" Background="Transparent" BorderThickness="0" Height="40"  Width="40" Margin="0,4,-2,-6" />
+            </Border>
+            <Border VerticalAlignment="Center" Background="White" Width="40" Height="40" CornerRadius="90" BorderThickness="1" BorderBrush="Black" Grid.Column="7" Grid.Row="6" Margin="257,59,263,31" Grid.ColumnSpan="3">
+                <TextBox VerticalAlignment="Center" Text="00.0" TextAlignment="Center" FontSize="19" Background="Transparent" BorderThickness="0" Height="40"  Width="40" Margin="0,4,-2,-6" />
+            </Border>
+            <Border VerticalAlignment="Center" Background="White" Width="40" Height="40" CornerRadius="90" BorderThickness="1" BorderBrush="Black" Grid.Column="7" Grid.Row="5" Margin="258,10,262,30" Grid.ColumnSpan="3">
+                <TextBox VerticalAlignment="Center" Text="00.0" TextAlignment="Center" FontSize="19" Background="Transparent" BorderThickness="0" Height="40"  Width="40" Margin="0,4,-2,-6" />
+            </Border>
+            <Border VerticalAlignment="Center" Background="White" Width="40" Height="40" CornerRadius="90" BorderThickness="1" BorderBrush="Black" Grid.Column="7" Grid.Row="5" Margin="93,10,137,30">
+                <TextBox VerticalAlignment="Center" Text="00.0" TextAlignment="Center" FontSize="19" Background="Transparent" BorderThickness="0" Height="40"  Width="40" Margin="0,4,-2,-6" />
+            </Border>
+            <Border Grid.Column="7" Grid.Row="3" Grid.ColumnSpan="3" Margin="54,0,220,0" BorderBrush="Black" BorderThickness="1">
+                <TextBlock Height="35" TextAlignment="Center" VerticalAlignment="Center" Text="Температура статора (град)"  Width="280" Background="WhiteSmoke" />
+            </Border>
         </Grid>
         
     </Canvas>

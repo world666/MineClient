@@ -36,6 +36,31 @@ namespace WpfClient.Services
                 warningValue = Config.Instance.FanObjectConfig.PillowVibration.WarningLevel;
                 dangerValue = Config.Instance.FanObjectConfig.PillowVibration.DangerLevel;
             }
+            else if (name.Contains("Ток статора"))//сравнение на меньше
+            {
+                warningValue = Config.Instance.FanObjectConfig.StatorCurrent.WarningLevel;
+                dangerValue = Config.Instance.FanObjectConfig.StatorCurrent.DangerLevel;
+            }
+            else if (name.Contains("Ток ротора"))//сравнение на двойной интервал
+            {
+                if (value < Config.Instance.FanObjectConfig.RotorCurrentHigh.WarningLevel)
+                {
+                    warningValue = -Config.Instance.FanObjectConfig.RotorCurrentLow.WarningLevel;
+                    dangerValue = -Config.Instance.FanObjectConfig.RotorCurrentLow.DangerLevel;
+                    value = -value;
+                }
+                else
+                {
+                    warningValue = Config.Instance.FanObjectConfig.RotorCurrentHigh.WarningLevel;
+                    dangerValue = Config.Instance.FanObjectConfig.RotorCurrentHigh.DangerLevel;
+                }
+            }
+            else if (name.Contains("Проток"))//сравнение на меньше
+            {
+                warningValue = -Config.Instance.FanObjectConfig.OilFlow.WarningLevel;
+                dangerValue = -Config.Instance.FanObjectConfig.OilFlow.DangerLevel;
+                value = -value;
+            }
             else if (name.Contains("Качество"))//сравнение на меньше
             {
                 warningValue = -Config.Instance.FanObjectConfig.GprsQuality.WarningLevel;
@@ -73,13 +98,33 @@ namespace WpfClient.Services
             }
             return value;
         }
+        public static double GetCoefficient(string name)
+        {
+            if (name.Contains("Расход"))//сравнение на меньше
+            {
+                return Config.Instance.AirFlowСoefficient;
+            }
+            else if (name.Contains("Депрессия"))//сравнение на меньше
+            {
+                return Config.Instance.PressureСoefficient;
+            }
+            else if (name.Contains("Температура"))//сравнение на больше
+            {
+                return Config.Instance.TemperatureСoefficient;
+            }
+            else if (name.Contains("Вибрация"))//сравнение на больше
+            {
+                return  Config.Instance.PillowСoefficient;
+            }
+            return 1;
+        }
         public static double GetMaximumValue(string name)
         {
             if (name.Contains("Расход"))//сравнение на меньше
             {
                 return Config.Instance.MaxAirFlowValue;
             }
-            else if (name.Contains("Депрессия"))//сравнение на меньше
+            else if (name.Contains("Депрессия") || name.Contains("Давление"))//сравнение на меньше
             {
                 return Config.Instance.MaxPressureValue;
             }
@@ -94,6 +139,18 @@ namespace WpfClient.Services
             else if (name.Contains("Качество"))//сравнение на больше
             {
                 return Config.Instance.MaxSignalQualityValue;
+            }
+            else if (name.Contains("Скорость"))//сравнение на больше
+            {
+                return Config.Instance.MaxSpeedValue;
+            }
+            else if (name.Contains("Ток"))//сравнение на больше
+            {
+                return Config.Instance.MaxCurrentValue;
+            }
+            else if (name.Contains("Проток"))//сравнение на больше
+            {
+                return Config.Instance.MaxOilFlowValue;
             }
             return 0;
         }     

@@ -4,7 +4,7 @@ using GalaSoft.MvvmLight.Command;
 
 namespace WpfClient.Model.Plot
 {
-    public class PlotData : ViewModelBase
+    public class CheckBoxData : ViewModelBase
     {
 
         public string Name { get; set; }

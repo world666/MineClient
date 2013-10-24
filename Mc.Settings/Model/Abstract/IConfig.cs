@@ -21,6 +21,12 @@ namespace Mc.Settings.Model.Abstract
 
         double TemperatureСoefficient { get; set; }
 
+        double MaxSpeedValue { get; set; }
+
+        double MaxCurrentValue { get; set; }
+
+        double MaxOilFlowValue { get; set; }
+
         double PillowСoefficient { get; set; }
 
         double AirFlowСoefficient { get; set; }

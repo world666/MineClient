@@ -25,7 +25,7 @@ namespace Mc.MvcWeb.Controllers
             ViewBag.MineName = Config.Instance.FanObjectConfig.MineName;
             ViewBag.Date = DateTime.Now;
             ViewBag.ParametersCount = _fans[0].Values.Count;
-            List<string> fanNames = Config.Instance.FanObjectConfig.FansName.Split(new string[] { "!$!" }, StringSplitOptions.RemoveEmptyEntries).ToList();  
+            List<string> fanNames = Config.Instance.FanObjectConfig.FansName.ToList();  
             if (fanNames.Count() < _fans.Count())
             {
                 for (int i = 0; i < _fans.Count() - fanNames.Count(); i++)
@@ -44,7 +44,7 @@ namespace Mc.MvcWeb.Controllers
             ViewBag.MineName = Config.Instance.FanObjectConfig.MineName;
             ViewBag.Date = DateTime.Now;
             ViewBag.ParametersCount = _fans[0].Values.Count;
-            List<string> fanNames = Config.Instance.FanObjectConfig.FansName.Split(new string[] { "!$!" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            List<string> fanNames = Config.Instance.FanObjectConfig.FansName.ToList();
             if (fanNames.Count() < _fans.Count())
             {
                 for (int i = 0; i < _fans.Count() - fanNames.Count(); i++)
@@ -62,7 +62,7 @@ namespace Mc.MvcWeb.Controllers
             var fanObject = _databaseService.GetFanObject(fanObjectId);
             if (fanObject == null) return null;
             ViewBag.FanObject = fanObject;
-            ViewBag.FanName = Config.Instance.FanObjectConfig.FansName.Split(new string[] { "!$!" }, StringSplitOptions.RemoveEmptyEntries)[fanObjectId - 1];
+            ViewBag.FanName = Config.Instance.FanObjectConfig.FansName[fanObjectId - 1];
             ViewBag.DoorsState = FanService.GetDoorsState(fanObject.Doors);
             ViewBag.DoorsMode = FanService.GetDoorsMode(fanObject.WorkingFanNumber, fanObject.Doors);
             ViewBag.DoorsTextColor = FanService.GetDoorsTextColor(fanObject.Doors);
@@ -96,7 +96,7 @@ namespace Mc.MvcWeb.Controllers
             var fanObject = _databaseService.GetFanObject(fanObjectId);
             if (fanObject == null) return null;
             ViewBag.FanObject = fanObject;
-            ViewBag.FanName = Config.Instance.FanObjectConfig.FansName.Split(new string[] { "!$!" }, StringSplitOptions.RemoveEmptyEntries)[fanObjectId - 1];
+            ViewBag.FanName = Config.Instance.FanObjectConfig.FansName[fanObjectId - 1];
             ViewBag.DoorsState = FanService.GetDoorsState(fanObject.Doors);
             ViewBag.DoorsMode = FanService.GetDoorsMode(fanObject.WorkingFanNumber, fanObject.Doors);
             ViewBag.DoorsTextColor = FanService.GetDoorsTextColor(fanObject.Doors);

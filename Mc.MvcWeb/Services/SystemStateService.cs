@@ -38,13 +38,37 @@ namespace Mc.MvcWeb.Services
                 warningValue = Config.Instance.FanObjectConfig.PillowVibration.WarningLevel;
                 dangerValue = Config.Instance.FanObjectConfig.PillowVibration.DangerLevel;
             }
+            else if (name.Contains("Ток статора"))//сравнение на меньше
+            {
+                warningValue = Config.Instance.FanObjectConfig.StatorCurrent.WarningLevel;
+                dangerValue = Config.Instance.FanObjectConfig.StatorCurrent.DangerLevel;
+            }
+            else if (name.Contains("Ток ротора"))//сравнение на двойной интервал
+            {
+                if (value < Config.Instance.FanObjectConfig.RotorCurrentHigh.WarningLevel)
+                {
+                    warningValue = -Config.Instance.FanObjectConfig.RotorCurrentLow.WarningLevel;
+                    dangerValue = -Config.Instance.FanObjectConfig.RotorCurrentLow.DangerLevel;
+                    value = -value;
+                }
+                else
+                {
+                    warningValue = Config.Instance.FanObjectConfig.RotorCurrentHigh.WarningLevel;
+                    dangerValue = Config.Instance.FanObjectConfig.RotorCurrentHigh.DangerLevel;
+                }
+            }
+            else if (name.Contains("Проток"))//сравнение на меньше
+            {
+                warningValue = -Config.Instance.FanObjectConfig.OilFlow.WarningLevel;
+                dangerValue = -Config.Instance.FanObjectConfig.OilFlow.DangerLevel;
+                value = -value;
+            }
             else if (name.Contains("Качество"))//сравнение на меньше
             {
                 warningValue = -Config.Instance.FanObjectConfig.GprsQuality.WarningLevel;
                 dangerValue = -Config.Instance.FanObjectConfig.GprsQuality.DangerLevel;
                 value = -value;
             }
-
             if (value <= warningValue) return StateEnum.Ok;
 
             return value > dangerValue ? StateEnum.Dangerous : StateEnum.Warning;
@@ -96,6 +120,18 @@ namespace Mc.MvcWeb.Services
             else if (name.Contains("Качество"))//сравнение на больше
             {
                 return Config.Instance.MaxSignalQualityValue;
+            }
+            else if (name.Contains("Скорость"))//сравнение на больше
+            {
+                return Config.Instance.MaxSpeedValue;
+            }
+            else if (name.Contains("Ток"))//сравнение на больше
+            {
+                return Config.Instance.MaxCurrentValue;
+            }
+            else if (name.Contains("Проток"))//сравнение на больше
+            {
+                return Config.Instance.MaxOilFlowValue;
             }
             return 0;
         }

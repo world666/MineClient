@@ -12,6 +12,7 @@ using WpfClient.Model.Abstract;
 using WpfClient.Model.Concrete;
 using WpfClient.Model.Entities;
 using WpfClient.Services;
+using System.Linq;
 
 namespace WpfClient.ViewModel.General
 {
@@ -78,7 +79,8 @@ namespace WpfClient.ViewModel.General
             Task.Run(() =>
             {
                 var signals = new List<string> {"Состояние сигнала","Вентилятор в работе", "Режим работы вентилятора"};
-                signals.AddRange(_databaseService.GetAnalogSignalNames());
+                string[] analogSignalsView = Config.Instance.FanObjectConfig.GeneralAnalogSignalsView; // show analog signals which were cheked in general setings
+                signals.AddRange(_databaseService.GetAnalogSignalNames().Where((p, id) => analogSignalsView.Contains(id.ToString())));
 
                 return signals;
             }).ContinueWith(task => task.Result.ForEach(s => _signalNames.Add(s)));
@@ -104,7 +106,14 @@ namespace WpfClient.ViewModel.General
             parameterList.Add(_fanService.checkRemoteSignalState(fanObject.FanObjectId));
             parameterList.Add(_fanService.getFanNumberParameter(fanObject));
             parameterList.Add(getFanStateParameter(fanObject));
-            fanObject.Parameters.ForEach(p => parameterList.Add(new ParameterVm(p)));
+            string[] analogSignalsView = Config.Instance.FanObjectConfig.GeneralAnalogSignalsView; // show analog signals which were cheked in general setings
+            int index = 0;
+            foreach (var p in fanObject.Parameters)
+            {
+                if (analogSignalsView.Contains(index.ToString()))
+                    parameterList.Add(new ParameterVm(p));
+                index++;
+            }
             _fans[fanObject.FanObjectId-1].Values = parameterList;
         }
         private void updateFanValues()
@@ -123,7 +132,14 @@ namespace WpfClient.ViewModel.General
                 parametersList[i - 1].Add(_fanService.checkRemoteSignalState(i));
                 parametersList[i - 1].Add(_fanService.getFanNumberParameter(fanObject));
                 parametersList[i - 1].Add(getFanStateParameter(fanObject));
-                fanObject.Parameters.ForEach(p => parametersList[i - 1].Add(new ParameterVm(p)));
+                string[] analogSignalsView = Config.Instance.FanObjectConfig.GeneralAnalogSignalsView; // show analog signals which were cheked in general setings
+                int index = 0;
+                foreach (var p in fanObject.Parameters)
+                {
+                    if (analogSignalsView.Contains(index.ToString()))
+                        parametersList[i - 1].Add(new ParameterVm(p));
+                    index++;
+                }
             }
             Application.Current.Dispatcher.BeginInvoke(new Action(() =>
             {

@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using Mc.Settings.Model.Concrete;
 using Ninject.Parameters;
 using OxyPlot;
 using WpfClient.Model;
@@ -20,8 +21,8 @@ namespace WpfClient.ViewModel.Plot
     class PlotVm : ViewModelBase, IDisposable
     {
         #region Property
-        public ObservableCollection<PlotData> ListCollectionAnalog { get; set; }
-        public ObservableCollection<PlotData> ListCollectionDigit { get; set; }
+        public ObservableCollection<CheckBoxData> ListCollectionAnalog { get; set; }
+        public ObservableCollection<CheckBoxData> ListCollectionDigit { get; set; }
         private int _fanObjectId;
         public int FanObjectId
         {
@@ -177,17 +178,17 @@ namespace WpfClient.ViewModel.Plot
         }
         private void LoadDataInListBoxAnalog()
         {
-            ListCollectionAnalog = new ObservableCollection<PlotData>();
+            ListCollectionAnalog = new ObservableCollection<CheckBoxData>();
             List<string> names = IoC.Resolve<DatabaseService>().GetAnalogSignalNames();
-            names.ForEach(n => ListCollectionAnalog.Add(new PlotData { IsChecked = false, Name = n }));
+            names.ForEach(n => ListCollectionAnalog.Add(new CheckBoxData { IsChecked = false, Name = n }));
             foreach (var checkBox in ListCollectionAnalog)
                 checkBox.ClickEvent += AnalogClickHandler;
         }
         private void LoadDataInListBoxDigit()
         {
-            ListCollectionDigit = new ObservableCollection<PlotData>();
+            ListCollectionDigit = new ObservableCollection<CheckBoxData>();
             List<string> names = IoC.Resolve<DatabaseService>().GetDigitSignalNames();
-            names.ForEach(n => ListCollectionDigit.Add(new PlotData { IsChecked = false, Name = n }));
+            names.ForEach(n => ListCollectionDigit.Add(new CheckBoxData { IsChecked = false, Name = n }));
             foreach (var checkBox in ListCollectionDigit)
                 checkBox.ClickEvent += DigitClickHandler;
         }
@@ -218,8 +219,8 @@ namespace WpfClient.ViewModel.Plot
             LoadDataInListBoxDigit();
             DatePickersSetUp();
             PlotsSetUp();
-            IoC.Resolve<PlotService>().ShowSignal(PlotModelAnalog, _fanObjectId, ListCollectionAnalog[parameterNum - 1].Name, DateSelectedFrom, DateSelectedTo);
-            ListCollectionAnalog[parameterNum - 1].IsChecked = true;
+            IoC.Resolve<PlotService>().ShowSignal(PlotModelAnalog, _fanObjectId, ListCollectionAnalog[parameterNum-1].Name, DateSelectedFrom, DateSelectedTo);
+            ListCollectionAnalog[parameterNum-1].IsChecked = true;
         }
         public PlotVm(int fanObjectId = 1)
         {

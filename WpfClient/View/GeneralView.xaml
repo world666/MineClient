@@ -91,7 +91,7 @@
                                                                                   Path=(ItemsControl.AlternationIndex)}"/>
                                     </Border.InputBindings>
                                     <Grid>
-                                        <ProgressBar Minimum="0" Maximum="{Binding Maximum}" Value="{Binding Value}" Width="Auto"  Height="Auto" Background="Beige" Foreground="{Binding State, Converter={StaticResource EnumToColor}}"/>
+                                        <ProgressBar Minimum="-0.1" Maximum="{Binding Maximum}" Value="{Binding Value}" Width="Auto"  Height="Auto" Background="Beige" Foreground="{Binding State, Converter={StaticResource EnumToColor}}"/>
                                         <Label HorizontalAlignment="Center"  FontSize="29" FontWeight="Bold" Content="{Binding Value}"/>
                                     </Grid>
                                 </Border>

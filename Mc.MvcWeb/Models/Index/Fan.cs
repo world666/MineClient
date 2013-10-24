@@ -21,10 +21,7 @@ namespace Mc.MvcWeb.Models.Index
                 try
                 {
                     return string.Format("Вентиляторная установка {0}",
-                                         Config.Instance.FanObjectConfig.FansName.Split(new string[] {"!$!"},
-                                                                                        StringSplitOptions
-                                                                                            .RemoveEmptyEntries)[
-                                                                                                FanObjectId - 1]);
+                                         Config.Instance.FanObjectConfig.FansName[FanObjectId - 1]);
                 }
                 catch (Exception)
                 {
