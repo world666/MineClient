@@ -78,6 +78,14 @@ namespace DataRepository.DataAccess
                     new AnalogSignal {Type = "Температура масла (град)"},
                     new AnalogSignal {Type = "Давление масла (кПа)"},
                     new AnalogSignal {Type = "Проток масла (л/мин)"},
+                    new AnalogSignal {Type = "Температура ротора №1"},
+                    new AnalogSignal {Type = "Температура ротора №2"},
+                    new AnalogSignal {Type = "Температура ротора №3"},
+                    new AnalogSignal {Type = "Температура ротора №4"},
+                    new AnalogSignal {Type = "Температура ротора №5"},
+                    new AnalogSignal {Type = "Температура ротора №6"},
+                    new AnalogSignal {Type = "Температура ротора №7"},
+                    new AnalogSignal {Type = "Температура ротора №8"},
                     new AnalogSignal {Type = "Качество сигнала"}
                 };
             analogSignalType.ForEach(s => context.AnalogSignals.Add(s));

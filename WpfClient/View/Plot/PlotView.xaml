@@ -43,13 +43,13 @@
 
         <Border Width="70" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Beige" BorderThickness="1" 
                 BorderBrush="DarkGray" Height="20" Margin="0,14,108,0">
-            <TextBlock HorizontalAlignment="Center" Text="Дата (от) :"></TextBlock>
+            <TextBlock FontSize="14" HorizontalAlignment="Center" Text="Дата (от) :"></TextBlock>
         </Border>
         <DatePicker Margin="0,11,1,0"
             BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Right" Height="24" Text="{Binding DateDisplayFrom}" SelectedDate="{Binding DateSelectedFrom}"/>
         <Border Width="70" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Beige" BorderThickness="1" 
                 BorderBrush="DarkGray" Height="20" Margin="0,38,108,0">
-            <TextBlock HorizontalAlignment="Center" Text="Дата (до) :"></TextBlock>
+            <TextBlock FontSize="14" HorizontalAlignment="Center" Text="Дата (до) :"></TextBlock>
         </Border>
         <DatePicker Margin="0,37,1,0"
             BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Right" Height="24" Text="{Binding DateDisplayTo}" SelectedDate="{Binding DateSelectedTo}"/>
@@ -60,12 +60,12 @@
             </StackPanel>
         </Button>
 
-        <Border Width="170" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Beige" BorderThickness="1" 
+        <Border Width="200" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Beige" BorderThickness="1" 
                 BorderBrush="DarkGray" Height="20" Margin="0,14,238,0">
-            <TextBlock HorizontalAlignment="Center" Text="№ Вентиляторной установки:"></TextBlock>
+            <TextBlock FontSize="14" HorizontalAlignment="Center" Text="№ Вентиляторной установки:"></TextBlock>
         </Border>
-        <TextBox Width="40" TextAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Row="0" Text="{Binding FanObjectId}" Margin="0,13,190,0"></TextBox>
-        <Button Command="{Binding RefreshClick}" Grid.Row="0" Width="70" Height="20" HorizontalAlignment="Right"
+        <TextBox Width="40" FontSize="14" TextAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Row="0" Text="{Binding FanObjectId}" Margin="0,13,190,0"></TextBox>
+        <Button FontSize="14" Command="{Binding RefreshClick}" Grid.Row="0" Width="80" Height="30" HorizontalAlignment="Right"
                 VerticalAlignment="Top"  Margin="0,38,182,0">
             Обновить    
         </Button>

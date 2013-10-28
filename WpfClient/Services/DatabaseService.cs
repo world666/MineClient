@@ -112,7 +112,7 @@ namespace WpfClient.Services
         }
 
 
-        public List<OnPlotClickData> FindDataByIdAndDate(int fanNum, DateTime date)
+        public List<OnPlotClickData> FindDataByIdAndDate(int fanNum, DateTime date)//получить запись из архива по дате
         {
             var propertyList = new List<OnPlotClickData>();
 
@@ -141,7 +141,7 @@ namespace WpfClient.Services
             return propertyList;
         }
 
-        public List<OnPlotClickData> HistoryFind(int fanLogId)
+        public List<OnPlotClickData> HistoryFind(int fanLogId)//получить запись архива по идентификатору
         {
             var propertyList = new List<OnPlotClickData>();
 
@@ -166,7 +166,7 @@ namespace WpfClient.Services
             }
             return propertyList;
         }
-        public List<int> HistoryGetRecordsCount(int fanNum, DateTime dateFrom, DateTime dateTill)
+        public List<int> HistoryGetRecordsCount(int fanNum, DateTime dateFrom, DateTime dateTill)//получить колличество записей архива по дате
         {
             using (var repoUnit = new RepoUnit())
             {
@@ -178,7 +178,7 @@ namespace WpfClient.Services
                 return fansLogId.ToList();
             }
         }
-        public void DeleteRecordById(int id)
+        public void DeleteRecordById(int id) //удалить из архива запись
         {
             using (var repoUnit = new RepoUnit())
             {
@@ -188,7 +188,7 @@ namespace WpfClient.Services
                 repoUnit.FanLog.SaveChanges();
             }
         }
-        public void DeleteRecordById(List<int> id)
+        public void DeleteRecordById(List<int> id)//удалить из архива по списку
         {
             if (id==null) return;
             using (var repoUnit = new RepoUnit())
@@ -202,7 +202,7 @@ namespace WpfClient.Services
                 repoUnit.FanLog.SaveChanges();
             }
         }
-        public List<RemoteLogData> LogFind(DateTime dateFrom, DateTime dateTill)
+        public List<RemoteLogData> LogFind(DateTime dateFrom, DateTime dateTill)//вернуть журнал удаленного управления по дате 
         {
             var remoteList = new List<RemoteLogData>();
             using (var repoUnit = new RepoUnit())
@@ -215,7 +215,7 @@ namespace WpfClient.Services
                 return remoteList;
             }
         }
-        public void DeleteRemoteLogById(int id)
+        public void DeleteRemoteLogById(int id)//удалить запись из журнала удаленного управления
         {
             using (var repoUnit = new RepoUnit())
             {

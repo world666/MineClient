@@ -139,22 +139,28 @@ namespace CLTcpServer
             TcpClient client = _client as TcpClient;
             bool closeConnection = false;
             int repeatNum = 16;
+            string s = null;
             while (true)
             {
                 try
-                {
-                    string s = null;
-                    //clients_string[(int)num] = "";
-                    NetworkStream ns = client.GetStream();
-                    // Раскомментировав строчку ниже, тем самым уменьшив размер приемного буфера, можно убедиться,
-                    // что прием данных будет все равно осуществляться полностью.
-                    while (ns.DataAvailable == true)
+                {  
+                    int i = 0;
+                    while (i<2)
                     {
-                        // Определить точный размер буфера приема позволяет свойство класса TcpClient - Available
-                        byte[] buffer = new byte[client.Available];
+                        NetworkStream ns = client.GetStream();
+                        // Раскомментировав строчку ниже, тем самым уменьшив размер приемного буфера, можно убедиться,
+                        // что прием данных будет все равно осуществляться полностью.
+                        while (ns.DataAvailable == true)
+                        {
+                            // Определить точный размер буфера приема позволяет свойство класса TcpClient - Available
+                            byte[] buffer = new byte[client.Available];
 
-                        ns.Read(buffer, 0, buffer.Length);
-                        s += Encoding.Default.GetString(buffer);
+                            ns.Read(buffer, 0, buffer.Length);
+                            s += Encoding.Default.GetString(buffer);
+                            Thread.Sleep(2300);
+                        }
+                        i++;
+                        
                     }
                     if (s != null)
                     {
@@ -168,7 +174,8 @@ namespace CLTcpServer
                         if (ReceiveEvent != null && s.IndexOf("SISC")<0)
                         {
                             ReceiveEvent(s, client);
-                            closeConnection = true;
+                            client.Close();
+                            clients.Remove(client);
                         }
                         // Вынужденная строчка для экономия ресурсов процессора.
                         // Неизящный способ.

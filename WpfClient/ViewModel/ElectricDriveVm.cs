@@ -26,6 +26,7 @@ namespace WpfClient.ViewModel
         public ObservableCollection<double> Pillovs { get; set; }
         public ObservableCollection<StateEnum> TemperaturesState { get; set; }
         public ObservableCollection<StateEnum> PillovsState { get; set; }
+        public ObservableCollection<ParameterVm> RotorTemperatures { get; set; }
         private double _naAngleTop;
         public double NaAngleTop {
             get { return _naAngleTop; }
@@ -84,15 +85,16 @@ namespace WpfClient.ViewModel
         }
         public void Update(FanLog fanLog)
         {
-            var fanObject = IoC.Resolve<DatabaseService>().GetFanObject(fanLog);
+            var fanObject = IoC.Resolve<DatabaseService>().GetFanObject(fanLog.FanNumber == _fanObjectId ? fanLog : null);
+            if (fanObject==null) return;
             Update(fanObject);
         }
         private void Update(FanObject fanObject)
         {
             if (fanObject == null)
                 return;
-            SetTermometers(fanObject);
-            SetIndocators(fanObject);
+            SetTemperature(fanObject);
+            SetVibration(fanObject);
             SetNA(fanObject);
             SetEngine(fanObject);
 
@@ -101,7 +103,7 @@ namespace WpfClient.ViewModel
             OilPump.OilFlow = new ParameterVm(fanObject.Parameters[(int)WpfClient.Model.AnalogSignalType.mi63 - 1]);
         }
 
-        private void SetTermometers(FanObject fanObject)
+        private void SetTemperature(FanObject fanObject)
         {
             //set termometers
             for (int i = 0; i < 4; i++)
@@ -119,9 +121,13 @@ namespace WpfClient.ViewModel
                         fanObject.Parameters[(int)WpfClient.Model.AnalogSignalType.mi46 - 1 + i].State;
                 }
             }
+            for (int i = 0; i < 8; i++)
+            {
+                RotorTemperatures.Add(new ParameterVm(fanObject.Parameters[(int)WpfClient.Model.AnalogSignalType.mi64 - 1 + i]));
+            }
         }
 
-        private void SetIndocators(FanObject fanObject)
+        private void SetVibration(FanObject fanObject)
         {
             //set indicators
             for (int i = 0; i < 4; i++)
@@ -184,6 +190,7 @@ namespace WpfClient.ViewModel
             PillovsState = new ObservableCollection<StateEnum>();
             Engine = new EngineData();
             OilPump = new OilPumpData();
+            RotorTemperatures = new ObservableCollection<ParameterVm>();
             for (var i = 0; i < _thermometerCount; i++)
             {
                 Temperatures.Add(0);

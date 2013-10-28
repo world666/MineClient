@@ -37,7 +37,7 @@
         <Style TargetType="TextBox">
             <Setter Property="IsReadOnly" Value="True"/>
             <Setter Property="Width" Value="50"/>
-            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontSize" Value="24"/>
             <Setter Property="TextAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
@@ -240,7 +240,7 @@
                     <TextBlock FontWeight="Bold" TextAlignment="Center" Text="Подшипник №1"></TextBlock>
                     <StackPanel Margin="0 10" Orientation="Horizontal">
                         <Label FontSize="20" >Температура (град):</Label>
-                        <TextBox Text="{Binding Temperatures[0]}" Background="{Binding TemperaturesState[0], Converter={StaticResource EnumToColor}}"  Margin="10 0"  ></TextBox>
+                        <TextBox  Text="{Binding Temperatures[0]}" Background="{Binding TemperaturesState[0], Converter={StaticResource EnumToColor}}"  Margin="10 0"  ></TextBox>
                     </StackPanel>
                     <StackPanel Margin="0 10" Orientation="Horizontal">
                         <Label FontSize="20" >Вибрация (мкм):</Label>
@@ -335,29 +335,29 @@
                 <Ellipse Canvas.Top="810" Canvas.Left="1460" Fill="LightYellow" Height="130" Width="130" StrokeThickness="5" Stroke="Blue"/>
                 <Ellipse Canvas.Top="863" Canvas.Left="1509" Fill="Red" Height="30" Width="30" StrokeThickness="1" Stroke="Blue"/>
             </Canvas>
-            <Border VerticalAlignment="Center" Background="White" Width="40" Height="40" CornerRadius="90" BorderThickness="1" BorderBrush="Black" Grid.Column="7" Grid.Row="5" Margin="72,76,158,94" Grid.RowSpan="2">     
-                <TextBox VerticalAlignment="Center" Text="00.0" TextAlignment="Center" FontSize="19" Background="Transparent" BorderThickness="0" Height="40"  Width="40" Margin="0,4,-2,-6" />
+            <Border VerticalAlignment="Center" Background="{Binding RotorTemperatures[6].State, Converter={StaticResource EnumToColor}}" Width="40" Height="40" CornerRadius="90" BorderThickness="1" BorderBrush="Black" Grid.Column="7" Grid.Row="5" Margin="72,76,158,94" Grid.RowSpan="2">
+                <TextBox VerticalAlignment="Center" Text="{Binding RotorTemperatures[6].Value}" TextAlignment="Center" FontSize="19" Background="Transparent" BorderThickness="0" Height="40"  Width="40" Margin="0,4,-2,-6" />
             </Border>
-            <Border VerticalAlignment="Center" Background="White" Width="40" Height="40" CornerRadius="90" BorderThickness="1" BorderBrush="Black" Grid.Column="7" Grid.Row="4" Margin="174,47,56,73" Grid.RowSpan="2">
-                <TextBox VerticalAlignment="Center" Text="00.0" TextAlignment="Center" FontSize="19" Background="Transparent" BorderThickness="0" Height="40"  Width="40" Margin="0,4,-2,-6" />
+            <Border VerticalAlignment="Center" Background="{Binding RotorTemperatures[0].State, Converter={StaticResource EnumToColor}}" Width="40" Height="40" CornerRadius="90" BorderThickness="1" BorderBrush="Black" Grid.Column="7" Grid.Row="4" Margin="174,47,56,73" Grid.RowSpan="2">
+                <TextBox VerticalAlignment="Center" Text="{Binding RotorTemperatures[0].Value}" TextAlignment="Center" Background="Transparent" FontSize="19" BorderThickness="0" Height="40"  Width="40" Margin="0,4,-2,-6" />
             </Border>
-            <Border VerticalAlignment="Center" Background="White" Width="40" Height="40" CornerRadius="90" BorderThickness="1" BorderBrush="Black" Grid.Column="8" Grid.Row="5" Margin="10,76,240,94" Grid.RowSpan="2" Grid.ColumnSpan="2">
-                <TextBox VerticalAlignment="Center" Text="00.0" TextAlignment="Center" FontSize="19" Background="Transparent" BorderThickness="0" Height="40"  Width="40" Margin="0,4,-2,-6" />
+            <Border VerticalAlignment="Center" Background="{Binding RotorTemperatures[2].State, Converter={StaticResource EnumToColor}}" Width="40" Height="40" CornerRadius="90" BorderThickness="1" BorderBrush="Black" Grid.Column="8" Grid.Row="5" Margin="10,76,240,94" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                <TextBox VerticalAlignment="Center" Text="{Binding RotorTemperatures[2].Value}" TextAlignment="Center" FontSize="19" Background="Transparent" BorderThickness="0" Height="40"  Width="40" Margin="0,4,-2,-6" />
             </Border>
-            <Border VerticalAlignment="Center" Background="White" Width="40" Height="40" CornerRadius="90" BorderThickness="1" BorderBrush="Black" Grid.Column="7" Grid.Row="6" Margin="174,99,56,1" Grid.RowSpan="2">
-                <TextBox VerticalAlignment="Center" Text="00.0" TextAlignment="Center" FontSize="19" Background="Transparent" BorderThickness="0" Height="40"  Width="40" Margin="0,4,-2,-6" />
+            <Border VerticalAlignment="Center" Background="{Binding RotorTemperatures[4].State, Converter={StaticResource EnumToColor}}" Width="40" Height="40" CornerRadius="90" BorderThickness="1" BorderBrush="Black" Grid.Column="7" Grid.Row="6" Margin="174,99,56,1" Grid.RowSpan="2">
+                <TextBox VerticalAlignment="Center" Text="{Binding RotorTemperatures[4].Value}" TextAlignment="Center" FontSize="19" Background="Transparent" BorderThickness="0" Height="40"  Width="40" Margin="0,4,-2,-6" />
             </Border>
-            <Border VerticalAlignment="Center" Background="White" Width="40" Height="40" CornerRadius="90" BorderThickness="1" BorderBrush="Black" Grid.Column="7" Grid.Row="6" Margin="93,59,137,31">
-                <TextBox VerticalAlignment="Center" Text="00.0" TextAlignment="Center" FontSize="19" Background="Transparent" BorderThickness="0" Height="40"  Width="40" Margin="0,4,-2,-6" />
+            <Border VerticalAlignment="Center" Background="{Binding RotorTemperatures[5].State, Converter={StaticResource EnumToColor}}" Width="40" Height="40" CornerRadius="90" BorderThickness="1" BorderBrush="Black" Grid.Column="7" Grid.Row="6" Margin="93,59,137,31">
+                <TextBox VerticalAlignment="Center" Text="{Binding RotorTemperatures[5].Value}" TextAlignment="Center" FontSize="19" Background="Transparent" BorderThickness="0" Height="40"  Width="40" Margin="0,4,-2,-6" />
             </Border>
-            <Border VerticalAlignment="Center" Background="White" Width="40" Height="40" CornerRadius="90" BorderThickness="1" BorderBrush="Black" Grid.Column="7" Grid.Row="6" Margin="257,59,263,31" Grid.ColumnSpan="3">
-                <TextBox VerticalAlignment="Center" Text="00.0" TextAlignment="Center" FontSize="19" Background="Transparent" BorderThickness="0" Height="40"  Width="40" Margin="0,4,-2,-6" />
+            <Border VerticalAlignment="Center" Background="{Binding RotorTemperatures[3].State, Converter={StaticResource EnumToColor}}" Width="40" Height="40" CornerRadius="90" BorderThickness="1" BorderBrush="Black" Grid.Column="7" Grid.Row="6" Margin="257,59,263,31" Grid.ColumnSpan="3">
+                <TextBox VerticalAlignment="Center" Text="{Binding RotorTemperatures[3].Value}" TextAlignment="Center" FontSize="19" Background="Transparent" BorderThickness="0" Height="40"  Width="40" Margin="0,4,-2,-6" />
             </Border>
-            <Border VerticalAlignment="Center" Background="White" Width="40" Height="40" CornerRadius="90" BorderThickness="1" BorderBrush="Black" Grid.Column="7" Grid.Row="5" Margin="258,10,262,30" Grid.ColumnSpan="3">
-                <TextBox VerticalAlignment="Center" Text="00.0" TextAlignment="Center" FontSize="19" Background="Transparent" BorderThickness="0" Height="40"  Width="40" Margin="0,4,-2,-6" />
+            <Border VerticalAlignment="Center" Background="{Binding RotorTemperatures[1].State, Converter={StaticResource EnumToColor}}" Width="40" Height="40" CornerRadius="90" BorderThickness="1" BorderBrush="Black" Grid.Column="7" Grid.Row="5" Margin="258,10,262,30" Grid.ColumnSpan="3">
+                <TextBox Text="{Binding RotorTemperatures[1].Value}" VerticalAlignment="Center" TextAlignment="Center" FontSize="19" Background="Transparent" BorderThickness="0" Height="40"  Width="40" Margin="0,4,-2,-6" />
             </Border>
-            <Border VerticalAlignment="Center" Background="White" Width="40" Height="40" CornerRadius="90" BorderThickness="1" BorderBrush="Black" Grid.Column="7" Grid.Row="5" Margin="93,10,137,30">
-                <TextBox VerticalAlignment="Center" Text="00.0" TextAlignment="Center" FontSize="19" Background="Transparent" BorderThickness="0" Height="40"  Width="40" Margin="0,4,-2,-6" />
+            <Border VerticalAlignment="Center" Background="{Binding RotorTemperatures[7].State, Converter={StaticResource EnumToColor}}" Width="40" Height="40" CornerRadius="90" BorderThickness="1" BorderBrush="Black" Grid.Column="7" Grid.Row="5" Margin="93,10,137,30">
+                <TextBox VerticalAlignment="Center" Text="{Binding RotorTemperatures[7].Value}" TextAlignment="Center" FontSize="19" Background="Transparent" BorderThickness="0" Height="40"  Width="40" Margin="0,4,-2,-6" />
             </Border>
             <Border Grid.Column="7" Grid.Row="3" Grid.ColumnSpan="3" Margin="54,0,220,0" BorderBrush="Black" BorderThickness="1">
                 <TextBlock Height="35" TextAlignment="Center" VerticalAlignment="Center" Text="Температура статора (град)"  Width="280" Background="WhiteSmoke" />
