@@ -11,7 +11,7 @@
                 </div>
             </div>
         </div>
- @using (Ajax.BeginForm("ControlContent", new { fanObjectId = 1 }, new AjaxOptions { UpdateTargetId = "div_content" })){}
+ @using (Ajax.BeginForm("ControlContent", new { fanObjectId = @ViewBag.FanObject.FanObjectId }, new AjaxOptions { UpdateTargetId = "div_content" })) { }
 
 <div class="div_content">
 <div class="fan_div" style="top: 190px">
@@ -48,7 +48,7 @@
   <canvas id="fan1WorkTop2" class="vertical_pipe" style="width: 67px; height: 90px; left: 113px; top: 286px"></canvas>
   <canvas id="fan2WorkTop2" class="vertical_pipe" style="width: 67px; height: 90px; left: 113px; top: 726px"></canvas>
   
-  <div class="vertical_pipe" style="width: 67px; height: 90px; left: 1173px; top: 126px"></div>
+  <canvas id="normaTop" class="vertical_pipe" style="width: 67px; height: 90px; left: 1173px; top: 126px"></canvas>
   <canvas id="reversDown" class="vertical_pipe" style="width: 67px; height: 102px; left: 1173px; top: 280px"></canvas>
   
   <canvas id="reversDownNormaTop" class="vertical_pipe" style="width: 67px; height: 116px; left: 1447px; top: -90px"></canvas>

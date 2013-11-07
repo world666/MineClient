@@ -112,10 +112,15 @@ namespace CLTcpServer
             {
                 try
                 {
-                    clients.Add(_server.AcceptTcpClient());
+                    /*while (_server.Pending() == false)
+                    {
+                        Thread.Sleep(1);
+                    }//this is the part with the lag*/
+                    TcpClient client = _server.AcceptTcpClient();
+                    clients.Add(client);
                     Thread readThread = new Thread(ReceiveRun);
                     readThread.IsBackground = true;
-                    readThread.Start(clients[clients.Count - 1]);
+                    readThread.Start(client);
                 }
                 catch (Exception ex)
                 {
@@ -138,14 +143,14 @@ namespace CLTcpServer
         {
             TcpClient client = _client as TcpClient;
             bool closeConnection = false;
-            int repeatNum = 16;
+            int repeatNum = 20;
             string s = null;
             while (true)
             {
                 try
                 {  
                     int i = 0;
-                    while (i<2)
+                    while (i<2&&!closeConnection)
                     {
                         NetworkStream ns = client.GetStream();
                         // Раскомментировав строчку ниже, тем самым уменьшив размер приемного буфера, можно убедиться,
@@ -157,12 +162,13 @@ namespace CLTcpServer
 
                             ns.Read(buffer, 0, buffer.Length);
                             s += Encoding.Default.GetString(buffer);
-                            Thread.Sleep(2300);
+                            if(i==0)
+                              Thread.Sleep(1800);
                         }
                         i++;
                         
                     }
-                    if (s != null)
+                    if (s != null && !closeConnection)
                     {
 
                         if (s.IndexOf("+++") == 0 || s.IndexOf("SISC") >= 0) //close connection
@@ -174,8 +180,7 @@ namespace CLTcpServer
                         if (ReceiveEvent != null && s.IndexOf("SISC")<0)
                         {
                             ReceiveEvent(s, client);
-                            client.Close();
-                            clients.Remove(client);
+                            closeConnection = true;
                         }
                         // Вынужденная строчка для экономия ресурсов процессора.
                         // Неизящный способ.
@@ -194,7 +199,8 @@ namespace CLTcpServer
                 catch (Exception ex)
                 {
                     client.Close();
-                    clients.Remove(client);
+                    if (clients.Contains(client))
+                        clients.Remove(client);
                     break;
                 }
 

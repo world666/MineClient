@@ -205,6 +205,7 @@ function Norma() {
     DrawHorizontalArrow("reversNormaRight", "right", 0, 0);
     DrawHorizontalArrow("reversNormaLeft", "left", 14, 2);
     DrawHorizontalArrow("normaLeft", "left", 50, 15);
+    DrawVerticalArrow("normaTop", "top", 40, 10);
 }
 
 function CountTime() {

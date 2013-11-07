@@ -88,7 +88,7 @@ namespace Mc.MvcWeb.Controllers
                     repoUnit.RemoteLog.SaveChanges();
                 }
             }
-            return Control(remoteData.FanObjectId);
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         public ActionResult ControlContent(int fanObjectId)

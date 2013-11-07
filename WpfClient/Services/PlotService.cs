@@ -105,15 +105,12 @@ namespace WpfClient.Services
             {
                 using (var repoUnit = new RepoUnit())
                 {
+                    double coefficient = SystemStateService.GetCoefficient(paramName);
                     var tmp = repoUnit.FanLog.Load().Where(f => f.FanNumber == fanObjectId && f.Date > from && f.Date < to)
                         .Select(f => new { Date = f.Date, AnalogSignal = f.AnalogSignalLogs.FirstOrDefault(a => a.SignalType.Type == paramName) })
-                        .Select(s => new OxyPlotData { DateTime = s.Date, Value = s.AnalogSignal.SignalValue, ParamName = s.AnalogSignal.SignalType.Type });
-
-                    List<OxyPlotData> plotDatas = tmp.ToList();
-                    if(plotDatas.Count<1) return;
-                    double coefficient = SystemStateService.GetCoefficient(paramName);
-                    plotDatas.ForEach(f => f.Value = f.Value * coefficient);
-                    LoadData(plotModel, plotDatas);
+                        .Select(s => new OxyPlotData { DateTime = s.Date, Value = s.AnalogSignal.SignalValue*coefficient, ParamName = s.AnalogSignal.SignalType.Type });
+                    //plotDatas.ForEach(f => f.Value = f.Value * coefficient);
+                    LoadData(plotModel, tmp);
                 }
             }
             catch(Exception)
