@@ -112,10 +112,6 @@ namespace CLTcpServer
             {
                 try
                 {
-                    /*while (_server.Pending() == false)
-                    {
-                        Thread.Sleep(1);
-                    }//this is the part with the lag*/
                     TcpClient client = _server.AcceptTcpClient();
                     clients.Add(client);
                     Thread readThread = new Thread(ReceiveRun);
@@ -143,32 +139,25 @@ namespace CLTcpServer
         {
             TcpClient client = _client as TcpClient;
             bool closeConnection = false;
-            int repeatNum = 20;
-            string s = null;
+            int repeatNum = 16;
             while (true)
             {
                 try
-                {  
-                    int i = 0;
-                    while (i<2&&!closeConnection)
+                {
+                    string s = null;
+                    //clients_string[(int)num] = "";
+                    NetworkStream ns = client.GetStream();
+                    // Раскомментировав строчку ниже, тем самым уменьшив размер приемного буфера, можно убедиться,
+                    // что прием данных будет все равно осуществляться полностью.
+                    while (ns.DataAvailable == true)
                     {
-                        NetworkStream ns = client.GetStream();
-                        // Раскомментировав строчку ниже, тем самым уменьшив размер приемного буфера, можно убедиться,
-                        // что прием данных будет все равно осуществляться полностью.
-                        while (ns.DataAvailable == true)
-                        {
-                            // Определить точный размер буфера приема позволяет свойство класса TcpClient - Available
-                            byte[] buffer = new byte[client.Available];
+                        // Определить точный размер буфера приема позволяет свойство класса TcpClient - Available
+                        byte[] buffer = new byte[client.Available];
 
-                            ns.Read(buffer, 0, buffer.Length);
-                            s += Encoding.Default.GetString(buffer);
-                            if(i==0)
-                              Thread.Sleep(1800);
-                        }
-                        i++;
-                        
+                        ns.Read(buffer, 0, buffer.Length);
+                        s += Encoding.Default.GetString(buffer);
                     }
-                    if (s != null && !closeConnection)
+                    if (s != null)
                     {
 
                         if (s.IndexOf("+++") == 0 || s.IndexOf("SISC") >= 0) //close connection
@@ -177,7 +166,7 @@ namespace CLTcpServer
                             clients.Remove(client);
                             break;
                         }
-                        if (ReceiveEvent != null && s.IndexOf("SISC")<0)
+                        if (ReceiveEvent != null && s.IndexOf("SISC") < 0)
                         {
                             ReceiveEvent(s, client);
                             closeConnection = true;
@@ -199,8 +188,7 @@ namespace CLTcpServer
                 catch (Exception ex)
                 {
                     client.Close();
-                    if (clients.Contains(client))
-                        clients.Remove(client);
+                    clients.Remove(client);
                     break;
                 }
 

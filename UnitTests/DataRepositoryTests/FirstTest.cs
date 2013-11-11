@@ -28,6 +28,8 @@ namespace UnitTests.DataRepositoryTests
         [Test]
         public void SetUp2()
         {
+            int x = 100;
+            Assert.AreEqual(100, x);
         }
 
     //    [TearDown]
