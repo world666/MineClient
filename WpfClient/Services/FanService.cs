@@ -54,7 +54,7 @@ namespace WpfClient.Services
         {
             ParameterVm SignalState = new ParameterVm();
             SignalState.Name = "Состояние сигнала";
-            if (System.DateTime.Now - RemoteService.GetLastRecieve(fanObjectId) > new TimeSpan(0, 1, 0))
+            if (System.DateTime.Now - RemoteService.GetLastRecieve(fanObjectId) > new TimeSpan(0, 2, 0))
             {
                 SignalState.Value = "отсутствует";
                 SignalState.State = StateEnum.Dangerous;

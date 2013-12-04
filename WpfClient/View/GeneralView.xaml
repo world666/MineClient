@@ -6,10 +6,11 @@
              xmlns:converters="clr-namespace:WpfClient.Converters"
              xmlns:general="clr-namespace:WpfClient.ViewModel.General"
              mc:Ignorable="d" 
-             d:DesignHeight="600"
-             d:DesignWidth="900"
+             d:DesignHeight="1000"
+             d:DesignWidth="1900"
              d:DataContext="{d:DesignInstance general:GeneralVm}">
-    <Grid>
+    <Viewbox Stretch="Fill">
+    <Grid Width="1900" Height="1000">
         <Grid.Resources>
             <converters:EnumToColorConverter x:Key="EnumToColor"/>
             <Style TargetType="Border">
@@ -39,12 +40,12 @@
         </Border>
 
 
-        
+
         <Border Height="55" Grid.Row="0" Grid.Column="1" Background="Beige" Grid.ColumnSpan="2" BorderThickness="1" 
                 BorderBrush="DarkGray" Margin="10">
             <Label FontSize="29" FontWeight="Bold" Content="{Binding MineName}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Border>
-        
+
         <ItemsControl ItemsSource="{Binding Fans}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -59,7 +60,7 @@
                             <MouseBinding  Gesture="LeftClick" Command="{Binding FanObjectClick}"/>
                         </Border.InputBindings>
                     </Border>
-                    
+
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
@@ -109,7 +110,7 @@
                     <StackPanel Orientation="Vertical"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-            
+
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Border Height="55" BorderThickness="1" Background="Beige" BorderBrush="DarkGray" Margin="10 7 10 0">
@@ -117,6 +118,7 @@
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-        </ItemsControl>           
+        </ItemsControl>
     </Grid>
+    </Viewbox>
 </UserControl>

@@ -16,8 +16,8 @@
             <Setter Property="IsReadOnly" Value="True"/>
         </Style>
     </UserControl.Resources>
-
-    <Canvas DataContext="{Binding TubeSystemVm}" Margin="76,0,0,0">
+    <Viewbox Stretch="Fill">
+    <Canvas Width="1900" Height="1000" DataContext="{Binding TubeSystemVm}" Margin="76,0,0,0">
         <Canvas.Resources>
             <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
         </Canvas.Resources>
@@ -362,5 +362,6 @@
             </UniformGrid>
         </Grid>
     </Canvas>
+   </Viewbox>
     <!--</Grid>-->
 </UserControl>

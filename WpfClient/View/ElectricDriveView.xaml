@@ -47,7 +47,8 @@
         
 
     </UserControl.Resources>
-    <Canvas>
+    <Viewbox Stretch="Fill">
+       <Canvas Width="1900" Height="1000">
         <Rectangle Stroke="Black" StrokeThickness="3" Width="304" Height="119" Fill="LightGreen" Canvas.Left="441" Canvas.Top="866" />
         <Rectangle Stroke="Black" StrokeThickness="3" Width="136" Height="128" Fill="LightGreen" Canvas.Left="521" Canvas.Top="741" />
         <Rectangle Stroke="Black" StrokeThickness="3" Width="296" Height="120" Fill="LightGreen" Canvas.Left="441" Canvas.Top="163" RenderTransformOrigin="0.5,0.5" >
@@ -364,5 +365,6 @@
             </Border>
         </Grid>
         
-    </Canvas>
+        </Canvas>
+    </Viewbox>
 </UserControl>

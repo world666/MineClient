@@ -129,8 +129,14 @@ namespace CLTcpServer
         // Асинхронная отправка сообщения клиенту.
         private void AsyncSendCompleted(IAsyncResult ar)
         {
-            NetworkStream ns = (NetworkStream)ar.AsyncState;
-            ns.EndWrite(ar);
+            try
+            {
+                NetworkStream ns = (NetworkStream)ar.AsyncState;
+                ns.EndWrite(ar);
+            }
+            catch (Exception)
+            {
+            }       
         }
 
 
@@ -139,7 +145,7 @@ namespace CLTcpServer
         {
             TcpClient client = _client as TcpClient;
             bool closeConnection = false;
-            int repeatNum = 16;
+            int repeatNum = 20;
             while (true)
             {
                 try
@@ -170,6 +176,7 @@ namespace CLTcpServer
                         {
                             ReceiveEvent(s, client);
                             closeConnection = true;
+                            Thread.Sleep(3000);
                         }
                         // Вынужденная строчка для экономия ресурсов процессора.
                         // Неизящный способ.
